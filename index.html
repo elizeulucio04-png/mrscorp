@@ -37,7 +37,26 @@
             color: #e2e8f0;
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
+            position: relative;
+            min-height: 100vh;
         }
+
+        /* MARCA D'ÁGUA DO ESCORPIÃO NO FUNDO */
+        body::before {
+            content: "\f718"; /* Ícone de Escorpião do FontAwesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 35vw;
+            color: rgba(0, 255, 102, 0.03); /* Escorpião Verde Neon Suave */
+            text-shadow: 0 0 40px rgba(0, 255, 102, 0.05);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .neon-glow-green { text-shadow: 0 0 10px rgba(0, 255, 102, 0.6); }
         .neon-border-green { box-shadow: 0 0 10px rgba(0, 255, 102, 0.3); }
         .card-hover:hover {
@@ -47,16 +66,42 @@
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* ANIMAÇÃO DE EFEITO ONDA (RIPPLE CLICK) */
+        .click-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .click-ripple::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(0, 255, 102, 0.4) 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform 0.4s, opacity 0.8s;
+        }
+        .click-ripple:active::after {
+            transform: scale(0, 0);
+            opacity: 0.3;
+            transition: 0s;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col pb-16">
+<body class="min-h-screen flex flex-col pb-16 relative z-10">
 
     <!-- HEADER -->
     <header class="sticky top-0 z-40 bg-brand-dark/95 backdrop-blur-md border-b border-gray-800 shadow-xl">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
             
             <!-- LOGO -->
-            <div class="flex items-center gap-2 cursor-pointer" onclick="showTab('market')">
+            <div class="flex items-center gap-2 cursor-pointer click-ripple p-1 rounded-xl" onclick="showTab('market')">
                 <div class="bg-black border border-brand-neonGreen p-2 rounded-xl flex items-center justify-center neon-border-green">
                     <i class="fa-solid fa-scorpion text-brand-neonGreen text-xl"></i>
                 </div>
@@ -70,14 +115,14 @@
 
             <!-- CONTROLES DO USUÁRIO & MENU HAMBÚRGUER -->
             <div class="flex items-center gap-2">
-                <button onclick="showTab('publish')" class="bg-brand-neonGreen text-black font-title font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 active:scale-95 shadow-md">
+                <button onclick="showTab('publish')" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 active:scale-95 transition-all shadow-md">
                     <i class="fa-solid fa-plus"></i>
                     <span class="hidden sm:inline">Anunciar</span>
                 </button>
 
                 <!-- BOTÃO 3 TRAÇOS -->
                 <div class="relative">
-                    <button onclick="toggleMenu()" class="bg-brand-card border border-gray-700 text-gray-200 text-base px-3.5 py-2 rounded-xl hover:text-brand-neonGreen hover:border-brand-neonGreen transition-all">
+                    <button onclick="toggleMenu()" class="click-ripple bg-brand-card border border-gray-700 text-gray-200 text-base px-3.5 py-2 rounded-xl hover:text-brand-neonGreen hover:border-brand-neonGreen active:scale-95 transition-all">
                         <i class="fa-solid fa-bars"></i>
                     </button>
 
@@ -88,15 +133,15 @@
                             <p id="menuUserName" class="text-xs font-bold text-brand-neonGreen truncate"></p>
                         </div>
                         
-                        <button onclick="showTab('market'); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5">
+                        <button onclick="showTab('market'); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
                             <i class="fa-solid fa-store text-brand-neonGreen"></i> Catálogo Principal
                         </button>
 
-                        <button onclick="handleMyProductsClick(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5">
+                        <button onclick="handleMyProductsClick(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
                             <i class="fa-solid fa-boxes-packing text-brand-neonGreen"></i> Meus Anúncios / Postar
                         </button>
 
-                        <button onclick="openHelpModal(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5">
+                        <button onclick="openHelpModal(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
                             <i class="fa-solid fa-circle-question text-brand-neonGreen"></i> Ajuda & Regras (18+)
                         </button>
 
@@ -126,17 +171,17 @@
             <!-- BUSCA E CATEGORIAS -->
             <div class="space-y-3">
                 <div class="relative w-full">
-                    <input type="text" id="searchInput" oninput="filterAndRenderProducts()" placeholder="O que você procura no Mr.Scorp hoje?..." class="w-full bg-brand-card border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner">
+                    <input type="text" id="searchInput" oninput="filterAndRenderProducts()" placeholder="O que você procura no Mr.Scorp hoje?..." class="w-full bg-brand-card/90 backdrop-blur-md border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
                     <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-500"></i>
                 </div>
 
                 <div class="flex gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
-                    <button onclick="setCategory('todos')" class="cat-btn active bg-brand-neonGreen text-black font-bold px-3.5 py-2 rounded-xl whitespace-nowrap">🔥 Todos</button>
-                    <button onclick="setCategory('eletronicos')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap">📱 Eletrônicos</button>
-                    <button onclick="setCategory('games')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap">🎮 Games & Acessórios</button>
-                    <button onclick="setCategory('moda')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap">👕 Moda & Estilo</button>
-                    <button onclick="setCategory('automotivo')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap">🚗 Automotivo</button>
-                    <button onclick="setCategory('servicos')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap">🛠️ Serviços</button>
+                    <button onclick="setCategory('todos')" class="cat-btn click-ripple active bg-brand-neonGreen text-black font-bold px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🔥 Todos</button>
+                    <button onclick="setCategory('eletronicos')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">📱 Eletrônicos</button>
+                    <button onclick="setCategory('games')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🎮 Games & Acessórios</button>
+                    <button onclick="setCategory('moda')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">👕 Moda & Estilo</button>
+                    <button onclick="setCategory('automotivo')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🚗 Automotivo</button>
+                    <button onclick="setCategory('servicos')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🛠️ Serviços</button>
                 </div>
             </div>
 
@@ -145,12 +190,12 @@
 
             <!-- ESTADO VAZIO -->
             <div id="emptyState" class="text-center py-20 hidden space-y-3">
-                <div class="bg-brand-card w-16 h-16 rounded-full flex items-center justify-center mx-auto border border-gray-800 text-brand-neonGreen text-2xl">
+                <div class="bg-brand-card/90 backdrop-blur-md w-16 h-16 rounded-full flex items-center justify-center mx-auto border border-gray-800 text-brand-neonGreen text-2xl">
                     <i class="fa-solid fa-box-open"></i>
                 </div>
                 <h3 class="text-base font-bold text-gray-300">Nenhum anúncio encontrado!</h3>
                 <p class="text-xs text-gray-500 max-w-sm mx-auto">Seja o primeiro a publicar nesta categoria no Mr.Scorp.</p>
-                <button onclick="handleSellClick()" class="bg-brand-neonGreen text-black font-title font-bold text-xs px-5 py-2.5 rounded-xl transition-all">
+                <button onclick="handleSellClick()" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs px-5 py-2.5 rounded-xl active:scale-95 transition-all">
                     ANUNCIAR AGORA
                 </button>
             </div>
@@ -165,7 +210,7 @@
                 <p class="text-xs text-gray-400">Produtos sujeitos aos termos de uso (Proibido conteúdo +18 ou ilegal).</p>
             </div>
 
-            <form onsubmit="handleFormSubmit(event)" class="bg-brand-card border border-gray-800 p-5 rounded-2xl space-y-4">
+            <form onsubmit="handleFormSubmit(event)" class="bg-brand-card/90 backdrop-blur-md border border-gray-800 p-5 rounded-2xl space-y-4">
                 <input type="hidden" id="editProductId" value="">
 
                 <div>
@@ -215,8 +260,8 @@
                 </div>
 
                 <div class="flex gap-2 pt-2">
-                    <button type="button" onclick="cancelEdit(); showTab('market');" class="w-1/3 bg-brand-dark border border-gray-700 text-gray-300 font-bold text-xs py-3 rounded-xl">Cancelar</button>
-                    <button type="submit" id="btnPublishSubmit" class="w-2/3 bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl hover:bg-emerald-400 transition-all flex items-center justify-center gap-2">
+                    <button type="button" onclick="cancelEdit(); showTab('market');" class="click-ripple w-1/3 bg-brand-dark border border-gray-700 text-gray-300 font-bold text-xs py-3 rounded-xl active:scale-95 transition-all">Cancelar</button>
+                    <button type="submit" id="btnPublishSubmit" class="click-ripple w-2/3 bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all flex items-center justify-center gap-2">
                         <span id="btnPublishText">PUBLICAR AGORA</span>
                     </button>
                 </div>
@@ -225,18 +270,18 @@
 
     </main>
 
-    <!-- MODAL DE LOGIN / CADASTRO COM AUTENTICAÇÃO REAL E RESTRIÇÃO DE 18 ANOS -->
+    <!-- MODAL DE LOGIN / CADASTRO COM AUTENTICAÇÃO REAL -->
     <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
-        <div class="bg-brand-card border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
+        <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <div class="flex gap-4 text-sm font-title font-bold">
-                    <button id="tabAuthLogin" onclick="switchAuthTab('login')" class="text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1">ENTRAR</button>
-                    <button id="tabAuthRegister" onclick="switchAuthTab('register')" class="text-gray-400 pb-1 hover:text-white">CADASTRAR (18+)</button>
+                    <button id="tabAuthLogin" onclick="switchAuthTab('login')" class="click-ripple text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1">ENTRAR</button>
+                    <button id="tabAuthRegister" onclick="switchAuthTab('register')" class="click-ripple text-gray-400 pb-1 hover:text-white">CADASTRAR (18+)</button>
                 </div>
-                <button onclick="closeLoginModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="closeLoginModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
-            <!-- FORMULÁRIO DE LOGIN REAL -->
+            <!-- FORMULÁRIO DE LOGIN -->
             <form id="formLogin" onsubmit="handleRealLogin(event)" class="space-y-3">
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">E-mail Cadastrado</label>
@@ -246,12 +291,12 @@
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Sua Senha</label>
                     <input type="password" id="loginPass" required placeholder="••••••••" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
-                <button type="submit" id="btnLoginSubmit" class="w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 transition-all">
+                <button type="submit" id="btnLoginSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all">
                     ENTRAR NA CONTA
                 </button>
             </form>
 
-            <!-- FORMULÁRIO DE CADASTRO COM RESTRIÇÃO DE IDADE (18+) -->
+            <!-- FORMULÁRIO DE CADASTRO COM 18+ -->
             <form id="formRegister" onsubmit="handleRealRegister(event)" class="space-y-3 hidden">
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Nome / Apelido *</label>
@@ -270,7 +315,6 @@
                     <input type="password" id="regPass2" minlength="6" required placeholder="Repita a senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
 
-                <!-- VERIFICAÇÃO DE MAIORIDADE (18+) -->
                 <div class="flex items-start gap-2 pt-1">
                     <input type="checkbox" id="regAgeCheck" required class="mt-1 accent-brand-neonGreen">
                     <label for="regAgeCheck" class="text-[10px] text-gray-300 leading-tight">
@@ -278,7 +322,7 @@
                     </label>
                 </div>
 
-                <button type="submit" id="btnRegSubmit" class="w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 transition-all">
+                <button type="submit" id="btnRegSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all">
                     CRIAR CONTA SEGURA
                 </button>
             </form>
@@ -287,27 +331,27 @@
 
     <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
     <div id="deleteModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
-        <div class="bg-brand-card border border-red-900/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
+        <div class="bg-brand-card/95 backdrop-blur-md border border-red-900/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
             <div class="w-12 h-12 rounded-full bg-red-950 border border-red-800 text-red-500 flex items-center justify-center mx-auto text-xl">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <h3 class="font-title font-bold text-white text-base">Excluir Anúncio?</h3>
             <p class="text-xs text-gray-400">Tem certeza que deseja apagar este produto? Esta ação removerá o item permanentemente.</p>
             <div class="flex gap-2 pt-2">
-                <button onclick="closeDeleteModal()" class="w-1/2 bg-brand-dark border border-gray-700 text-gray-300 font-bold text-xs py-2.5 rounded-xl">Cancelar</button>
-                <button id="btnConfirmDelete" class="w-1/2 bg-red-600 text-white font-title font-bold text-xs py-2.5 rounded-xl hover:bg-red-700 transition-all">EXCLUIR</button>
+                <button onclick="closeDeleteModal()" class="click-ripple w-1/2 bg-brand-dark border border-gray-700 text-gray-300 font-bold text-xs py-2.5 rounded-xl active:scale-95 transition-all">Cancelar</button>
+                <button id="btnConfirmDelete" class="click-ripple w-1/2 bg-red-600 text-white font-title font-bold text-xs py-2.5 rounded-xl hover:bg-red-700 active:scale-95 transition-all">EXCLUIR</button>
             </div>
         </div>
     </div>
 
     <!-- MODAL CENTRAL DE AJUDA -->
     <div id="helpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
-        <div class="bg-brand-card border border-gray-700 w-full max-w-md rounded-2xl p-5 shadow-2xl space-y-4">
+        <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-md rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <h3 class="font-title font-bold text-white text-base flex items-center gap-2">
                     <i class="fa-solid fa-shield-cat text-brand-neonGreen"></i> Termos & Regras Mr.Scorp
                 </h3>
-                <button onclick="closeHelpModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="closeHelpModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
             <div class="space-y-3 text-xs text-gray-300 max-h-80 overflow-y-auto pr-1">
@@ -327,18 +371,18 @@
                 </div>
             </div>
 
-            <button onclick="closeHelpModal()" class="w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl">COMPREENDI AS REGRAS</button>
+            <button onclick="closeHelpModal()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl active:scale-95 transition-all">COMPREENDI AS REGRAS</button>
         </div>
     </div>
 
     <!-- MODAL COMPRA DIRETA -->
     <div id="buyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
-        <div class="bg-brand-card border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
+        <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <h3 class="font-title font-bold text-white text-base flex items-center gap-2">
                     <i class="fa-solid fa-cart-shopping text-brand-neonGreen"></i> Finalizar Pedido
                 </h3>
-                <button onclick="closeBuyModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="closeBuyModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
             <div id="buyProductDetails" class="bg-brand-dark p-3 rounded-xl border border-gray-800 space-y-1"></div>
@@ -352,13 +396,13 @@
                 </select>
             </div>
 
-            <button id="btnConfirmBuy" class="w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 transition-all flex items-center justify-center gap-2">
+            <button id="btnConfirmBuy" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all flex items-center justify-center gap-2">
                 <i class="fa-brands fa-whatsapp text-base"></i> ENVIAR PEDIDO AO VENDEDOR
             </button>
         </div>
     </div>
 
-    <!-- SCRIPT FIREBASE SDK E BANCO DE DADOS -->
+    <!-- SCRIPT FIREBASE SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, updateDoc, onSnapshot, deleteDoc, doc, query, orderBy, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -392,7 +436,7 @@
             window.filterAndRenderProducts();
         });
 
-        // CADASTRO REAL NO FIRESTORE COM CRIPTOGRAFIA/VALIDAÇÃO DE LOGIN
+        // CADASTRO REAL
         window.handleRealRegister = async function(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value;
@@ -410,7 +454,6 @@
             btn.disabled = true;
 
             try {
-                // Verificar se e-mail já existe
                 const qUser = query(usersCol, where("email", "==", email));
                 const snap = await getDocs(qUser);
 
@@ -421,7 +464,6 @@
                     return;
                 }
 
-                // Salvar usuário real
                 await addDoc(usersCol, {
                     name: name,
                     email: email,
@@ -445,7 +487,7 @@
             }
         };
 
-        // LOGIN REAL COM VALIDAÇÃO NO BANCO DE DADOS
+        // LOGIN REAL
         window.handleRealLogin = async function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.toLowerCase().trim();
@@ -482,7 +524,7 @@
             }
         };
 
-        // SALVAR PRODUTO COM FILTRO DE CONTEÚDO
+        // SALVAR PRODUTO COM FILTRO
         window.handleFormSubmit = async function(e) {
             e.preventDefault();
             if (!window.currentUser) return;
@@ -490,7 +532,6 @@
             const title = document.getElementById('pTitle').value;
             const desc = document.getElementById('pDesc').value;
 
-            // Filtro de termos proibidos
             const forbidden = ['+18', 'porno', 'armas', 'drogas', 'sexo'];
             const isForbidden = forbidden.some(term => title.toLowerCase().includes(term) || desc.toLowerCase().includes(term));
 
@@ -601,14 +642,14 @@
                 userInfo.classList.remove('hidden');
                 userName.innerText = window.currentUser.name;
                 authBtns.innerHTML = `
-                    <button onclick="logout(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-red-400 hover:bg-red-950/30 rounded-xl flex items-center gap-2.5">
+                    <button onclick="logout(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-red-400 hover:bg-red-950/30 rounded-xl flex items-center gap-2.5 transition-all">
                         <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
                     </button>
                 `;
             } else {
                 userInfo.classList.add('hidden');
                 authBtns.innerHTML = `
-                    <button onclick="openLoginModal(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-brand-neonGreen hover:bg-brand-dark rounded-xl flex items-center gap-2.5 font-bold">
+                    <button onclick="openLoginModal(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-brand-neonGreen hover:bg-brand-dark rounded-xl flex items-center gap-2.5 font-bold transition-all">
                         <i class="fa-solid fa-user-lock"></i> Fazer Login / Cadastrar
                     </button>
                 `;
@@ -647,7 +688,7 @@
                         : `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-950 to-brand-dark"><i class="fa-solid fa-box text-5xl text-brand-neonGreen/60"></i></div>`;
 
                     grid.innerHTML += `
-                        <div class="bg-brand-card border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between card-hover transition-all relative">
+                        <div class="bg-brand-card/90 backdrop-blur-md border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between card-hover transition-all relative">
                             <div>
                                 <div class="h-44 w-full relative bg-black overflow-hidden">
                                     ${imgHTML}
@@ -656,10 +697,10 @@
                                     </span>
                                     ${isOwner ? `
                                         <div class="absolute top-2 left-2 flex gap-1.5">
-                                            <button onclick="startEditProduct('${p.id}')" class="bg-blue-600/90 text-white p-2 rounded-xl text-xs hover:bg-blue-700 transition-all shadow-lg" title="Editar Anúncio">
+                                            <button onclick="startEditProduct('${p.id}')" class="click-ripple bg-blue-600/90 text-white p-2 rounded-xl text-xs hover:bg-blue-700 active:scale-95 transition-all shadow-lg" title="Editar Anúncio">
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
-                                            <button onclick="openDeleteModal('${p.id}')" class="bg-red-600/90 text-white p-2 rounded-xl text-xs hover:bg-red-700 transition-all shadow-lg" title="Excluir Anúncio">
+                                            <button onclick="openDeleteModal('${p.id}')" class="click-ripple bg-red-600/90 text-white p-2 rounded-xl text-xs hover:bg-red-700 active:scale-95 transition-all shadow-lg" title="Excluir Anúncio">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </div>
@@ -680,10 +721,10 @@
                                 </div>
                             </div>
                             <div class="p-4 pt-0 space-y-2">
-                                <button onclick="openBuyModal('${p.id}')" class="w-full bg-brand-neonGreen text-black font-title font-bold text-xs py-2.5 rounded-xl hover:bg-emerald-400 transition-all flex items-center justify-center gap-2">
+                                <button onclick="openBuyModal('${p.id}')" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold text-xs py-2.5 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all flex items-center justify-center gap-2">
                                     <i class="fa-solid fa-bag-shopping"></i> COMPRAR AGORA
                                 </button>
-                                <a href="${waLink}" target="_blank" class="w-full bg-brand-dark border border-gray-700 text-gray-300 hover:text-brand-neonGreen font-semibold text-xs py-2 rounded-xl transition-all flex items-center justify-center gap-2">
+                                <a href="${waLink}" target="_blank" class="click-ripple w-full bg-brand-dark border border-gray-700 text-gray-300 hover:text-brand-neonGreen font-semibold text-xs py-2 rounded-xl active:scale-95 transition-all flex items-center justify-center gap-2">
                                     <i class="fa-brands fa-whatsapp text-sm text-brand-neonGreen"></i>
                                     <span>Falar com Vendedor</span>
                                 </a>
