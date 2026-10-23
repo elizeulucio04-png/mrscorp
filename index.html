@@ -21,7 +21,6 @@
                             dark: '#12121a',
                             card: '#1a1a24',
                             neonGreen: '#00ff66',
-                            neonCyan: '#00e5ff',
                         }
                     },
                     fontFamily: {
@@ -63,131 +62,129 @@
                     <h1 class="font-title text-xl font-black text-white">
                         Mr.<span class="text-brand-neonGreen neon-glow-green">Scorp</span>
                     </h1>
-                    <p class="text-[9px] text-gray-400 uppercase tracking-widest">Marketplace Livre</p>
+                    <p class="text-[9px] text-gray-400 uppercase tracking-widest">Marketplace Real</p>
                 </div>
             </div>
 
-            <!-- CONTROLES DE USUÁRIO / LOGIN -->
-            <div id="userArea">
-                <!-- Alterado via JS se estiver logado ou não -->
-            </div>
+            <!-- CONTROLES DE USUÁRIO -->
+            <div id="userArea"></div>
         </div>
     </header>
 
-    <!-- BANNER PROMOCIONAL -->
+    <!-- BANNER -->
     <div class="bg-gradient-to-r from-emerald-950 via-black to-brand-dark border-b border-gray-800 py-2.5 px-4 text-center">
         <p class="text-xs sm:text-sm font-semibold text-gray-200">
-            ⚡ <span class="text-brand-neonGreen">Plataforma de Anúncios:</span> Faça login para publicar seus próprios produtos e vender diretamente!
+            ⚡ <span class="text-brand-neonGreen">Compre e Venda Direto:</span> Anuncie seus produtos com foto, preço e WhatsApp de forma 100% gratuita!
         </p>
     </div>
 
     <!-- MAIN CONTENT -->
     <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full">
 
-        <!-- ABA 1: MARKETPLACE / VITRINE -->
+        <!-- ABA 1: VITRINE -->
         <div id="tabMarket" class="space-y-6">
             
-            <!-- FILTROS E BUSCA -->
-            <div class="flex flex-col sm:flex-row gap-3 justify-between items-center">
-                <div class="relative w-full sm:w-72">
-                    <input type="text" id="searchInput" oninput="renderProducts()" placeholder="Pesquisar anúncios..." class="w-full bg-brand-card border border-gray-700 rounded-xl pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-brand-neonGreen">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500"></i>
+            <!-- BUSCA E CATEGORIAS REAIS -->
+            <div class="space-y-3">
+                <div class="relative w-full">
+                    <input type="text" id="searchInput" oninput="renderProducts()" placeholder="O que você está procurando hoje?..." class="w-full bg-brand-card border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-neonGreen">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-500"></i>
                 </div>
 
-                <div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 text-xs">
-                    <button onclick="setCategory('todos')" class="cat-btn active bg-brand-neonGreen text-black font-bold px-3 py-2 rounded-lg whitespace-nowrap">Todos</button>
-                    <button onclick="setCategory('games')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">Games & Pixel</button>
-                    <button onclick="setCategory('tuning')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">Tuning & Carros</button>
-                    <button onclick="setCategory('tech')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">Tech & Outros</button>
+                <!-- CATEGORIAS REAIS DE MERCADO -->
+                <div class="flex gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
+                    <button onclick="setCategory('todos')" class="cat-btn active bg-brand-neonGreen text-black font-bold px-3 py-2 rounded-lg whitespace-nowrap">🔥 Todos</button>
+                    <button onclick="setCategory('eletronicos')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">📱 Eletrônicos & Celulares</button>
+                    <button onclick="setCategory('games')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">🎮 Games & Acessórios</button>
+                    <button onclick="setCategory('moda')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">👕 Moda & Estilo</button>
+                    <button onclick="setCategory('automotivo')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">🚗 Automotivo</button>
+                    <button onclick="setCategory('servicos')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">🛠️ Serviços & Outros</button>
                 </div>
             </div>
 
-            <!-- GRID DE PRODUTOS REAL -->
-            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Produtos postados vão aparecer aqui dinamicamente -->
-            </div>
+            <!-- GRID DE PRODUTOS -->
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
-            <!-- ESTADO VAZIO (QUANDO NÃO HÁ PRODUTOS) -->
+            <!-- ESTADO VAZIO -->
             <div id="emptyState" class="text-center py-20 hidden space-y-3">
                 <div class="bg-brand-card w-16 h-16 rounded-full flex items-center justify-center mx-auto border border-gray-800 text-brand-neonGreen text-2xl">
-                    <i class="fa-solid fa-store-slash"></i>
+                    <i class="fa-solid fa-box-open"></i>
                 </div>
-                <h3 class="text-base font-bold text-gray-300">Nenhum produto publicado ainda!</h3>
-                <p class="text-xs text-gray-500 max-w-sm mx-auto">Seja o primeiro a vender no Mr.Scorp. Faça login e publique o seu produto agora mesmo.</p>
+                <h3 class="text-base font-bold text-gray-300">Nenhum anúncio nesta categoria!</h3>
+                <p class="text-xs text-gray-500 max-w-sm mx-auto">Faça login e seja o primeiro a publicar nesta categoria no Mr.Scorp.</p>
                 <button onclick="handleSellClick()" class="bg-brand-neonGreen text-black font-title font-bold text-xs px-5 py-2.5 rounded-xl transition-all">
-                    POSTAR PRODUTO
+                    ANUNCIAR AGORA
                 </button>
             </div>
         </div>
 
-        <!-- ABA 2: PAINEL DE ANUNCIAR (SÓ ACESSÁVEL LOGADO) -->
+        <!-- ABA 2: PUBLICAR NOVO ANÚNCIO -->
         <div id="tabPublish" class="hidden max-w-xl mx-auto space-y-5">
             <div class="border-b border-gray-800 pb-3">
                 <h2 class="font-title text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-plus-circle text-brand-neonGreen"></i> Publicar Novo Anúncio
+                    <i class="fa-solid fa-plus-circle text-brand-neonGreen"></i> Criar Novo Anúncio
                 </h2>
-                <p class="text-xs text-gray-400">Preencha as informações do produto que você quer vender no site.</p>
+                <p class="text-xs text-gray-400">Preencha as informações reais do produto que deseja colocar à venda.</p>
             </div>
 
             <form onsubmit="publishProduct(event)" class="bg-brand-card border border-gray-800 p-5 rounded-2xl space-y-4">
                 <div>
                     <label class="text-xs font-semibold text-gray-300 uppercase">Título do Anúncio *</label>
-                    <input type="text" id="pTitle" required placeholder="Ex: Controle Bluetooth Celular / Arte Pixel" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <input type="text" id="pTitle" required placeholder="Ex: iPhone 11 64GB / Tênis Nike / Capot Riba" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="col-span-1">
                         <label class="text-xs font-semibold text-gray-300 uppercase">Preço (R$) *</label>
-                        <input type="number" step="0.01" id="pPrice" required placeholder="50.00" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                        <input type="number" step="0.01" id="pPrice" required placeholder="150.00" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                     </div>
-                    <div>
+                    <div class="col-span-1">
+                        <label class="text-xs font-semibold text-gray-300 uppercase">Qtd. Estoque *</label>
+                        <input type="number" id="pStock" min="1" value="1" required class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                    <div class="col-span-1">
                         <label class="text-xs font-semibold text-gray-300 uppercase">Categoria *</label>
                         <select id="pCategory" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
-                            <option value="games">Games & Pixel</option>
-                            <option value="tuning">Tuning & Carros</option>
-                            <option value="tech">Tech & Outros</option>
+                            <option value="eletronicos">Eletrônicos</option>
+                            <option value="games">Games</option>
+                            <option value="moda">Moda</option>
+                            <option value="automotivo">Automotivo</option>
+                            <option value="servicos">Serviços</option>
                         </select>
                     </div>
                 </div>
 
                 <div>
-                    <label class="text-xs font-semibold text-gray-300 uppercase">Seu WhatsApp de Vendas (Com DDD) *</label>
+                    <label class="text-xs font-semibold text-gray-300 uppercase">Foto do Produto (Do Celular)</label>
+                    <input type="file" id="pImage" accept="image/*" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-gray-400 mt-1 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-brand-neonGreen file:text-black file:font-bold">
+                    <p class="text-[10px] text-gray-500 mt-0.5">Tire uma foto ou escolha da galeria do seu smartphone.</p>
+                </div>
+
+                <div>
+                    <label class="text-xs font-semibold text-gray-300 uppercase">Seu WhatsApp (Com DDD) *</label>
                     <input type="tel" id="pPhone" required placeholder="31999999999" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
-                    <p class="text-[10px] text-gray-500 mt-0.5">Os compradores entrarão em contato direto por este número.</p>
                 </div>
 
                 <div>
-                    <label class="text-xs font-semibold text-gray-300 uppercase">Ícone do Produto *</label>
-                    <select id="pIcon" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
-                        <option value="fa-gamepad">🎮 Controle / Game</option>
-                        <option value="fa-cubes">🧊 3D / Pixel Art</option>
-                        <option value="fa-car">🚗 Carro / Tuning</option>
-                        <option value="fa-mobile-screen">📱 Celular / Tech</option>
-                        <option value="fa-bolt">⚡ Serviço / Script</option>
-                        <option value="fa-box">📦 Produto Geral</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="text-xs font-semibold text-gray-300 uppercase">Descrição Detalhada *</label>
-                    <textarea id="pDesc" rows="3" required placeholder="Descreva o estado do item, prazos de entrega ou detalhes do serviço..." class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1"></textarea>
+                    <label class="text-xs font-semibold text-gray-300 uppercase">Descrição Completa *</label>
+                    <textarea id="pDesc" rows="3" required placeholder="Descreva o estado de conservação, detalhes, formas de entrega..." class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1"></textarea>
                 </div>
 
                 <div class="flex gap-2 pt-2">
                     <button type="button" onclick="showTab('market')" class="w-1/3 bg-brand-dark border border-gray-700 text-gray-300 font-bold text-xs py-3 rounded-xl">Cancelar</button>
-                    <button type="submit" class="w-2/3 bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl hover:bg-emerald-400 transition-all">PUBLICAR AGORA</button>
+                    <button type="submit" class="w-2/3 bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl hover:bg-emerald-400 transition-all">PUBLICAR PRODUTO</button>
                 </div>
             </form>
         </div>
 
     </main>
 
-    <!-- MODAL DE LOGIN / CADASTRO -->
+    <!-- MODAL DE LOGIN -->
     <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <h3 class="font-title font-bold text-white text-base flex items-center gap-2">
-                    <i class="fa-solid fa-user-lock text-brand-neonGreen"></i> Entrar no Mr.Scorp
+                    <i class="fa-solid fa-user-lock text-brand-neonGreen"></i> Entrar / Cadastrar
                 </h3>
                 <button onclick="closeLoginModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -202,7 +199,7 @@
                     <input type="password" id="loginPass" required placeholder="••••••••" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <button type="submit" class="w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 transition-all">
-                    ENTRAR / CRIAR CONTA
+                    ACESSAR CONTA
                 </button>
             </form>
         </div>
@@ -210,26 +207,24 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // BANCO DE DADOS LOCAL (LOCALSTORAGE)
         let currentUser = JSON.parse(localStorage.getItem('mrScorpUser')) || null;
         let products = JSON.parse(localStorage.getItem('mrScorpProducts')) || [];
         let currentCategory = 'todos';
 
-        // ATUALIZAR INTERFACE AO CARREGAR
         window.onload = function() {
             updateUserArea();
             renderProducts();
         };
 
-        // GERENCIAR ÁREA DO USUÁRIO NO HEADER
         function updateUserArea() {
             const area = document.getElementById('userArea');
             if (currentUser) {
                 area.innerHTML = `
                     <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-gray-300 hidden sm:inline">Olá, <strong class="text-brand-neonGreen">${currentUser.name}</strong></span>
                         <button onclick="showTab('publish')" class="bg-brand-neonGreen text-black font-title font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 active:scale-95">
                             <i class="fa-solid fa-plus"></i>
-                            <span class="hidden sm:inline">Vender</span>
+                            <span>Anunciar</span>
                         </button>
                         <button onclick="logout()" class="bg-brand-card border border-gray-700 text-gray-300 text-xs px-3 py-2 rounded-xl hover:text-white">
                             <i class="fa-solid fa-right-from-bracket"></i>
@@ -239,13 +234,12 @@
             } else {
                 area.innerHTML = `
                     <button onclick="openLoginModal()" class="bg-brand-card border border-gray-700 hover:border-brand-neonGreen text-white font-semibold text-xs px-4 py-2 rounded-xl transition-all">
-                        <i class="fa-solid fa-user text-brand-neonGreen mr-1.5"></i> Entrar / Cadastrar
+                        <i class="fa-solid fa-user text-brand-neonGreen mr-1.5"></i> Entrar
                     </button>
                 `;
             }
         }
 
-        // RENDERIZAR PRODUTOS NA TELA
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             const empty = document.getElementById('emptyState');
@@ -267,28 +261,48 @@
                     const cleanPhone = p.phone.replace(/\D/g, '');
                     const waLink = `https://wa.me/55${cleanPhone}?text=Olá!%20Vi%20seu%20anúncio%20"${encodeURIComponent(p.title)}"%20no%20Mr.Scorp%20e%20tenho%20interesse!`;
 
+                    // Verifica se o anúncio pertence ao usuário logado para mostrar botão de excluir
+                    const isOwner = currentUser && currentUser.name.toLowerCase() === p.seller.toLowerCase();
+
+                    // renderização da imagem ou placeholder
+                    let imgHTML = p.image 
+                        ? `<img src="${p.image}" class="w-full h-full object-cover">` 
+                        : `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-950 to-brand-dark"><i class="fa-solid fa-box text-5xl text-brand-neonGreen/60"></i></div>`;
+
                     grid.innerHTML += `
-                        <div class="bg-brand-card border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between card-hover transition-all">
+                        <div class="bg-brand-card border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between card-hover transition-all relative">
                             <div>
-                                <div class="bg-gradient-to-br from-emerald-950 via-brand-dark to-black h-36 flex items-center justify-center relative">
-                                    <i class="fa-solid ${p.icon} text-5xl text-brand-neonGreen/80"></i>
-                                    <span class="absolute top-3 right-3 bg-black/70 text-gray-400 text-[10px] px-2 py-0.5 rounded-full border border-gray-800">
-                                        Vendedor: ${p.seller}
+                                <div class="h-44 w-full relative bg-black overflow-hidden">
+                                    ${imgHTML}
+                                    <span class="absolute top-2 right-2 bg-black/80 backdrop-blur-md text-gray-300 text-[10px] px-2 py-1 rounded-full border border-gray-700 font-semibold">
+                                        Qtd: ${p.stock}
                                     </span>
+                                    ${isOwner ? `
+                                        <button onclick="deleteProduct(${p.id})" class="absolute top-2 left-2 bg-red-600/90 text-white p-2 rounded-xl text-xs hover:bg-red-700 transition-all shadow-lg" title="Excluir Anúncio">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    ` : ''}
                                 </div>
                                 <div class="p-4">
-                                    <h3 class="font-bold text-white text-base mb-1 line-clamp-1">${p.title}</h3>
+                                    <div class="flex justify-between items-start gap-2 mb-1">
+                                        <h3 class="font-bold text-white text-base line-clamp-1">${p.title}</h3>
+                                    </div>
                                     <p class="text-xs text-gray-400 mb-3 line-clamp-2">${p.desc}</p>
-                                    <div class="flex items-baseline gap-1">
-                                        <span class="text-xs text-gray-400">Valor:</span>
-                                        <span class="font-title text-lg font-bold text-brand-neonGreen">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</span>
+                                    <div class="flex justify-between items-end">
+                                        <div>
+                                            <span class="text-[10px] text-gray-500 uppercase block">Preço</span>
+                                            <span class="font-title text-lg font-bold text-brand-neonGreen">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</span>
+                                        </div>
+                                        <span class="text-[10px] text-gray-400 bg-brand-dark px-2 py-1 rounded-lg border border-gray-800">
+                                            Vendedor: <strong>${p.seller}</strong>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="p-4 pt-0">
                                 <a href="${waLink}" target="_blank" class="w-full bg-brand-neonGreen/10 hover:bg-brand-neonGreen hover:text-black border border-brand-neonGreen text-brand-neonGreen font-title font-bold text-xs py-3 rounded-xl transition-all flex items-center justify-center gap-2">
                                     <i class="fa-brands fa-whatsapp text-sm"></i>
-                                    <span>CONTATAR VENDEDOR</span>
+                                    <span>FALAR COM VENDEDOR</span>
                                 </a>
                             </div>
                         </div>
@@ -297,33 +311,54 @@
             }
         }
 
-        // PUBLICAR PRODUTO NO BANCO
         function publishProduct(e) {
             e.preventDefault();
             if (!currentUser) return;
 
+            const fileInput = document.getElementById('pImage');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    saveProductData(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                saveProductData(null);
+            }
+        }
+
+        function saveProductData(imageData) {
             const newProduct = {
                 id: Date.now(),
                 title: document.getElementById('pTitle').value,
                 price: document.getElementById('pPrice').value,
+                stock: document.getElementById('pStock').value,
                 category: document.getElementById('pCategory').value,
                 phone: document.getElementById('pPhone').value,
-                icon: document.getElementById('pIcon').value,
                 desc: document.getElementById('pDesc').value,
+                image: imageData,
                 seller: currentUser.name
             };
 
             products.unshift(newProduct);
             localStorage.setItem('mrScorpProducts', JSON.stringify(products));
 
-            // Limpar formulário e voltar para o mercado
-            e.target.reset();
+            document.querySelector('form').reset();
             showTab('market');
             renderProducts();
-            alert("🚀 Seu produto foi publicado com sucesso no Mr.Scorp!");
+            alert("🚀 Seu anúncio foi publicado com foto e estoque no Mr.Scorp!");
         }
 
-        // CONTROLAR NAVEGAÇÃO ENTRE ABAS
+        function deleteProduct(id) {
+            if (confirm("Tem certeza que deseja excluir este anúncio do Mr.Scorp?")) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('mrScorpProducts', JSON.stringify(products));
+                renderProducts();
+            }
+        }
+
         function showTab(tab) {
             if (tab === 'publish' && !currentUser) {
                 openLoginModal();
@@ -353,15 +388,12 @@
             renderProducts();
         }
 
-        // MODAL E AUTH
         function openLoginModal() {
-            const modal = document.getElementById('loginModal');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('loginModal').classList.remove('opacity-0', 'pointer-events-none');
         }
 
         function closeLoginModal() {
-            const modal = document.getElementById('loginModal');
-            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('loginModal').classList.add('opacity-0', 'pointer-events-none');
         }
 
         function handleLogin(e) {
@@ -372,7 +404,7 @@
             
             updateUserArea();
             closeLoginModal();
-            alert(`Bem-vindo, ${name}! Agora você pode publicar anúncios.`);
+            renderProducts();
         }
 
         function logout() {
@@ -380,6 +412,7 @@
             localStorage.removeItem('mrScorpUser');
             updateUserArea();
             showTab('market');
+            renderProducts();
         }
     </script>
 </body>
