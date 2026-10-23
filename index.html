@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr.Scorp - Marketplace Real</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0f',
+                            dark: '#12121a',
+                            card: '#1a1a24',
+                            neonGreen: '#00ff66',
+                            neonCyan: '#00e5ff',
+                        }
+                    },
+                    fontFamily: {
+                        title: ['Orbitron', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0f;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .neon-glow-green { text-shadow: 0 0 10px rgba(0, 255, 102, 0.6); }
+        .neon-border-green { box-shadow: 0 0 10px rgba(0, 255, 102, 0.3); }
+        .card-hover:hover {
+            border-color: #00ff66;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.25);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col pb-16">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 bg-brand-dark/95 backdrop-blur-md border-b border-gray-800 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+            
+            <!-- LOGO -->
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showTab('market')">
+                <div class="bg-black border border-brand-neonGreen p-2 rounded-xl flex items-center justify-center neon-border-green">
+                    <i class="fa-solid fa-scorpion text-brand-neonGreen text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-title text-xl font-black text-white">
+                        Mr.<span class="text-brand-neonGreen neon-glow-green">Scorp</span>
+                    </h1>
+                    <p class="text-[9px] text-gray-400 uppercase tracking-widest">Marketplace Livre</p>
+                </div>
+            </div>
+
+            <!-- CONTROLES DE USUÁRIO / LOGIN -->
+            <div id="userArea">
+                <!-- Alterado via JS se estiver logado ou não -->
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER PROMOCIONAL -->
+    <div class="bg-gradient-to-r from-emerald-950 via-black to-brand-dark border-b border-gray-800 py-2.5 px-4 text-center">
+        <p class="text-xs sm:text-sm font-semibold text-gray-200">
+            ⚡ <span class="text-brand-neonGreen">Plataforma de Anúncios:</span> Faça login para publicar seus próprios produtos e vender diretamente!
+        </p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full">
+
+        <!-- ABA 1: MARKETPLACE / VITRINE -->
+        <div id="tabMarket" class="space-y-6">
+            
+            <!-- FILTROS E BUSCA -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-between items-center">
+                <div class="relative w-full sm:w-72">
+                    <input type="text" id="searchInput" oninput="renderProducts()" placeholder="Pesquisar anúncios..." class="w-full bg-brand-card border border-gray-700 rounded-xl pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-brand-neonGreen">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500"></i>
+                </div>
+
+                <div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 text-xs">
+                    <button onclick="setCategory('todos')" class="cat-btn active bg-brand-neonGreen text-black font-bold px-3 py-2 rounded-lg whitespace-nowrap">Todos</button>
+                    <button onclick="setCategory('games')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">Games & Pixel</button>
+                    <button onclick="setCategory('tuning')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">Tuning & Carros</button>
+                    <button onclick="setCategory('tech')" class="cat-btn bg-brand-card border border-gray-800 text-gray-300 px-3 py-2 rounded-lg whitespace-nowrap">Tech & Outros</button>
+                </div>
+            </div>
+
+            <!-- GRID DE PRODUTOS REAL -->
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Produtos postados vão aparecer aqui dinamicamente -->
+            </div>
+
+            <!-- ESTADO VAZIO (QUANDO NÃO HÁ PRODUTOS) -->
+            <div id="emptyState" class="text-center py-20 hidden space-y-3">
+                <div class="bg-brand-card w-16 h-16 rounded-full flex items-center justify-center mx-auto border border-gray-800 text-brand-neonGreen text-2xl">
+                    <i class="fa-solid fa-store-slash"></i>
+                </div>
+                <h3 class="text-base font-bold text-gray-300">Nenhum produto publicado ainda!</h3>
+                <p class="text-xs text-gray-500 max-w-sm mx-auto">Seja o primeiro a vender no Mr.Scorp. Faça login e publique o seu produto agora mesmo.</p>
+                <button onclick="handleSellClick()" class="bg-brand-neonGreen text-black font-title font-bold text-xs px-5 py-2.5 rounded-xl transition-all">
+                    POSTAR PRODUTO
+                </button>
+            </div>
+        </div>
+
+        <!-- ABA 2: PAINEL DE ANUNCIAR (SÓ ACESSÁVEL LOGADO) -->
+        <div id="tabPublish" class="hidden max-w-xl mx-auto space-y-5">
+            <div class="border-b border-gray-800 pb-3">
+                <h2 class="font-title text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-plus-circle text-brand-neonGreen"></i> Publicar Novo Anúncio
+                </h2>
+                <p class="text-xs text-gray-400">Preencha as informações do produto que você quer vender no site.</p>
+            </div>
+
+            <form onsubmit="publishProduct(event)" class="bg-brand-card border border-gray-800 p-5 rounded-2xl space-y-4">
+                <div>
+                    <label class="text-xs font-semibold text-gray-300 uppercase">Título do Anúncio *</label>
+                    <input type="text" id="pTitle" required placeholder="Ex: Controle Bluetooth Celular / Arte Pixel" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs font-semibold text-gray-300 uppercase">Preço (R$) *</label>
+                        <input type="number" step="0.01" id="pPrice" required placeholder="50.00" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-gray-300 uppercase">Categoria *</label>
+                        <select id="pCategory" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                            <option value="games">Games & Pixel</option>
+                            <option value="tuning">Tuning & Carros</option>
+                            <option value="tech">Tech & Outros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-xs font-semibold text-gray-300 uppercase">Seu WhatsApp de Vendas (Com DDD) *</label>
+                    <input type="tel" id="pPhone" required placeholder="31999999999" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <p class="text-[10px] text-gray-500 mt-0.5">Os compradores entrarão em contato direto por este número.</p>
+                </div>
+
+                <div>
+                    <label class="text-xs font-semibold text-gray-300 uppercase">Ícone do Produto *</label>
+                    <select id="pIcon" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                        <option value="fa-gamepad">🎮 Controle / Game</option>
+                        <option value="fa-cubes">🧊 3D / Pixel Art</option>
+                        <option value="fa-car">🚗 Carro / Tuning</option>
+                        <option value="fa-mobile-screen">📱 Celular / Tech</option>
+                        <option value="fa-bolt">⚡ Serviço / Script</option>
+                        <option value="fa-box">📦 Produto Geral</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-xs font-semibold text-gray-300 uppercase">Descrição Detalhada *</label>
+                    <textarea id="pDesc" rows="3" required placeholder="Descreva o estado do item, prazos de entrega ou detalhes do serviço..." class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1"></textarea>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="showTab('market')" class="w-1/3 bg-brand-dark border border-gray-700 text-gray-300 font-bold text-xs py-3 rounded-xl">Cancelar</button>
+                    <button type="submit" class="w-2/3 bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl hover:bg-emerald-400 transition-all">PUBLICAR AGORA</button>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <!-- MODAL DE LOGIN / CADASTRO -->
+    <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
+        <div class="bg-brand-card border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 class="font-title font-bold text-white text-base flex items-center gap-2">
+                    <i class="fa-solid fa-user-lock text-brand-neonGreen"></i> Entrar no Mr.Scorp
+                </h3>
+                <button onclick="closeLoginModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <form onsubmit="handleLogin(event)" class="space-y-3">
+                <div>
+                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Seu Nome ou Apelido</label>
+                    <input type="text" id="loginName" required placeholder="Ex: Elizeu" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                </div>
+                <div>
+                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Senha Simples</label>
+                    <input type="password" id="loginPass" required placeholder="••••••••" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                </div>
+                <button type="submit" class="w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 transition-all">
+                    ENTRAR / CRIAR CONTA
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // BANCO DE DADOS LOCAL (LOCALSTORAGE)
+        let currentUser = JSON.parse(localStorage.getItem('mrScorpUser')) || null;
+        let products = JSON.parse(localStorage.getItem('mrScorpProducts')) || [];
+        let currentCategory = 'todos';
+
+        // ATUALIZAR INTERFACE AO CARREGAR
+        window.onload = function() {
+            updateUserArea();
+            renderProducts();
+        };
+
+        // GERENCIAR ÁREA DO USUÁRIO NO HEADER
+        function updateUserArea() {
+            const area = document.getElementById('userArea');
+            if (currentUser) {
+                area.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <button onclick="showTab('publish')" class="bg-brand-neonGreen text-black font-title font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 active:scale-95">
+                            <i class="fa-solid fa-plus"></i>
+                            <span class="hidden sm:inline">Vender</span>
+                        </button>
+                        <button onclick="logout()" class="bg-brand-card border border-gray-700 text-gray-300 text-xs px-3 py-2 rounded-xl hover:text-white">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+                `;
+            } else {
+                area.innerHTML = `
+                    <button onclick="openLoginModal()" class="bg-brand-card border border-gray-700 hover:border-brand-neonGreen text-white font-semibold text-xs px-4 py-2 rounded-xl transition-all">
+                        <i class="fa-solid fa-user text-brand-neonGreen mr-1.5"></i> Entrar / Cadastrar
+                    </button>
+                `;
+            }
+        }
+
+        // RENDERIZAR PRODUTOS NA TELA
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const empty = document.getElementById('emptyState');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            grid.innerHTML = '';
+
+            let filtered = products.filter(p => {
+                const matchCat = currentCategory === 'todos' || p.category === currentCategory;
+                const matchSearch = p.title.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
+                return matchCat && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                filtered.forEach(p => {
+                    const cleanPhone = p.phone.replace(/\D/g, '');
+                    const waLink = `https://wa.me/55${cleanPhone}?text=Olá!%20Vi%20seu%20anúncio%20"${encodeURIComponent(p.title)}"%20no%20Mr.Scorp%20e%20tenho%20interesse!`;
+
+                    grid.innerHTML += `
+                        <div class="bg-brand-card border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between card-hover transition-all">
+                            <div>
+                                <div class="bg-gradient-to-br from-emerald-950 via-brand-dark to-black h-36 flex items-center justify-center relative">
+                                    <i class="fa-solid ${p.icon} text-5xl text-brand-neonGreen/80"></i>
+                                    <span class="absolute top-3 right-3 bg-black/70 text-gray-400 text-[10px] px-2 py-0.5 rounded-full border border-gray-800">
+                                        Vendedor: ${p.seller}
+                                    </span>
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-white text-base mb-1 line-clamp-1">${p.title}</h3>
+                                    <p class="text-xs text-gray-400 mb-3 line-clamp-2">${p.desc}</p>
+                                    <div class="flex items-baseline gap-1">
+                                        <span class="text-xs text-gray-400">Valor:</span>
+                                        <span class="font-title text-lg font-bold text-brand-neonGreen">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 pt-0">
+                                <a href="${waLink}" target="_blank" class="w-full bg-brand-neonGreen/10 hover:bg-brand-neonGreen hover:text-black border border-brand-neonGreen text-brand-neonGreen font-title font-bold text-xs py-3 rounded-xl transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                                    <span>CONTATAR VENDEDOR</span>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        // PUBLICAR PRODUTO NO BANCO
+        function publishProduct(e) {
+            e.preventDefault();
+            if (!currentUser) return;
+
+            const newProduct = {
+                id: Date.now(),
+                title: document.getElementById('pTitle').value,
+                price: document.getElementById('pPrice').value,
+                category: document.getElementById('pCategory').value,
+                phone: document.getElementById('pPhone').value,
+                icon: document.getElementById('pIcon').value,
+                desc: document.getElementById('pDesc').value,
+                seller: currentUser.name
+            };
+
+            products.unshift(newProduct);
+            localStorage.setItem('mrScorpProducts', JSON.stringify(products));
+
+            // Limpar formulário e voltar para o mercado
+            e.target.reset();
+            showTab('market');
+            renderProducts();
+            alert("🚀 Seu produto foi publicado com sucesso no Mr.Scorp!");
+        }
+
+        // CONTROLAR NAVEGAÇÃO ENTRE ABAS
+        function showTab(tab) {
+            if (tab === 'publish' && !currentUser) {
+                openLoginModal();
+                return;
+            }
+
+            document.getElementById('tabMarket').classList.toggle('hidden', tab !== 'market');
+            document.getElementById('tabPublish').classList.toggle('hidden', tab !== 'publish');
+        }
+
+        function handleSellClick() {
+            if (!currentUser) {
+                openLoginModal();
+            } else {
+                showTab('publish');
+            }
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-neonGreen', 'text-black', 'font-bold');
+                btn.classList.add('bg-brand-card', 'text-gray-300');
+            });
+            event.currentTarget.classList.remove('bg-brand-card', 'text-gray-300');
+            event.currentTarget.classList.add('bg-brand-neonGreen', 'text-black', 'font-bold');
+            renderProducts();
+        }
+
+        // MODAL E AUTH
+        function openLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const name = document.getElementById('loginName').value;
+            currentUser = { name: name };
+            localStorage.setItem('mrScorpUser', JSON.stringify(currentUser));
+            
+            updateUserArea();
+            closeLoginModal();
+            alert(`Bem-vindo, ${name}! Agora você pode publicar anúncios.`);
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('mrScorpUser');
+            updateUserArea();
+            showTab('market');
+        }
+    </script>
+</body>
+</html>
