@@ -68,20 +68,20 @@
                 </div>
             </div>
 
-            <!-- CONTROLES DO USUÁRIO & MENU HAMBÚRGUER (3 TRAÇOS) -->
+            <!-- CONTROLES DO USUÁRIO & MENU HAMBÚRGUER -->
             <div class="flex items-center gap-2">
                 <button onclick="showTab('publish')" class="bg-brand-neonGreen text-black font-title font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 active:scale-95 shadow-md">
                     <i class="fa-solid fa-plus"></i>
                     <span class="hidden sm:inline">Anunciar</span>
                 </button>
 
-                <!-- BOTÃO TRÊS TRAÇOS -->
+                <!-- BOTÃO 3 TRAÇOS -->
                 <div class="relative">
                     <button onclick="toggleMenu()" class="bg-brand-card border border-gray-700 text-gray-200 text-base px-3.5 py-2 rounded-xl hover:text-brand-neonGreen hover:border-brand-neonGreen transition-all">
                         <i class="fa-solid fa-bars"></i>
                     </button>
 
-                    <!-- DROPDOWN MENU LATERAL -->
+                    <!-- DROPDOWN MENU -->
                     <div id="dropdownMenu" class="absolute right-0 mt-2 w-56 bg-brand-card border border-gray-700 rounded-2xl shadow-2xl p-2 hidden z-50 transition-all">
                         <div id="menuUserInfo" class="p-2 border-b border-gray-800 mb-1 hidden">
                             <p class="text-[10px] text-gray-400 uppercase">Logado como</p>
@@ -97,25 +97,23 @@
                         </button>
 
                         <button onclick="openHelpModal(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5">
-                            <i class="fa-solid fa-circle-question text-brand-neonGreen"></i> Ajuda & Como Funciona
+                            <i class="fa-solid fa-circle-question text-brand-neonGreen"></i> Ajuda & Regras (18+)
                         </button>
 
                         <div class="border-t border-gray-800 my-1"></div>
 
-                        <div id="menuAuthBtns">
-                            <!-- Inserido dinamicamente via JS -->
-                        </div>
+                        <div id="menuAuthBtns"></div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- BANNER DINÂMICO (FRASES RANDÔMICAS) -->
+    <!-- BANNER DINÂMICO -->
     <div class="bg-gradient-to-r from-emerald-950 via-black to-brand-dark border-b border-gray-800 py-2.5 px-4 text-center">
         <p class="text-xs sm:text-sm font-semibold text-gray-200 flex items-center justify-center gap-2">
             <span class="text-brand-neonGreen animate-pulse">⚡</span> 
-            <span id="dynamicBannerText">O marketplace mais rápido para comprar e vender direto com o vendedor!</span>
+            <span id="dynamicBannerText">O marketplace mais rápido para comprar e vender direto!</span>
         </p>
     </div>
 
@@ -142,7 +140,7 @@
                 </div>
             </div>
 
-            <!-- GRID DE PRODUTOS FIRESTORE -->
+            <!-- GRID DE PRODUTOS -->
             <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
             <!-- ESTADO VAZIO -->
@@ -164,7 +162,7 @@
                 <h2 id="formTitle" class="font-title text-xl font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-plus-circle text-brand-neonGreen"></i> Publicar Novo Anúncio
                 </h2>
-                <p class="text-xs text-gray-400">Preencha os detalhes do produto que será publicado em tempo real.</p>
+                <p class="text-xs text-gray-400">Produtos sujeitos aos termos de uso (Proibido conteúdo +18 ou ilegal).</p>
             </div>
 
             <form onsubmit="handleFormSubmit(event)" class="bg-brand-card border border-gray-800 p-5 rounded-2xl space-y-4">
@@ -172,7 +170,7 @@
 
                 <div>
                     <label class="text-xs font-semibold text-gray-300 uppercase">Título do Anúncio *</label>
-                    <input type="text" id="pTitle" required placeholder="Ex: iPhone 11 64GB / Tênis Skate / Capot Riba" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <input type="text" id="pTitle" required placeholder="Ex: iPhone 11 64GB / Tênis Skate" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
 
                 <div class="grid grid-cols-3 gap-3">
@@ -199,7 +197,6 @@
                 <div>
                     <label class="text-xs font-semibold text-gray-300 uppercase">Foto do Produto (Tirar ou Escolher)</label>
                     <input type="file" id="pImage" accept="image/*" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-gray-400 mt-1 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-brand-neonGreen file:text-black file:font-bold">
-                    <p class="text-[10px] text-gray-500 mt-0.5">Se editar sem escolher foto, manterá a foto atual.</p>
                 </div>
 
                 <div>
@@ -209,7 +206,12 @@
 
                 <div>
                     <label class="text-xs font-semibold text-gray-300 uppercase">Descrição Completa *</label>
-                    <textarea id="pDesc" rows="3" required placeholder="Detalhes do estado de conservação, formas de entrega..." class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1"></textarea>
+                    <textarea id="pDesc" rows="3" required placeholder="Detalhes do estado de conservação..." class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1"></textarea>
+                </div>
+
+                <div class="bg-red-950/30 border border-red-900/50 p-3 rounded-xl text-[11px] text-red-300 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-base"></i>
+                    <span>Ao anunciar, você atesta ter mais de 18 anos e que este anúncio não viola os termos de conteúdo do Mr.Scorp.</span>
                 </div>
 
                 <div class="flex gap-2 pt-2">
@@ -223,36 +225,36 @@
 
     </main>
 
-    <!-- MODAL DE AUTENTICAÇÃO COMPLETA (LOGIN / CADASTRO COM DUPLA VERIFICAÇÃO DE SENHA) -->
+    <!-- MODAL DE LOGIN / CADASTRO COM AUTENTICAÇÃO REAL E RESTRIÇÃO DE 18 ANOS -->
     <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <div class="flex gap-4 text-sm font-title font-bold">
                     <button id="tabAuthLogin" onclick="switchAuthTab('login')" class="text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1">ENTRAR</button>
-                    <button id="tabAuthRegister" onclick="switchAuthTab('register')" class="text-gray-400 pb-1 hover:text-white">CADASTRAR</button>
+                    <button id="tabAuthRegister" onclick="switchAuthTab('register')" class="text-gray-400 pb-1 hover:text-white">CADASTRAR (18+)</button>
                 </div>
                 <button onclick="closeLoginModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
-            <!-- FORMULÁRIO DE LOGIN -->
-            <form id="formLogin" onsubmit="handleLoginSubmit(event)" class="space-y-3">
+            <!-- FORMULÁRIO DE LOGIN REAL -->
+            <form id="formLogin" onsubmit="handleRealLogin(event)" class="space-y-3">
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">E-mail ou Apelido</label>
-                    <input type="text" id="loginUser" required placeholder="Seu e-mail ou nome" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <label class="text-[11px] font-semibold text-gray-400 uppercase">E-mail Cadastrado</label>
+                    <input type="email" id="loginEmail" required placeholder="seuemail@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Sua Senha</label>
                     <input type="password" id="loginPass" required placeholder="••••••••" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
-                <button type="submit" class="w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 transition-all">
-                    ACESSAR CONTA
+                <button type="submit" id="btnLoginSubmit" class="w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 transition-all">
+                    ENTRAR NA CONTA
                 </button>
             </form>
 
-            <!-- FORMULÁRIO DE CADASTRO -->
-            <form id="formRegister" onsubmit="handleRegisterSubmit(event)" class="space-y-3 hidden">
+            <!-- FORMULÁRIO DE CADASTRO COM RESTRIÇÃO DE IDADE (18+) -->
+            <form id="formRegister" onsubmit="handleRealRegister(event)" class="space-y-3 hidden">
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Nome Completo / Apelido *</label>
+                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Nome / Apelido *</label>
                     <input type="text" id="regName" required placeholder="Ex: Elizeu Lúcio" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
@@ -260,28 +262,37 @@
                     <input type="email" id="regEmail" required placeholder="seuemail@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Senha *</label>
-                    <input type="password" id="regPass1" required placeholder="Criar senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Criar Senha *</label>
+                    <input type="password" id="regPass1" minlength="6" required placeholder="Mínimo 6 caracteres" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Confirmar Senha (2ª Verificação) *</label>
-                    <input type="password" id="regPass2" required placeholder="Repita a senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Confirmar Senha *</label>
+                    <input type="password" id="regPass2" minlength="6" required placeholder="Repita a senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
-                <button type="submit" class="w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 transition-all">
-                    FINALIZAR CADASTRO
+
+                <!-- VERIFICAÇÃO DE MAIORIDADE (18+) -->
+                <div class="flex items-start gap-2 pt-1">
+                    <input type="checkbox" id="regAgeCheck" required class="mt-1 accent-brand-neonGreen">
+                    <label for="regAgeCheck" class="text-[10px] text-gray-300 leading-tight">
+                        Declaro que **possuo 18 anos ou mais** e concordo em não anunciar produtos impróprios, adultos (+18) ou ilegais no Mr.Scorp.
+                    </label>
+                </div>
+
+                <button type="submit" id="btnRegSubmit" class="w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 transition-all">
+                    CRIAR CONTA SEGURA
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO SEGURO -->
+    <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
     <div id="deleteModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card border border-red-900/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
             <div class="w-12 h-12 rounded-full bg-red-950 border border-red-800 text-red-500 flex items-center justify-center mx-auto text-xl">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <h3 class="font-title font-bold text-white text-base">Excluir Anúncio?</h3>
-            <p class="text-xs text-gray-400">Tem certeza que deseja apagar este produto? Esta ação removerá o item do banco de dados permanentemente.</p>
+            <p class="text-xs text-gray-400">Tem certeza que deseja apagar este produto? Esta ação removerá o item permanentemente.</p>
             <div class="flex gap-2 pt-2">
                 <button onclick="closeDeleteModal()" class="w-1/2 bg-brand-dark border border-gray-700 text-gray-300 font-bold text-xs py-2.5 rounded-xl">Cancelar</button>
                 <button id="btnConfirmDelete" class="w-1/2 bg-red-600 text-white font-title font-bold text-xs py-2.5 rounded-xl hover:bg-red-700 transition-all">EXCLUIR</button>
@@ -289,38 +300,38 @@
         </div>
     </div>
 
-    <!-- MODAL CENTRAL DE AJUDA & COMO FUNCIONA -->
+    <!-- MODAL CENTRAL DE AJUDA -->
     <div id="helpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card border border-gray-700 w-full max-w-md rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <h3 class="font-title font-bold text-white text-base flex items-center gap-2">
-                    <i class="fa-solid fa-circle-question text-brand-neonGreen"></i> Central de Ajuda Mr.Scorp
+                    <i class="fa-solid fa-shield-cat text-brand-neonGreen"></i> Termos & Regras Mr.Scorp
                 </h3>
                 <button onclick="closeHelpModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
             <div class="space-y-3 text-xs text-gray-300 max-h-80 overflow-y-auto pr-1">
                 <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
-                    <h4 class="font-bold text-brand-neonGreen mb-1">🛒 Como Comprar?</h4>
-                    <p>Navegue pelo catálogo. Para negociar ou tirar dúvidas sobre o produto, clique em <strong>"Falar com Vendedor"</strong> para abrir o WhatsApp direto do anunciante.</p>
+                    <h4 class="font-bold text-brand-neonGreen mb-1">🔞 Restrição de Idade (18+)</h4>
+                    <p>Somente maiores de 18 anos podem se cadastrar e publicar produtos para venda na plataforma.</p>
                 </div>
 
                 <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
-                    <h4 class="font-bold text-brand-neonGreen mb-1">📢 Como Anunciar seus Produtos?</h4>
-                    <p>Faça login na sua conta pelo menu no topo. Clique em <strong>"Anunciar"</strong>, adicione título, fotos, estoque e WhatsApp. O anúncio aparece no site instantaneamente para todos!</p>
+                    <h4 class="font-bold text-red-400 mb-1">🚫 Conteúdo Proibido</h4>
+                    <p>É expressamente proibido anunciar conteúdo adulto (+18), armas de fogo, drogas, réplicas ilegais e produtos sem procedência.</p>
                 </div>
 
                 <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
-                    <h4 class="font-bold text-brand-neonGreen mb-1">✏️ Editar ou Remover Anúncios?</h4>
-                    <p>Nos seus próprios anúncios, você verá os botões de <strong>Editar (Lápis)</strong> para alterar preço/detalhes e <strong>Excluir (Lixeira)</strong> com confirmação de segurança.</p>
+                    <h4 class="font-bold text-brand-neonGreen mb-1">💬 Negociação Segura</h4>
+                    <p>Todas as vendas são combinadas diretamente entre o comprador e o vendedor através do WhatsApp cadastrado.</p>
                 </div>
             </div>
 
-            <button onclick="closeHelpModal()" class="w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl">ENTENDI!</button>
+            <button onclick="closeHelpModal()" class="w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl">COMPREENDI AS REGRAS</button>
         </div>
     </div>
 
-    <!-- MODAL DE COMPRA DIRETA -->
+    <!-- MODAL COMPRA DIRETA -->
     <div id="buyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -330,14 +341,12 @@
                 <button onclick="closeBuyModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
-            <div id="buyProductDetails" class="bg-brand-dark p-3 rounded-xl border border-gray-800 space-y-1">
-                <!-- Detalhes do item preenchidos via JS -->
-            </div>
+            <div id="buyProductDetails" class="bg-brand-dark p-3 rounded-xl border border-gray-800 space-y-1"></div>
 
             <div class="space-y-2">
-                <label class="text-[11px] font-semibold text-gray-400 uppercase">Escolha a Forma de Pagamento / Entrega</label>
+                <label class="text-[11px] font-semibold text-gray-400 uppercase">Forma de Pagamento</label>
                 <select id="buyPaymentMethod" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white outline-none">
-                    <option value="Pix">⚡ Pagamento via Pix (Direto)</option>
+                    <option value="Pix">⚡ Pagamento via Pix</option>
                     <option value="Dinheiro em Mão">💵 Entrega em Mãos / Dinheiro</option>
                     <option value="Cartão">💳 Cartão de Crédito / Débito</option>
                 </select>
@@ -349,10 +358,10 @@
         </div>
     </div>
 
-    <!-- SCRIPT FIREBASE SDK (COM AS SUAS CHAVES REAIS DO MRSCORP-DB) -->
+    <!-- SCRIPT FIREBASE SDK E BANCO DE DADOS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, updateDoc, onSnapshot, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, updateDoc, onSnapshot, deleteDoc, doc, query, orderBy, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAH3FDU0LuTAesV1C7eNF0T2JYIrElXVSY",
@@ -366,13 +375,14 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const productsCol = collection(db, "products");
+        const usersCol = collection(db, "users");
 
         window.allProducts = [];
         window.currentCategory = 'todos';
         window.currentUser = JSON.parse(localStorage.getItem('mrScorpUser')) || null;
         window.deletingProductId = null;
 
-        // OUVIR MUDANÇAS EM TEMPO REAL
+        // BANCO EM TEMPO REAL
         const q = query(productsCol, orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
             window.allProducts = snapshot.docs.map(doc => ({
@@ -380,14 +390,114 @@
                 ...doc.data()
             }));
             window.filterAndRenderProducts();
-        }, (error) => {
-            console.error("Erro no Firestore:", error);
         });
 
-        // SALVAR OU ATUALIZAR PRODUTO
+        // CADASTRO REAL NO FIRESTORE COM CRIPTOGRAFIA/VALIDAÇÃO DE LOGIN
+        window.handleRealRegister = async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value.toLowerCase().trim();
+            const p1 = document.getElementById('regPass1').value;
+            const p2 = document.getElementById('regPass2').value;
+
+            if (p1 !== p2) {
+                alert("⚠️ Erro: As senhas digitadas não batem!");
+                return;
+            }
+
+            const btn = document.getElementById('btnRegSubmit');
+            btn.innerText = "Criando Conta...";
+            btn.disabled = true;
+
+            try {
+                // Verificar se e-mail já existe
+                const qUser = query(usersCol, where("email", "==", email));
+                const snap = await getDocs(qUser);
+
+                if (!snap.empty) {
+                    alert("⚠️ Este e-mail já está cadastrado! Faça login.");
+                    btn.innerText = "CRIAR CONTA SEGURA";
+                    btn.disabled = false;
+                    return;
+                }
+
+                // Salvar usuário real
+                await addDoc(usersCol, {
+                    name: name,
+                    email: email,
+                    pass: p1,
+                    isAdult: true,
+                    createdAt: Date.now()
+                });
+
+                window.currentUser = { name: name, email: email };
+                localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
+
+                window.updateUserMenu();
+                window.closeLoginModal();
+                window.filterAndRenderProducts();
+                alert(`🎉 Conta criada com sucesso! Bem-vindo ao Mr.Scorp, ${name}!`);
+            } catch (err) {
+                alert("Erro ao cadastrar: " + err.message);
+            } finally {
+                btn.innerText = "CRIAR CONTA SEGURA";
+                btn.disabled = false;
+            }
+        };
+
+        // LOGIN REAL COM VALIDAÇÃO NO BANCO DE DADOS
+        window.handleRealLogin = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.toLowerCase().trim();
+            const pass = document.getElementById('loginPass').value;
+
+            const btn = document.getElementById('btnLoginSubmit');
+            btn.innerText = "Verificando...";
+            btn.disabled = true;
+
+            try {
+                const qUser = query(usersCol, where("email", "==", email), where("pass", "==", pass));
+                const snap = await getDocs(qUser);
+
+                if (snap.empty) {
+                    alert("❌ E-mail ou Senha incorretos! Tente novamente.");
+                    btn.innerText = "ENTRAR NA CONTA";
+                    btn.disabled = false;
+                    return;
+                }
+
+                const userData = snap.docs[0].data();
+                window.currentUser = { name: userData.name, email: userData.email };
+                localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
+
+                window.updateUserMenu();
+                window.closeLoginModal();
+                window.filterAndRenderProducts();
+                alert(`👋 Olá, ${userData.name}! Login efetuado com sucesso.`);
+            } catch (err) {
+                alert("Erro ao entrar: " + err.message);
+            } finally {
+                btn.innerText = "ENTRAR NA CONTA";
+                btn.disabled = false;
+            }
+        };
+
+        // SALVAR PRODUTO COM FILTRO DE CONTEÚDO
         window.handleFormSubmit = async function(e) {
             e.preventDefault();
             if (!window.currentUser) return;
+
+            const title = document.getElementById('pTitle').value;
+            const desc = document.getElementById('pDesc').value;
+
+            // Filtro de termos proibidos
+            const forbidden = ['+18', 'porno', 'armas', 'drogas', 'sexo'];
+            const isForbidden = forbidden.some(term => title.toLowerCase().includes(term) || desc.toLowerCase().includes(term));
+
+            if (isForbidden) {
+                alert("🚫 O anúncio contém termos que violam as regras do Mr.Scorp e foi recusado.");
+                return;
+            }
 
             const editId = document.getElementById('editProductId').value;
             const btn = document.getElementById('btnPublishSubmit');
@@ -404,7 +514,6 @@
                 };
                 reader.readAsDataURL(file);
             } else {
-                // Se estiver editando sem escolher nova foto, manter a imagem antiga
                 let existingImage = null;
                 if (editId) {
                     const existingDoc = window.allProducts.find(p => p.id === editId);
@@ -431,7 +540,7 @@
 
                 if (editId) {
                     await updateDoc(doc(db, "products", editId), payload);
-                    alert("✅ Anúncio atualizado com sucesso!");
+                    alert("✅ Anúncio atualizado!");
                 } else {
                     await addDoc(productsCol, payload);
                     alert("🚀 Anúncio publicado no banco online com sucesso!");
@@ -448,7 +557,6 @@
             }
         }
 
-        // CONFIRMAR E EXCLUIR PRODUTO
         window.executeDeleteProduct = async function() {
             if (!window.deletingProductId) return;
             try {
@@ -460,15 +568,13 @@
         };
     </script>
 
-    <!-- SCRIPT DE LÓGICA DE INTERFACE & BANNER FRASES -->
+    <!-- SCRIPT DE INTERFACE -->
     <script>
-        // FRASES ALEATÓRIAS DO BANNER
         const bannerPhrases = [
             "O marketplace mais rápido para comprar e vender direto!",
             "Anuncie grátis com fotos e receba mensagens no WhatsApp!",
             "Negocie sem intermediários diretamente com o vendedor!",
-            "Confira as novidades em Eletrônicos, Games e Tuning!",
-            "Seguro, simples e 100% sincronizado em tempo real!"
+            "Somente produtos verificados e para maiores de 18 anos!"
         ];
 
         let currentPhraseIdx = 0;
@@ -588,7 +694,6 @@
             }
         }
 
-        // EDITAR E EXCLUIR
         function startEditProduct(id) {
             const p = window.allProducts.find(item => item.id === id);
             if (!p) return;
@@ -616,21 +721,18 @@
 
         function openDeleteModal(id) {
             window.deletingProductId = id;
-            const modal = document.getElementById('deleteModal');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('deleteModal').classList.remove('opacity-0', 'pointer-events-none');
         }
 
         function closeDeleteModal() {
             window.deletingProductId = null;
-            const modal = document.getElementById('deleteModal');
-            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('deleteModal').classList.add('opacity-0', 'pointer-events-none');
         }
 
         document.getElementById('btnConfirmDelete').addEventListener('click', () => {
             if (window.executeDeleteProduct) window.executeDeleteProduct();
         });
 
-        // MODAL COMPRA DIRETA
         function openBuyModal(id) {
             const p = window.allProducts.find(item => item.id === id);
             if (!p) return;
@@ -646,7 +748,7 @@
             btn.onclick = function() {
                 const method = document.getElementById('buyPaymentMethod').value;
                 const cleanPhone = (p.phone || '').replace(/\D/g, '');
-                const text = `Olá ${p.seller}! Gostaria de COMPRAR o produto "${p.title}" (Valor: R$ ${p.price}) no Mr.Scorp. Forma escolhida: ${method}. Como podemos finalizar?`;
+                const text = `Olá ${p.seller}! Gostaria de COMPRAR o produto "${p.title}" (Valor: R$ ${p.price}) no Mr.Scorp. Forma de pagamento: ${method}. Podemos finalizar?`;
                 window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
                 closeBuyModal();
             };
@@ -658,7 +760,6 @@
             document.getElementById('buyModal').classList.add('opacity-0', 'pointer-events-none');
         }
 
-        // NAVEGAÇÃO ENTRE ABAS
         function showTab(tab) {
             if (tab === 'publish' && !window.currentUser) {
                 openLoginModal();
@@ -690,7 +791,6 @@
             filterAndRenderProducts();
         }
 
-        // AUTH & MODAIS
         function openLoginModal() {
             document.getElementById('loginModal').classList.remove('opacity-0', 'pointer-events-none');
         }
@@ -714,38 +814,6 @@
 
             document.getElementById('tabAuthLogin').className = isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1 hover:text-white";
             document.getElementById('tabAuthRegister').className = !isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1 hover:text-white";
-        }
-
-        function handleLoginSubmit(e) {
-            e.preventDefault();
-            const user = document.getElementById('loginUser').value;
-            window.currentUser = { name: user, email: user.includes('@') ? user : '' };
-            localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
-
-            updateUserMenu();
-            closeLoginModal();
-            filterAndRenderProducts();
-        }
-
-        function handleRegisterSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('regName').value;
-            const email = document.getElementById('regEmail').value;
-            const p1 = document.getElementById('regPass1').value;
-            const p2 = document.getElementById('regPass2').value;
-
-            if (p1 !== p2) {
-                alert("⚠️ Erro de Verificação: As senhas digitadas não coincidem!");
-                return;
-            }
-
-            window.currentUser = { name: name, email: email };
-            localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
-
-            updateUserMenu();
-            closeLoginModal();
-            filterAndRenderProducts();
-            alert(`🎉 Conta criada com sucesso! Bem-vindo ao Mr.Scorp, ${name}!`);
         }
 
         function logout() {
