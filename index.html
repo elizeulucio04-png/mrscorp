@@ -37,24 +37,7 @@
             color: #e2e8f0;
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
-            position: relative;
             min-height: 100vh;
-        }
-
-        /* MARCA D'ÁGUA DO ESCORPIÃO NO FUNDO */
-        body::before {
-            content: "\f718"; /* Ícone de Escorpião do FontAwesome */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 35vw;
-            color: rgba(0, 255, 102, 0.03); /* Escorpião Verde Neon Suave */
-            text-shadow: 0 0 40px rgba(0, 255, 102, 0.05);
-            pointer-events: none;
-            z-index: 0;
         }
 
         .neon-glow-green { text-shadow: 0 0 10px rgba(0, 255, 102, 0.6); }
@@ -64,10 +47,12 @@
             box-shadow: 0 0 15px rgba(0, 255, 102, 0.25);
             transform: translateY(-2px);
         }
+        
+        /* OCULTAR SCROLLBAR SEM QUEBRAR */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* ANIMAÇÃO DE EFEITO ONDA (RIPPLE CLICK) */
+        /* ANIMAÇÃO RIPPLE */
         .click-ripple {
             position: relative;
             overflow: hidden;
@@ -95,6 +80,13 @@
     </style>
 </head>
 <body class="min-h-screen flex flex-col pb-16 relative z-10">
+
+    <!-- MARCA D'ÁGUA FIXA DO ESCORPIÃO NO FUNDO (SVG DIRETO) -->
+    <div class="fixed inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+        <svg class="w-[85vw] max-w-[450px] opacity-[0.04] text-brand-neonGreen fill-current" viewBox="0 0 512 512">
+            <path d="M496 256c0 132.5-107.5 240-240 240S16 388.5 16 256 123.5 16 256 16s240 107.5 240 240zM256 64c-105.9 0-192 86.1-192 192s86.1 192 192 192 192-86.1 192-192S361.9 64 256 64zm-32 128a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm-64 96a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/>
+        </svg>
+    </div>
 
     <!-- HEADER -->
     <header class="sticky top-0 z-40 bg-brand-dark/95 backdrop-blur-md border-b border-gray-800 shadow-xl">
@@ -155,7 +147,7 @@
     </header>
 
     <!-- BANNER DINÂMICO -->
-    <div class="bg-gradient-to-r from-emerald-950 via-black to-brand-dark border-b border-gray-800 py-2.5 px-4 text-center">
+    <div class="bg-gradient-to-r from-emerald-950 via-black to-brand-dark border-b border-gray-800 py-2.5 px-4 text-center relative z-10">
         <p class="text-xs sm:text-sm font-semibold text-gray-200 flex items-center justify-center gap-2">
             <span class="text-brand-neonGreen animate-pulse">⚡</span> 
             <span id="dynamicBannerText">O marketplace mais rápido para comprar e vender direto!</span>
@@ -163,25 +155,26 @@
     </div>
 
     <!-- MAIN CONTENT -->
-    <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full">
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full relative z-10">
 
         <!-- ABA 1: VITRINE DE PRODUTOS -->
         <div id="tabMarket" class="space-y-6">
             
-            <!-- BUSCA E CATEGORIAS -->
+            <!-- BUSCA E CATEGORIAS CORRIGIDAS -->
             <div class="space-y-3">
                 <div class="relative w-full">
                     <input type="text" id="searchInput" oninput="filterAndRenderProducts()" placeholder="O que você procura no Mr.Scorp hoje?..." class="w-full bg-brand-card/90 backdrop-blur-md border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
                     <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-500"></i>
                 </div>
 
-                <div class="flex gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
-                    <button onclick="setCategory('todos')" class="cat-btn click-ripple active bg-brand-neonGreen text-black font-bold px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🔥 Todos</button>
-                    <button onclick="setCategory('eletronicos')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">📱 Eletrônicos</button>
-                    <button onclick="setCategory('games')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🎮 Games & Acessórios</button>
-                    <button onclick="setCategory('moda')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">👕 Moda & Estilo</button>
-                    <button onclick="setCategory('automotivo')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🚗 Automotivo</button>
-                    <button onclick="setCategory('servicos')" class="cat-btn click-ripple bg-brand-card border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🛠️ Serviços</button>
+                <!-- CATEGORIAS COM FLEX CORRIGIDO -->
+                <div class="flex gap-2 overflow-x-auto pb-2 text-xs no-scrollbar items-center">
+                    <button onclick="setCategory('todos')" class="cat-btn click-ripple shrink-0 active bg-brand-neonGreen text-black font-bold px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">🔥 Todos</button>
+                    <button onclick="setCategory('eletronicos')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">📱 Eletrônicos</button>
+                    <button onclick="setCategory('games')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">🎮 Games & Acessórios</button>
+                    <button onclick="setCategory('moda')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">👕 Moda & Estilo</button>
+                    <button onclick="setCategory('automotivo')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">🚗 Automotivo</button>
+                    <button onclick="setCategory('servicos')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">🛠️ Serviços</button>
                 </div>
             </div>
 
@@ -270,7 +263,7 @@
 
     </main>
 
-    <!-- MODAL DE LOGIN / CADASTRO COM AUTENTICAÇÃO REAL -->
+    <!-- MODAL DE LOGIN / CADASTRO -->
     <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -296,7 +289,7 @@
                 </button>
             </form>
 
-            <!-- FORMULÁRIO DE CADASTRO COM 18+ -->
+            <!-- FORMULÁRIO DE CADASTRO -->
             <form id="formRegister" onsubmit="handleRealRegister(event)" class="space-y-3 hidden">
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Nome / Apelido *</label>
