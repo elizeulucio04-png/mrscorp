@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr.Scorp - Marketplace Pro</title>
+    <title>Mr.Scorp - Marketplace Pro Ultimate</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -91,7 +91,7 @@
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
             
             <!-- LOGO -->
-            <div class="flex items-center gap-2 cursor-pointer click-ripple p-1 rounded-xl" onclick="showTab('market')">
+            <div class="flex items-center gap-2 cursor-pointer click-ripple p-1 rounded-xl" onclick="resetFiltersAndShowMarket()">
                 <div class="bg-black border border-brand-neonGreen p-2 rounded-xl flex items-center justify-center neon-border-green">
                     <i class="fa-solid fa-scorpion text-brand-neonGreen text-xl"></i>
                 </div>
@@ -123,7 +123,7 @@
                             <p id="menuUserName" class="text-xs font-bold text-brand-neonGreen truncate"></p>
                         </div>
                         
-                        <button onclick="showTab('market'); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
+                        <button onclick="resetFiltersAndShowMarket(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
                             <i class="fa-solid fa-store text-brand-neonGreen"></i> Catálogo Principal
                         </button>
 
@@ -166,22 +166,43 @@
         <!-- ABA 1: VITRINE DE PRODUTOS -->
         <div id="tabMarket" class="space-y-6">
             
-            <!-- BUSCA E CATEGORIAS -->
-            <div class="space-y-3">
-                <div class="relative w-full">
-                    <input type="text" id="searchInput" oninput="filterAndRenderProducts()" placeholder="O que você procura no Mr.Scorp hoje?..." class="w-full bg-brand-card/90 backdrop-blur-md border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-500"></i>
+            <!-- BUSCA E FILTROS AVANÇADOS -->
+            <div class="space-y-3 bg-brand-card/60 p-4 rounded-2xl border border-gray-800/80 backdrop-blur-md">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <div class="relative w-full md:col-span-2">
+                        <input type="text" id="searchInput" oninput="filterAndRenderProducts()" placeholder="O que você procura no Mr.Scorp hoje?..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-500"></i>
+                    </div>
+                    <div class="relative w-full">
+                        <input type="text" id="locationInput" oninput="filterAndRenderProducts()" placeholder="📍 Bairro ou Cidade..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
+                        <i class="fa-solid fa-location-dot absolute left-3 top-3.5 text-gray-500"></i>
+                    </div>
+                </div>
+
+                <!-- PREÇO E ORDENAÇÃO -->
+                <div class="flex flex-wrap gap-2 items-center justify-between text-xs pt-1">
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <span class="text-gray-400 font-semibold shrink-0">Preço (R$):</span>
+                        <input type="number" id="minPriceInput" oninput="filterAndRenderProducts()" placeholder="Mín" class="w-20 bg-brand-dark border border-gray-700 rounded-lg p-1.5 text-white outline-none focus:border-brand-neonGreen">
+                        <span class="text-gray-500">-</span>
+                        <input type="number" id="maxPriceInput" oninput="filterAndRenderProducts()" placeholder="Máx" class="w-20 bg-brand-dark border border-gray-700 rounded-lg p-1.5 text-white outline-none focus:border-brand-neonGreen">
+                    </div>
+
+                    <div id="sellerFilterBadge" class="hidden bg-brand-neonGreen/10 border border-brand-neonGreen text-brand-neonGreen px-2.5 py-1 rounded-lg text-xs flex items-center gap-2">
+                        <span>Filtrando por vendedor: <strong id="sellerFilterName"></strong></span>
+                        <button onclick="clearSellerFilter()" class="hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
                 </div>
 
                 <!-- CATEGORIAS -->
-                <div class="flex gap-2 overflow-x-auto pb-2 text-xs no-scrollbar items-center w-full">
-                    <button id="cat-todos" onclick="setCategory('todos')" class="cat-btn click-ripple shrink-0 active bg-brand-neonGreen text-black font-bold px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">🔥 Todos</button>
-                    <button id="cat-favoritos" onclick="setCategory('favoritos')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">❤️ Favoritos</button>
-                    <button id="cat-eletronicos" onclick="setCategory('eletronicos')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">📱 Eletrônicos</button>
-                    <button id="cat-games" onclick="setCategory('games')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">🎮 Games & Acessórios</button>
-                    <button id="cat-moda" onclick="setCategory('moda')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">👕 Moda & Estilo</button>
-                    <button id="cat-automotivo" onclick="setCategory('automotivo')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">🚗 Automotivo</button>
-                    <button id="cat-servicos" onclick="setCategory('servicos')" class="cat-btn click-ripple shrink-0 bg-brand-card border border-gray-800 text-gray-300 px-4 py-2.5 rounded-xl whitespace-nowrap active:scale-95 transition-all">🛠️ Serviços</button>
+                <div class="flex gap-2 overflow-x-auto pt-2 pb-1 text-xs no-scrollbar items-center w-full">
+                    <button id="cat-todos" onclick="setCategory('todos')" class="cat-btn click-ripple shrink-0 active bg-brand-neonGreen text-black font-bold px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🔥 Todos</button>
+                    <button id="cat-favoritos" onclick="setCategory('favoritos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">❤️ Favoritos</button>
+                    <button id="cat-eletronicos" onclick="setCategory('eletronicos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">📱 Eletrônicos</button>
+                    <button id="cat-games" onclick="setCategory('games')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🎮 Games & Acessórios</button>
+                    <button id="cat-moda" onclick="setCategory('moda')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">👕 Moda & Estilo</button>
+                    <button id="cat-automotivo" onclick="setCategory('automotivo')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🚗 Automotivo</button>
+                    <button id="cat-servicos" onclick="setCategory('servicos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🛠️ Serviços</button>
                 </div>
             </div>
 
@@ -194,20 +215,20 @@
                     <i class="fa-solid fa-box-open"></i>
                 </div>
                 <h3 class="text-base font-bold text-gray-300">Nenhum anúncio encontrado!</h3>
-                <p class="text-xs text-gray-500 max-w-sm mx-auto">Seja o primeiro a publicar nesta categoria no Mr.Scorp.</p>
+                <p class="text-xs text-gray-500 max-w-sm mx-auto">Tente ajustar seus filtros ou seja o primeiro a publicar nesta categoria no Mr.Scorp.</p>
                 <button onclick="handleSellClick()" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs px-5 py-2.5 rounded-xl active:scale-95 transition-all">
                     ANUNCIAR AGORA
                 </button>
             </div>
         </div>
 
-        <!-- ABA 2: PUBLICAR / EDITAR ANÚNCIO (ATÉ 3 FOTOS) -->
+        <!-- ABA 2: PUBLICAR / EDITAR ANÚNCIO (COM LOCALIZAÇÃO E ATÉ 3 FOTOS) -->
         <div id="tabPublish" class="hidden max-w-xl mx-auto space-y-5">
             <div class="border-b border-gray-800 pb-3">
                 <h2 id="formTitle" class="font-title text-xl font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-plus-circle text-brand-neonGreen"></i> Publicar Novo Anúncio
                 </h2>
-                <p class="text-xs text-gray-400">Você pode adicionar até 3 fotos ao seu produto!</p>
+                <p class="text-xs text-gray-400">Adicione detalhes completos para vender seu produto mais rápido!</p>
             </div>
 
             <form onsubmit="handleFormSubmit(event)" class="bg-brand-card/90 backdrop-blur-md border border-gray-800 p-5 rounded-2xl space-y-4">
@@ -239,16 +260,22 @@
                     </div>
                 </div>
 
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs font-semibold text-gray-300 uppercase">WhatsApp (Com DDD) *</label>
+                        <input type="tel" id="pPhone" required placeholder="31999999999" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-gray-300 uppercase">Bairro / Cidade *</label>
+                        <input type="text" id="pLocation" required placeholder="Ex: Águas Claras / BH" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                </div>
+
                 <!-- GALERIA MÚLTIPLA -->
                 <div>
                     <label class="text-xs font-semibold text-gray-300 uppercase">Fotos do Produto (Até 3 Fotos)</label>
                     <input type="file" id="pImage" accept="image/*" multiple class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-gray-400 mt-1 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-brand-neonGreen file:text-black file:font-bold">
                     <p class="text-[10px] text-gray-500 mt-1">Segure o dedo ou o botão Ctrl para selecionar até 3 fotos de uma vez.</p>
-                </div>
-
-                <div>
-                    <label class="text-xs font-semibold text-gray-300 uppercase">Seu WhatsApp (Com DDD) *</label>
-                    <input type="tel" id="pPhone" required placeholder="31999999999" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
 
                 <div>
@@ -270,7 +297,7 @@
             </form>
         </div>
 
-        <!-- ABA 3: PAINEL DO ADMINISTRADOR (DONO DO SITE) -->
+        <!-- ABA 3: PAINEL DO ADMINISTRADOR (COM DENÚNCIAS E VERIFICAÇÕES) -->
         <div id="tabAdmin" class="hidden max-w-4xl mx-auto space-y-6">
             <div class="bg-gradient-to-r from-amber-950/40 to-brand-card border border-amber-500/40 p-5 rounded-2xl flex justify-between items-center">
                 <div>
@@ -285,21 +312,42 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="bg-brand-card p-4 rounded-2xl border border-gray-800 text-center">
                     <span class="text-[10px] text-gray-500 uppercase block font-semibold">Total Anúncios</span>
                     <span id="adminTotalProducts" class="font-title text-2xl font-bold text-brand-neonGreen">0</span>
                 </div>
                 <div class="bg-brand-card p-4 rounded-2xl border border-gray-800 text-center">
-                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Usuários Cadastrados</span>
+                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Usuários Registrados</span>
                     <span id="adminTotalUsers" class="font-title text-2xl font-bold text-white">0</span>
                 </div>
-                <div class="bg-brand-card p-4 rounded-2xl border border-gray-800 text-center col-span-2 sm:col-span-1">
-                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Painel Ativo</span>
-                    <span class="font-title text-base font-bold text-amber-400">⚡ 100% Online</span>
+                <div class="bg-brand-card p-4 rounded-2xl border border-gray-800 text-center">
+                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Denúncias</span>
+                    <span id="adminTotalReports" class="font-title text-2xl font-bold text-red-500">0</span>
+                </div>
+                <div class="bg-brand-card p-4 rounded-2xl border border-gray-800 text-center">
+                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Verificados</span>
+                    <span id="adminTotalVerified" class="font-title text-2xl font-bold text-blue-400">0</span>
                 </div>
             </div>
 
+            <!-- DENÚNCIAS RECEBIDAS -->
+            <div id="adminReportsContainer" class="bg-brand-card/90 border border-red-900/40 rounded-2xl p-4 hidden">
+                <h3 class="font-title font-bold text-red-400 text-sm mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Alertas e Denúncias de Produtos
+                </h3>
+                <div id="adminReportList" class="space-y-2"></div>
+            </div>
+
+            <!-- LISTA DE GERENCIAMENTO DE USUÁRIOS & VERIFICAÇÃO -->
+            <div class="bg-brand-card/90 border border-gray-800 rounded-2xl p-4">
+                <h3 class="font-title font-bold text-white text-sm mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-users-gear text-blue-400"></i> Gerenciamento de Usuários & Selo Verificado
+                </h3>
+                <div id="adminUserList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+            </div>
+
+            <!-- GERENCIAMENTO GERAL DE ANÚNCIOS -->
             <div class="bg-brand-card/90 border border-gray-800 rounded-2xl p-4">
                 <h3 class="font-title font-bold text-white text-sm mb-3">Gerenciamento Geral de Anúncios</h3>
                 <div id="adminProductList" class="space-y-2"></div>
@@ -307,6 +355,28 @@
         </div>
 
     </main>
+
+    <!-- MODAL DE REPORT / DENÚNCIA -->
+    <div id="reportModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
+        <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 class="font-title font-bold text-white text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-flag text-red-500"></i> Denunciar Anúncio
+                </h3>
+                <button onclick="closeReportModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-xs text-gray-400">Qual o motivo da sua denúncia sobre este produto?</p>
+            <select id="reportReason" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white outline-none">
+                <option value="Conteúdo +18 ou Inapropriado">🔞 Conteúdo +18 ou Inapropriado</option>
+                <option value="Produto Falso ou Golpe">⚠️ Produto Falso ou Suspeita de Golpe</option>
+                <option value="Preço Abusivo ou Irreal">💲 Preço Abusivo ou Enganoso</option>
+                <option value="Outro Motivo">❓ Outro Motivo</option>
+            </select>
+            <button id="btnConfirmReport" class="click-ripple w-full bg-red-600 text-white font-title font-bold py-2.5 rounded-xl hover:bg-red-700 active:scale-95 transition-all">
+                ENVIAR DENÚNCIA
+            </button>
+        </div>
+    </div>
 
     <!-- MODAL DE LOGIN / CADASTRO -->
     <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
@@ -458,37 +528,40 @@
         const db = getFirestore(app);
         const productsCol = collection(db, "products");
         const usersCol = collection(db, "users");
+        const reportsCol = collection(db, "reports");
 
-        // SEU E-MAIL OFICIAL DE ADMINISTRADOR
         window.ADMIN_EMAIL = "mrscorp.contato@gmail.com";
 
         window.allProducts = [];
         window.allUsers = [];
+        window.allReports = [];
         window.currentCategory = 'todos';
+        window.selectedSeller = null;
         window.currentUser = JSON.parse(localStorage.getItem('mrScorpUser')) || null;
         window.favorites = JSON.parse(localStorage.getItem('mrScorpFavs')) || [];
         window.deletingProductId = null;
+        window.reportingProductId = null;
         window.productImageIndices = {};
 
-        // BANCO EM TEMPO REAL DE PRODUTOS
-        const qProducts = query(productsCol, orderBy("createdAt", "desc"));
-        onSnapshot(qProducts, (snapshot) => {
-            window.allProducts = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
+        // FIREBASE OBSERVERS
+        onSnapshot(query(productsCol, orderBy("createdAt", "desc")), (snapshot) => {
+            window.allProducts = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
             window.filterAndRenderProducts();
             window.renderAdminPanel();
         });
 
-        // BANCO DE USUÁRIOS (PARA O ADMIN)
-        const qUsers = query(usersCol);
-        onSnapshot(qUsers, (snapshot) => {
-            window.allUsers = snapshot.docs.map(doc => doc.data());
+        onSnapshot(query(usersCol), (snapshot) => {
+            window.allUsers = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+            window.filterAndRenderProducts();
             window.renderAdminPanel();
         });
 
-        // CADASTRO REAL
+        onSnapshot(query(reportsCol, orderBy("createdAt", "desc")), (snapshot) => {
+            window.allReports = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+            window.renderAdminPanel();
+        });
+
+        // CADASTRO
         window.handleRealRegister = async function(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value;
@@ -506,9 +579,7 @@
             btn.disabled = true;
 
             try {
-                const qUser = query(usersCol, where("email", "==", email));
-                const snap = await getDocs(qUser);
-
+                const snap = await getDocs(query(usersCol, where("email", "==", email)));
                 if (!snap.empty) {
                     alert("⚠️ Este e-mail já está cadastrado! Faça login.");
                     btn.innerText = "CRIAR CONTA SEGURA";
@@ -521,6 +592,7 @@
                     email: email,
                     pass: p1,
                     isAdult: true,
+                    isVerified: email === window.ADMIN_EMAIL,
                     createdAt: Date.now()
                 });
 
@@ -539,7 +611,7 @@
             }
         };
 
-        // LOGIN REAL
+        // LOGIN
         window.handleRealLogin = async function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.toLowerCase().trim();
@@ -550,8 +622,7 @@
             btn.disabled = true;
 
             try {
-                const qUser = query(usersCol, where("email", "==", email), where("pass", "==", pass));
-                const snap = await getDocs(qUser);
+                const snap = await getDocs(query(usersCol, where("email", "==", email), where("pass", "==", pass)));
 
                 if (snap.empty) {
                     alert("❌ E-mail ou Senha incorretos! Tente novamente.");
@@ -576,7 +647,7 @@
             }
         };
 
-        // SALVAR PRODUTO COM ATÉ 3 FOTOS
+        // SALVAR PRODUTO
         window.handleFormSubmit = async function(e) {
             e.preventDefault();
             if (!window.currentUser) return;
@@ -585,9 +656,7 @@
             const desc = document.getElementById('pDesc').value;
 
             const forbidden = ['+18', 'porno', 'armas', 'drogas', 'sexo'];
-            const isForbidden = forbidden.some(term => title.toLowerCase().includes(term) || desc.toLowerCase().includes(term));
-
-            if (isForbidden) {
+            if (forbidden.some(term => title.toLowerCase().includes(term) || desc.toLowerCase().includes(term))) {
                 alert("🚫 O anúncio contém termos que violam as regras do Mr.Scorp e foi recusado.");
                 return;
             }
@@ -629,6 +698,7 @@
                     stock: parseInt(document.getElementById('pStock').value),
                     category: document.getElementById('pCategory').value,
                     phone: document.getElementById('pPhone').value,
+                    location: document.getElementById('pLocation').value || 'Belo Horizonte',
                     desc: document.getElementById('pDesc').value,
                     images: imagesArray,
                     image: imagesArray[0] || null,
@@ -656,6 +726,39 @@
             }
         }
 
+        // ENVIAR DENÚNCIA
+        window.sendReport = async function() {
+            if (!window.reportingProductId) return;
+            const reason = document.getElementById('reportReason').value;
+            const product = window.allProducts.find(p => p.id === window.reportingProductId);
+
+            try {
+                await addDoc(reportsCol, {
+                    productId: window.reportingProductId,
+                    productTitle: product ? product.title : 'Produto',
+                    seller: product ? product.seller : 'Desconhecido',
+                    reason: reason,
+                    reportedBy: window.currentUser ? window.currentUser.email : 'Visitante Anônimo',
+                    createdAt: Date.now()
+                });
+                alert("🚩 Denúncia enviada ao Administrador do Mr.Scorp. Obrigado por ajudar a manter o site seguro!");
+                closeReportModal();
+            } catch (err) {
+                alert("Erro ao denunciar: " + err.message);
+            }
+        };
+
+        // ALTERAR VERIFICAÇÃO DO USUÁRIO
+        window.toggleUserVerification = async function(userId, currentStatus) {
+            try {
+                await updateDoc(doc(db, "users", userId), {
+                    isVerified: !currentStatus
+                });
+            } catch (err) {
+                alert("Erro ao alterar verificação: " + err.message);
+            }
+        };
+
         window.executeDeleteProduct = async function() {
             if (!window.deletingProductId) return;
             try {
@@ -670,11 +773,66 @@
         window.renderAdminPanel = function() {
             const totalProdEl = document.getElementById('adminTotalProducts');
             const totalUserEl = document.getElementById('adminTotalUsers');
+            const totalRepEl = document.getElementById('adminTotalReports');
+            const totalVerEl = document.getElementById('adminTotalVerified');
+
             const listEl = document.getElementById('adminProductList');
+            const userListEl = document.getElementById('adminUserList');
+            const repListEl = document.getElementById('adminReportList');
+            const repContainer = document.getElementById('adminReportsContainer');
+
+            const verifiedCount = (window.allUsers || []).filter(u => u.isVerified).length;
 
             if (totalProdEl) totalProdEl.innerText = (window.allProducts || []).length;
             if (totalUserEl) totalUserEl.innerText = (window.allUsers || []).length;
+            if (totalRepEl) totalRepEl.innerText = (window.allReports || []).length;
+            if (totalVerEl) totalVerEl.innerText = verifiedCount;
 
+            // DENÚNCIAS
+            if (repContainer && repListEl) {
+                if ((window.allReports || []).length > 0) {
+                    repContainer.classList.remove('hidden');
+                    repListEl.innerHTML = '';
+                    window.allReports.forEach(r => {
+                        repListEl.innerHTML += `
+                            <div class="bg-red-950/20 border border-red-900/40 p-2.5 rounded-xl flex justify-between items-center text-xs">
+                                <div>
+                                    <p class="font-bold text-white">${r.productTitle} <span class="text-red-400">(${r.reason})</span></p>
+                                    <p class="text-[10px] text-gray-400">Vendedor: ${r.seller} | Denunciado por: ${r.reportedBy}</p>
+                                </div>
+                                <button onclick="openDeleteModal('${r.productId}')" class="click-ripple bg-red-600 hover:bg-red-700 text-white px-2.5 py-1 rounded-lg text-xs">
+                                    Excluir Item
+                                </button>
+                            </div>
+                        `;
+                    });
+                } else {
+                    repContainer.classList.add('hidden');
+                }
+            }
+
+            // USUÁRIOS
+            if (userListEl) {
+                userListEl.innerHTML = '';
+                (window.allUsers || []).forEach(u => {
+                    userListEl.innerHTML += `
+                        <div class="bg-brand-dark p-2.5 rounded-xl border border-gray-800 flex justify-between items-center text-xs">
+                            <div>
+                                <p class="font-bold text-white flex items-center gap-1.5">
+                                    ${u.name}
+                                    ${u.isVerified ? '<i class="fa-solid fa-circle-check text-blue-400" title="Vendedor Verificado"></i>' : ''}
+                                </p>
+                                <p class="text-[10px] text-gray-400">${u.email}</p>
+                            </div>
+                            <button onclick="toggleUserVerification('${u.id}', ${!!u.isVerified})" class="click-ripple px-2.5 py-1 rounded-lg font-bold text-[10px] ${u.isVerified ? 'bg-amber-950 text-amber-400 border border-amber-700' : 'bg-blue-600 text-white'}">
+                                ${u.isVerified ? 'Remover Selo Verificado' : 'Conceder Selo Verificado'}
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+
+            // ANÚNCIOS
             if (listEl) {
                 listEl.innerHTML = '';
                 (window.allProducts || []).forEach(p => {
@@ -697,7 +855,7 @@
         };
     </script>
 
-    <!-- SCRIPT DE INTERFACE E CARROSSEL DE FOTOS -->
+    <!-- SCRIPT DE INTERFACE E CARROSSEL -->
     <script>
         const bannerPhrases = [
             "O marketplace mais rápido para comprar e vender direto!",
@@ -757,6 +915,32 @@
             }
         }
 
+        function filterBySeller(sellerName) {
+            window.selectedSeller = sellerName;
+            document.getElementById('sellerFilterName').innerText = sellerName;
+            document.getElementById('sellerFilterBadge').classList.remove('hidden');
+            showTab('market');
+            filterAndRenderProducts();
+        }
+
+        function clearSellerFilter() {
+            window.selectedSeller = null;
+            document.getElementById('sellerFilterBadge').classList.add('hidden');
+            filterAndRenderProducts();
+        }
+
+        function resetFiltersAndShowMarket() {
+            window.currentCategory = 'todos';
+            window.selectedSeller = null;
+            document.getElementById('searchInput').value = '';
+            document.getElementById('locationInput').value = '';
+            document.getElementById('minPriceInput').value = '';
+            document.getElementById('maxPriceInput').value = '';
+            document.getElementById('sellerFilterBadge').classList.add('hidden');
+            showTab('market');
+            filterAndRenderProducts();
+        }
+
         function changeImage(productId, direction, totalImages) {
             if (!window.productImageIndices[productId]) {
                 window.productImageIndices[productId] = 0;
@@ -782,6 +966,17 @@
             }
         }
 
+        function shareProduct(title, price, id) {
+            const shareText = `Confira este produto no Mr.Scorp: "${title}" por R$ ${parseFloat(price).toFixed(2).replace('.', ',')}!`;
+            if (navigator.share) {
+                navigator.share({ title: 'Mr.Scorp Marketplace', text: shareText, url: window.location.href })
+                    .catch(() => {});
+            } else {
+                navigator.clipboard.writeText(`${shareText} - ${window.location.href}`);
+                alert("🔗 Link do produto copiado para a sua área de transferência!");
+            }
+        }
+
         function toggleFavorite(id) {
             const index = window.favorites.indexOf(id);
             if (index > -1) {
@@ -796,8 +991,11 @@
         function filterAndRenderProducts() {
             const grid = document.getElementById('productGrid');
             const empty = document.getElementById('emptyState');
-            const searchInput = document.getElementById('searchInput');
-            const search = searchInput ? searchInput.value.toLowerCase() : '';
+
+            const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
+            const locationSearch = (document.getElementById('locationInput')?.value || '').toLowerCase();
+            const minPrice = parseFloat(document.getElementById('minPriceInput')?.value) || 0;
+            const maxPrice = parseFloat(document.getElementById('maxPriceInput')?.value) || Infinity;
 
             grid.innerHTML = '';
 
@@ -806,8 +1004,14 @@
                 const matchCat = window.currentCategory === 'todos' || 
                                  (window.currentCategory === 'favoritos' && isFav) || 
                                  p.category === window.currentCategory;
+                
                 const matchSearch = (p.title || '').toLowerCase().includes(search) || (p.desc || '').toLowerCase().includes(search);
-                return matchCat && matchSearch;
+                const matchLocation = !locationSearch || (p.location || '').toLowerCase().includes(locationSearch);
+                const priceVal = parseFloat(p.price || 0);
+                const matchPrice = priceVal >= minPrice && priceVal <= maxPrice;
+                const matchSeller = !window.selectedSeller || (p.seller || '').toLowerCase() === window.selectedSeller.toLowerCase();
+
+                return matchCat && matchSearch && matchLocation && matchPrice && matchSeller;
             });
 
             if (filtered.length === 0) {
@@ -822,6 +1026,9 @@
                         (p.sellerEmail && window.currentUser.email && p.sellerEmail.toLowerCase() === window.currentUser.email.toLowerCase()) ||
                         (window.currentUser.name || '').toLowerCase() === (p.seller || '').toLowerCase()
                     );
+
+                    const sellerUserDoc = (window.allUsers || []).find(u => (u.email && p.sellerEmail && u.email.toLowerCase() === p.sellerEmail.toLowerCase()) || u.name.toLowerCase() === (p.seller || '').toLowerCase());
+                    const isVerifiedSeller = sellerUserDoc && sellerUserDoc.isVerified;
 
                     const isAdmin = isUserAdmin();
                     const canEditOrDelete = isOwner || isAdmin;
@@ -873,6 +1080,10 @@
                                         <i class="fa-solid fa-heart"></i>
                                     </button>
 
+                                    <button onclick="openReportModal('${p.id}')" class="absolute top-2 right-12 bg-black/70 backdrop-blur-md text-gray-400 hover:text-red-400 w-8 h-8 rounded-full flex items-center justify-center text-xs border border-gray-700 z-30 transition-all" title="Denunciar Anúncio">
+                                        <i class="fa-solid fa-flag"></i>
+                                    </button>
+
                                     <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-gray-300 text-[10px] px-2 py-1 rounded-full border border-gray-700 font-semibold z-20">
                                         Qtd: ${p.stock || 1}
                                     </span>
@@ -890,17 +1101,26 @@
                                 </div>
 
                                 <div class="p-4">
-                                    <h3 class="font-bold text-white text-base line-clamp-1 mb-1">${p.title}</h3>
-                                    <p class="text-xs text-gray-400 mb-3 line-clamp-2">${p.desc}</p>
+                                    <div class="flex justify-between items-start gap-1 mb-1">
+                                        <h3 class="font-bold text-white text-base line-clamp-1">${p.title}</h3>
+                                        <button onclick="shareProduct('${p.title}', ${p.price}, '${p.id}')" class="text-gray-400 hover:text-brand-neonGreen text-xs p-1" title="Compartilhar">
+                                            <i class="fa-solid fa-share-nodes"></i>
+                                        </button>
+                                    </div>
+                                    <p class="text-xs text-gray-400 mb-2 line-clamp-2">${p.desc}</p>
+                                    <p class="text-[10px] text-gray-500 mb-3 flex items-center gap-1">
+                                        <i class="fa-solid fa-location-dot text-brand-neonGreen"></i> ${p.location || 'Belo Horizonte'}
+                                    </p>
                                     <div class="flex justify-between items-end">
                                         <div>
                                             <span class="text-[10px] text-gray-500 uppercase block">Preço</span>
                                             <span class="font-title text-lg font-bold text-brand-neonGreen">R$ ${parseFloat(p.price || 0).toFixed(2).replace('.', ',')}</span>
                                         </div>
-                                        <span class="text-[10px] text-gray-400 bg-brand-dark px-2 py-1 rounded-lg border border-gray-800 flex items-center gap-1">
+                                        <button onclick="filterBySeller('${p.seller}')" class="text-[10px] text-gray-400 bg-brand-dark hover:bg-gray-800 px-2 py-1 rounded-lg border border-gray-800 flex items-center gap-1 cursor-pointer transition-all">
                                             ${p.sellerEmail && p.sellerEmail.toLowerCase() === (window.ADMIN_EMAIL || '').toLowerCase() ? '<i class="fa-solid fa-crown text-amber-400" title="Criador do Site"></i>' : ''}
+                                            ${isVerifiedSeller ? '<i class="fa-solid fa-circle-check text-blue-400" title="Vendedor Verificado"></i>' : ''}
                                             Vendedor: <strong>${p.seller}</strong>
-                                        </span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -929,6 +1149,7 @@
             document.getElementById('pStock').value = p.stock || 1;
             document.getElementById('pCategory').value = p.category;
             document.getElementById('pPhone').value = p.phone;
+            document.getElementById('pLocation').value = p.location || '';
             document.getElementById('pDesc').value = p.desc;
 
             document.getElementById('formTitle').innerHTML = `<i class="fa-solid fa-pen text-brand-neonGreen"></i> Editar Anúncio`;
@@ -943,6 +1164,20 @@
             document.getElementById('formTitle').innerHTML = `<i class="fa-solid fa-plus-circle text-brand-neonGreen"></i> Publicar Novo Anúncio`;
             document.getElementById('btnPublishText').innerText = "PUBLICAR AGORA";
         }
+
+        function openReportModal(id) {
+            window.reportingProductId = id;
+            document.getElementById('reportModal').classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeReportModal() {
+            window.reportingProductId = null;
+            document.getElementById('reportModal').classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        document.getElementById('btnConfirmReport').addEventListener('click', () => {
+            if (window.sendReport) window.sendReport();
+        });
 
         function openDeleteModal(id) {
             window.deletingProductId = id;
@@ -966,7 +1201,7 @@
             details.innerHTML = `
                 <p class="text-xs font-bold text-white">${p.title}</p>
                 <p class="text-xs text-brand-neonGreen font-title font-bold">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</p>
-                <p class="text-[10px] text-gray-400">Vendedor: ${p.seller}</p>
+                <p class="text-[10px] text-gray-400">Vendedor: ${p.seller} | Local: ${p.location || 'BH'}</p>
             `;
 
             const btn = document.getElementById('btnConfirmBuy');
@@ -1010,12 +1245,12 @@
             window.currentCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(btn => {
                 btn.classList.remove('bg-brand-neonGreen', 'text-black', 'font-bold');
-                btn.classList.add('bg-brand-card', 'text-gray-300');
+                btn.classList.add('bg-brand-dark', 'text-gray-300');
             });
             
             const selectedBtn = document.getElementById(`cat-${cat}`);
             if (selectedBtn) {
-                selectedBtn.classList.remove('bg-brand-card', 'text-gray-300');
+                selectedBtn.classList.remove('bg-brand-dark', 'text-gray-300');
                 selectedBtn.classList.add('bg-brand-neonGreen', 'text-black', 'font-bold');
             }
             filterAndRenderProducts();
