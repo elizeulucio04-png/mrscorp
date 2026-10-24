@@ -105,7 +105,7 @@
 
             <!-- CONTROLES E MENU -->
             <div class="flex items-center gap-2">
-                <button onclick="showTab('publish')" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 active:scale-95 transition-all shadow-md">
+                <button onclick="handleSellClick()" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 active:scale-95 transition-all shadow-md">
                     <i class="fa-solid fa-plus"></i>
                     <span class="hidden sm:inline">Anunciar</span>
                 </button>
@@ -121,6 +121,7 @@
                         <div id="menuUserInfo" class="p-2 border-b border-gray-800 mb-1 hidden">
                             <p class="text-[10px] text-gray-400 uppercase">Logado como</p>
                             <p id="menuUserName" class="text-xs font-bold text-brand-neonGreen truncate"></p>
+                            <span id="sellerStatusBadge" class="text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold"></span>
                         </div>
                         
                         <button onclick="resetFiltersAndShowMarket(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
@@ -222,7 +223,7 @@
             </div>
         </div>
 
-        <!-- ABA 2: PUBLICAR / EDITAR ANÚNCIO (COM LOCALIZAÇÃO E ATÉ 3 FOTOS) -->
+        <!-- ABA 2: PUBLICAR / EDITAR ANÚNCIO (COM ESTADO DO PRODUTO) -->
         <div id="tabPublish" class="hidden max-w-xl mx-auto space-y-5">
             <div class="border-b border-gray-800 pb-3">
                 <h2 id="formTitle" class="font-title text-xl font-bold text-white flex items-center gap-2">
@@ -239,7 +240,7 @@
                     <input type="text" id="pTitle" required placeholder="Ex: iPhone 11 64GB / Tênis Skate" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
 
-                <div class="grid grid-cols-3 gap-3">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div class="col-span-1">
                         <label class="text-xs font-semibold text-gray-300 uppercase">Preço (R$) *</label>
                         <input type="number" step="0.01" id="pPrice" required placeholder="150.00" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
@@ -249,8 +250,16 @@
                         <input type="number" id="pStock" min="1" value="1" required class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                     </div>
                     <div class="col-span-1">
+                        <label class="text-xs font-semibold text-gray-300 uppercase">Estado *</label>
+                        <select id="pCondition" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
+                            <option value="Novo">✨ Novo</option>
+                            <option value="Seminovo">👌 Seminovo</option>
+                            <option value="Usado">🏷️ Usado</option>
+                        </select>
+                    </div>
+                    <div class="col-span-1">
                         <label class="text-xs font-semibold text-gray-300 uppercase">Categoria *</label>
-                        <select id="pCategory" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                        <select id="pCategory" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
                             <option value="eletronicos">Eletrônicos</option>
                             <option value="games">Games</option>
                             <option value="moda">Moda</option>
@@ -285,7 +294,7 @@
 
                 <div class="bg-red-950/30 border border-red-900/50 p-3 rounded-xl text-[11px] text-red-300 flex items-center gap-2">
                     <i class="fa-solid fa-shield-halved text-base"></i>
-                    <span>Ao anunciar, você atesta ter mais de 18 anos e que este anúncio não viola os termos de conteúdo do Mr.Scorp.</span>
+                    <span>Sua conta está verificada como maior de 18 anos. Conteúdos adultos (+18) ou ilegais são estritamente proibidos.</span>
                 </div>
 
                 <div class="flex gap-2 pt-2">
@@ -297,7 +306,7 @@
             </form>
         </div>
 
-        <!-- ABA 3: PAINEL DO ADMINISTRADOR (COM DENÚNCIAS E VERIFICAÇÕES) -->
+        <!-- ABA 3: PAINEL DO ADMINISTRADOR (COM VERIFICAÇÃO DE IDADE E VENDEDOR) -->
         <div id="tabAdmin" class="hidden max-w-4xl mx-auto space-y-6">
             <div class="bg-gradient-to-r from-amber-950/40 to-brand-card border border-amber-500/40 p-5 rounded-2xl flex justify-between items-center">
                 <div>
@@ -326,8 +335,8 @@
                     <span id="adminTotalReports" class="font-title text-2xl font-bold text-red-500">0</span>
                 </div>
                 <div class="bg-brand-card p-4 rounded-2xl border border-gray-800 text-center">
-                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Verificados</span>
-                    <span id="adminTotalVerified" class="font-title text-2xl font-bold text-blue-400">0</span>
+                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Vendedores 18+</span>
+                    <span id="adminTotalSellers" class="font-title text-2xl font-bold text-blue-400">0</span>
                 </div>
             </div>
 
@@ -339,11 +348,12 @@
                 <div id="adminReportList" class="space-y-2"></div>
             </div>
 
-            <!-- LISTA DE GERENCIAMENTO DE USUÁRIOS & VERIFICAÇÃO -->
+            <!-- GERENCIAMENTO DE VENDEDORES (APROVAÇÃO 18+) -->
             <div class="bg-brand-card/90 border border-gray-800 rounded-2xl p-4">
-                <h3 class="font-title font-bold text-white text-sm mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-users-gear text-blue-400"></i> Gerenciamento de Usuários & Selo Verificado
+                <h3 class="font-title font-bold text-white text-sm mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-blue-400"></i> Moderação de Vendedores (Aprovação 18+)
                 </h3>
+                <p class="text-[11px] text-gray-400 mb-3">Liberte a permissão de anúncio para usuários confirmados.</p>
                 <div id="adminUserList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
             </div>
 
@@ -378,7 +388,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE LOGIN / CADASTRO -->
+    <!-- MODAL DE LOGIN / CADASTRO COM DATA DE NASCIMENTO (VERIFICAÇÃO DE IDADE REAL) -->
     <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -415,25 +425,47 @@
                     <input type="email" id="regEmail" required placeholder="mrscorp.contato@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Criar Senha *</label>
-                    <input type="password" id="regPass1" minlength="6" required placeholder="Mínimo 6 caracteres" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Data de Nascimento (Obrigatório 18+) *</label>
+                    <input type="date" id="regBirthDate" required class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
-                <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Confirmar Senha *</label>
-                    <input type="password" id="regPass2" minlength="6" required placeholder="Repita a senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="text-[11px] font-semibold text-gray-400 uppercase">Criar Senha *</label>
+                        <input type="password" id="regPass1" minlength="6" required placeholder="Mínimo 6 dígitos" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-gray-400 uppercase">Repetir Senha *</label>
+                        <input type="password" id="regPass2" minlength="6" required placeholder="Repita a senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
                 </div>
 
-                <div class="flex items-start gap-2 pt-1">
-                    <input type="checkbox" id="regAgeCheck" required class="mt-1 accent-brand-neonGreen">
-                    <label for="regAgeCheck" class="text-[10px] text-gray-300 leading-tight">
-                        Declaro que **possuo 18 anos ou mais** e concordo em não anunciar produtos impróprios, adultos (+18) ou ilegais no Mr.Scorp.
-                    </label>
+                <div class="bg-brand-dark/80 p-2.5 rounded-xl border border-gray-800 text-[10px] text-gray-400 leading-tight">
+                    🔒 <strong class="text-white">Verificação de Idade:</strong> Ao cadastrar, o sistema valida sua idade real. Contas de menores de 18 anos são bloqueadas de anunciar produtos.
                 </div>
 
                 <button type="submit" id="btnRegSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all">
                     CRIAR CONTA SEGURA
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE AVISO: NECESSÁRIO PERMISSÃO DE VENDEDOR -->
+    <div id="sellerNoticeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
+        <div class="bg-brand-card/95 backdrop-blur-md border border-amber-500/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-amber-950/60 border border-amber-500 text-amber-400 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-user-lock"></i>
+            </div>
+            <h3 class="font-title font-bold text-white text-base">Ativação de Vendedor 18+</h3>
+            <p class="text-xs text-gray-300">Sua conta atual está registrada como **Comprador**. Para liberar a publicação de anúncios, fale com a administração para confirmar sua verificação.</p>
+            <div class="space-y-2 pt-2">
+                <a href="https://wa.me/5531999999999?text=Olá!%20Gostaria%20de%20solicitar%20a%20ativação%20da%20minha%20conta%20de%20Vendedor%2018+%20no%20Mr.Scorp!" target="_blank" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> SOLICITAR ATIVAÇÃO NO WHATSAPP
+                </a>
+                <button onclick="closeSellerNoticeModal()" class="click-ripple w-full bg-brand-dark border border-gray-700 text-gray-400 text-xs py-2 rounded-xl">
+                    Voltar
+                </button>
+            </div>
         </div>
     </div>
 
@@ -464,8 +496,8 @@
 
             <div class="space-y-3 text-xs text-gray-300 max-h-80 overflow-y-auto pr-1">
                 <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
-                    <h4 class="font-bold text-brand-neonGreen mb-1">🔞 Restrição de Idade (18+)</h4>
-                    <p>Somente maiores de 18 anos podem se cadastrar e publicar produtos para venda na plataforma.</p>
+                    <h4 class="font-bold text-brand-neonGreen mb-1">🔞 Restrição Rigorosa de Idade (18+)</h4>
+                    <p>Apenas maiores de 18 anos cadastrados e verificados podem publicar produtos para venda na plataforma.</p>
                 </div>
 
                 <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
@@ -552,6 +584,17 @@
 
         onSnapshot(query(usersCol), (snapshot) => {
             window.allUsers = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+            
+            // Atualizar perfil do usuario ativo em tempo real
+            if (window.currentUser) {
+                const updatedMe = window.allUsers.find(u => u.email === window.currentUser.email);
+                if (updatedMe) {
+                    window.currentUser = { ...window.currentUser, isSellerAllowed: updatedMe.isSellerAllowed, isVerified: updatedMe.isVerified };
+                    localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
+                    window.updateUserMenu();
+                }
+            }
+
             window.filterAndRenderProducts();
             window.renderAdminPanel();
         });
@@ -561,16 +604,31 @@
             window.renderAdminPanel();
         });
 
-        // CADASTRO
+        // CADASTRO COM VERIFICAÇÃO DE IDADE REAL
         window.handleRealRegister = async function(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value;
             const email = document.getElementById('regEmail').value.toLowerCase().trim();
+            const birthDateStr = document.getElementById('regBirthDate').value;
             const p1 = document.getElementById('regPass1').value;
             const p2 = document.getElementById('regPass2').value;
 
             if (p1 !== p2) {
                 alert("⚠️ Erro: As senhas digitadas não batem!");
+                return;
+            }
+
+            // CALCULAR IDADE REAL
+            const birthDate = new Date(birthDateStr);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            if (age < 18) {
+                alert("🚫 Cadastro Bloqueado: O Mr.Scorp é restrito para maiores de 18 anos.");
                 return;
             }
 
@@ -587,22 +645,27 @@
                     return;
                 }
 
+                const isAdmin = email === window.ADMIN_EMAIL;
+
                 await addDoc(usersCol, {
                     name: name,
                     email: email,
                     pass: p1,
+                    birthDate: birthDateStr,
+                    age: age,
                     isAdult: true,
-                    isVerified: email === window.ADMIN_EMAIL,
+                    isSellerAllowed: isAdmin, // Dono ja nasce como Vendedor liberado
+                    isVerified: isAdmin,
                     createdAt: Date.now()
                 });
 
-                window.currentUser = { name: name, email: email };
+                window.currentUser = { name: name, email: email, isSellerAllowed: isAdmin, isVerified: isAdmin };
                 localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
 
                 window.updateUserMenu();
                 window.closeLoginModal();
                 window.filterAndRenderProducts();
-                alert(`🎉 Conta criada com sucesso! Bem-vindo ao Mr.Scorp, ${name}!`);
+                alert(`🎉 Conta criada e idade verificada (${age} anos)! Bem-vindo ao Mr.Scorp, ${name}!`);
             } catch (err) {
                 alert("Erro ao cadastrar: " + err.message);
             } finally {
@@ -611,7 +674,7 @@
             }
         };
 
-        // LOGIN
+        // LOGIN REAL
         window.handleRealLogin = async function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.toLowerCase().trim();
@@ -632,7 +695,12 @@
                 }
 
                 const userData = snap.docs[0].data();
-                window.currentUser = { name: userData.name, email: userData.email };
+                window.currentUser = { 
+                    name: userData.name, 
+                    email: userData.email, 
+                    isSellerAllowed: userData.isSellerAllowed || userData.email === window.ADMIN_EMAIL,
+                    isVerified: userData.isVerified || false
+                };
                 localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
 
                 window.updateUserMenu();
@@ -696,6 +764,7 @@
                     title: document.getElementById('pTitle').value,
                     price: parseFloat(document.getElementById('pPrice').value),
                     stock: parseInt(document.getElementById('pStock').value),
+                    condition: document.getElementById('pCondition').value || 'Seminovo',
                     category: document.getElementById('pCategory').value,
                     phone: document.getElementById('pPhone').value,
                     location: document.getElementById('pLocation').value || 'Belo Horizonte',
@@ -748,14 +817,15 @@
             }
         };
 
-        // ALTERAR VERIFICAÇÃO DO USUÁRIO
-        window.toggleUserVerification = async function(userId, currentStatus) {
+        // ALTERAR PERMISSÃO DE VENDEDOR DO USUÁRIO
+        window.toggleSellerPermission = async function(userId, currentStatus) {
             try {
                 await updateDoc(doc(db, "users", userId), {
+                    isSellerAllowed: !currentStatus,
                     isVerified: !currentStatus
                 });
             } catch (err) {
-                alert("Erro ao alterar verificação: " + err.message);
+                alert("Erro ao alterar permissão: " + err.message);
             }
         };
 
@@ -774,19 +844,19 @@
             const totalProdEl = document.getElementById('adminTotalProducts');
             const totalUserEl = document.getElementById('adminTotalUsers');
             const totalRepEl = document.getElementById('adminTotalReports');
-            const totalVerEl = document.getElementById('adminTotalVerified');
+            const totalSelEl = document.getElementById('adminTotalSellers');
 
             const listEl = document.getElementById('adminProductList');
             const userListEl = document.getElementById('adminUserList');
             const repListEl = document.getElementById('adminReportList');
             const repContainer = document.getElementById('adminReportsContainer');
 
-            const verifiedCount = (window.allUsers || []).filter(u => u.isVerified).length;
+            const sellerCount = (window.allUsers || []).filter(u => u.isSellerAllowed).length;
 
             if (totalProdEl) totalProdEl.innerText = (window.allProducts || []).length;
             if (totalUserEl) totalUserEl.innerText = (window.allUsers || []).length;
             if (totalRepEl) totalRepEl.innerText = (window.allReports || []).length;
-            if (totalVerEl) totalVerEl.innerText = verifiedCount;
+            if (totalSelEl) totalSelEl.innerText = sellerCount;
 
             // DENÚNCIAS
             if (repContainer && repListEl) {
@@ -811,7 +881,7 @@
                 }
             }
 
-            // USUÁRIOS
+            // USUÁRIOS E LIBERAÇÃO 18+
             if (userListEl) {
                 userListEl.innerHTML = '';
                 (window.allUsers || []).forEach(u => {
@@ -820,12 +890,12 @@
                             <div>
                                 <p class="font-bold text-white flex items-center gap-1.5">
                                     ${u.name}
-                                    ${u.isVerified ? '<i class="fa-solid fa-circle-check text-blue-400" title="Vendedor Verificado"></i>' : ''}
+                                    ${u.isSellerAllowed ? '<i class="fa-solid fa-circle-check text-blue-400" title="Vendedor 18+ Autorizado"></i>' : ''}
                                 </p>
-                                <p class="text-[10px] text-gray-400">${u.email}</p>
+                                <p class="text-[10px] text-gray-400">${u.email} | Nasc: ${u.birthDate || 'N/D'} (${u.age || 18} anos)</p>
                             </div>
-                            <button onclick="toggleUserVerification('${u.id}', ${!!u.isVerified})" class="click-ripple px-2.5 py-1 rounded-lg font-bold text-[10px] ${u.isVerified ? 'bg-amber-950 text-amber-400 border border-amber-700' : 'bg-blue-600 text-white'}">
-                                ${u.isVerified ? 'Remover Selo Verificado' : 'Conceder Selo Verificado'}
+                            <button onclick="toggleSellerPermission('${u.id}', ${!!u.isSellerAllowed})" class="click-ripple px-2.5 py-1 rounded-lg font-bold text-[10px] ${u.isSellerAllowed ? 'bg-red-950/60 text-red-400 border border-red-800' : 'bg-brand-neonGreen text-black'}">
+                                ${u.isSellerAllowed ? 'Revogar Vendedor' : 'Aprovar Vendedor (18+)'}
                             </button>
                         </div>
                     `;
@@ -888,11 +958,20 @@
             const userName = document.getElementById('menuUserName');
             const authBtns = document.getElementById('menuAuthBtns');
             const adminBtn = document.getElementById('adminMenuBtn');
+            const badge = document.getElementById('sellerStatusBadge');
 
             if (window.currentUser) {
                 userInfo.classList.remove('hidden');
                 userName.innerText = window.currentUser.name;
                 
+                if (window.currentUser.isSellerAllowed || isUserAdmin()) {
+                    badge.innerText = "🟢 Vendedor Autorizado (18+)";
+                    badge.className = "text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold bg-emerald-950 text-brand-neonGreen border border-emerald-800";
+                } else {
+                    badge.innerText = "🟡 Comprador";
+                    badge.className = "text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold bg-amber-950 text-amber-400 border border-amber-800";
+                }
+
                 if (isUserAdmin()) {
                     adminBtn.classList.remove('hidden');
                 } else {
@@ -1028,7 +1107,7 @@
                     );
 
                     const sellerUserDoc = (window.allUsers || []).find(u => (u.email && p.sellerEmail && u.email.toLowerCase() === p.sellerEmail.toLowerCase()) || u.name.toLowerCase() === (p.seller || '').toLowerCase());
-                    const isVerifiedSeller = sellerUserDoc && sellerUserDoc.isVerified;
+                    const isVerifiedSeller = sellerUserDoc && sellerUserDoc.isSellerAllowed;
 
                     const isAdmin = isUserAdmin();
                     const canEditOrDelete = isOwner || isAdmin;
@@ -1084,8 +1163,9 @@
                                         <i class="fa-solid fa-flag"></i>
                                     </button>
 
-                                    <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-gray-300 text-[10px] px-2 py-1 rounded-full border border-gray-700 font-semibold z-20">
-                                        Qtd: ${p.stock || 1}
+                                    <!-- CONDICAO DO PRODUTO -->
+                                    <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-brand-neonGreen text-[10px] px-2 py-1 rounded-full border border-gray-700 font-semibold z-20">
+                                        ${p.condition || 'Seminovo'}
                                     </span>
 
                                     ${canEditOrDelete ? `
@@ -1118,7 +1198,7 @@
                                         </div>
                                         <button onclick="filterBySeller('${p.seller}')" class="text-[10px] text-gray-400 bg-brand-dark hover:bg-gray-800 px-2 py-1 rounded-lg border border-gray-800 flex items-center gap-1 cursor-pointer transition-all">
                                             ${p.sellerEmail && p.sellerEmail.toLowerCase() === (window.ADMIN_EMAIL || '').toLowerCase() ? '<i class="fa-solid fa-crown text-amber-400" title="Criador do Site"></i>' : ''}
-                                            ${isVerifiedSeller ? '<i class="fa-solid fa-circle-check text-blue-400" title="Vendedor Verificado"></i>' : ''}
+                                            ${isVerifiedSeller ? '<i class="fa-solid fa-circle-check text-blue-400" title="Vendedor Autorizado 18+"></i>' : ''}
                                             Vendedor: <strong>${p.seller}</strong>
                                         </button>
                                     </div>
@@ -1147,6 +1227,7 @@
             document.getElementById('pTitle').value = p.title;
             document.getElementById('pPrice').value = p.price;
             document.getElementById('pStock').value = p.stock || 1;
+            document.getElementById('pCondition').value = p.condition || 'Seminovo';
             document.getElementById('pCategory').value = p.category;
             document.getElementById('pPhone').value = p.phone;
             document.getElementById('pLocation').value = p.location || '';
@@ -1221,14 +1302,30 @@
         }
 
         function showTab(tab) {
-            if ((tab === 'publish' || tab === 'admin') && !window.currentUser) {
+            if (!window.currentUser && (tab === 'publish' || tab === 'admin')) {
                 openLoginModal();
                 return;
+            }
+
+            if (tab === 'publish') {
+                const canSell = window.currentUser.isSellerAllowed || isUserAdmin();
+                if (!canSell) {
+                    openSellerNoticeModal();
+                    return;
+                }
             }
 
             document.getElementById('tabMarket').classList.toggle('hidden', tab !== 'market');
             document.getElementById('tabPublish').classList.toggle('hidden', tab !== 'publish');
             document.getElementById('tabAdmin').classList.toggle('hidden', tab !== 'admin');
+        }
+
+        function openSellerNoticeModal() {
+            document.getElementById('sellerNoticeModal').classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeSellerNoticeModal() {
+            document.getElementById('sellerNoticeModal').classList.add('opacity-0', 'pointer-events-none');
         }
 
         function handleSellClick() {
