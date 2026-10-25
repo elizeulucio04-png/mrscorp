@@ -79,7 +79,7 @@
 </head>
 <body class="min-h-screen flex flex-col pb-16 relative z-10">
 
-    <!-- MARCA D'ÁGUA TIPOGRÁFICA "MR.SCORP" -->
+    <!-- MARCA D'ÁGUA TIPOGRÁFICA -->
     <div class="fixed inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden select-none">
         <span class="font-title font-black text-[14vw] sm:text-[120px] text-brand-neonGreen opacity-[0.03] tracking-widest text-center whitespace-nowrap transform -rotate-12">
             MR.SCORP
@@ -88,7 +88,7 @@
 
     <!-- HEADER -->
     <header class="sticky top-0 z-40 bg-brand-dark/95 backdrop-blur-md border-b border-gray-800 shadow-xl">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+        <div class="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between gap-3">
             
             <!-- LOGO -->
             <div class="flex items-center gap-2 cursor-pointer click-ripple p-1 rounded-xl" onclick="resetFiltersAndShowMarket()">
@@ -96,10 +96,10 @@
                     <i class="fa-solid fa-scorpion text-brand-neonGreen text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-title text-xl font-black text-white">
+                    <h1 class="font-title text-base sm:text-xl font-black text-white">
                         Mr.<span class="text-brand-neonGreen neon-glow-green">Scorp</span>
                     </h1>
-                    <p class="text-[9px] text-gray-400 uppercase tracking-widest font-semibold">MARKETPLACE</p>
+                    <p class="text-[8px] sm:text-[9px] text-gray-400 uppercase tracking-widest font-semibold">MARKETPLACE</p>
                 </div>
             </div>
 
@@ -154,28 +154,28 @@
     </header>
 
     <!-- BANNER DINÂMICO -->
-    <div class="bg-gradient-to-r from-emerald-950 via-black to-brand-dark border-b border-gray-800 py-2.5 px-4 text-center relative z-10">
-        <p class="text-xs sm:text-sm font-semibold text-gray-200 flex items-center justify-center gap-2">
+    <div class="bg-gradient-to-r from-emerald-950 via-black to-brand-dark border-b border-gray-800 py-2 px-4 text-center relative z-10">
+        <p class="text-xs font-semibold text-gray-200 flex items-center justify-center gap-2">
             <span class="text-brand-neonGreen animate-pulse">⚡</span> 
             <span id="dynamicBannerText">O marketplace mais rápido para comprar e vender direto!</span>
         </p>
     </div>
 
     <!-- MAIN CONTENT -->
-    <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full relative z-10">
+    <main class="max-w-6xl mx-auto px-2 sm:px-4 py-4 flex-1 w-full relative z-10">
 
         <!-- ABA 1: VITRINE DE PRODUTOS -->
-        <div id="tabMarket" class="space-y-6">
+        <div id="tabMarket" class="space-y-4">
             
-            <!-- BUSCA E FILTROS AVANÇADOS -->
-            <div class="space-y-3 bg-brand-card/60 p-4 rounded-2xl border border-gray-800/80 backdrop-blur-md">
+            <!-- BUSCA E FILTROS -->
+            <div class="space-y-3 bg-brand-card/60 p-3 sm:p-4 rounded-2xl border border-gray-800/80 backdrop-blur-md">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                     <div class="relative w-full md:col-span-2">
-                        <input type="text" id="searchInput" oninput="filterAndRenderProducts()" placeholder="O que você procura no Mr.Scorp hoje?..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
+                        <input type="text" id="searchInput" oninput="filterAndRenderProducts()" placeholder="O que você procura no Mr.Scorp hoje?..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
                         <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-500"></i>
                     </div>
                     <div class="relative w-full">
-                        <input type="text" id="locationInput" oninput="filterAndRenderProducts()" placeholder="📍 Bairro ou Cidade..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
+                        <input type="text" id="locationInput" oninput="filterAndRenderProducts()" placeholder="📍 Bairro ou Cidade..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-9 pr-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
                         <i class="fa-solid fa-location-dot absolute left-3 top-3.5 text-gray-500"></i>
                     </div>
                 </div>
@@ -197,18 +197,18 @@
 
                 <!-- CATEGORIAS -->
                 <div class="flex gap-2 overflow-x-auto pt-2 pb-1 text-xs no-scrollbar items-center w-full">
-                    <button id="cat-todos" onclick="setCategory('todos')" class="cat-btn click-ripple shrink-0 active bg-brand-neonGreen text-black font-bold px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🔥 Todos</button>
-                    <button id="cat-favoritos" onclick="setCategory('favoritos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">❤️ Favoritos</button>
-                    <button id="cat-eletronicos" onclick="setCategory('eletronicos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">📱 Eletrônicos</button>
-                    <button id="cat-games" onclick="setCategory('games')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🎮 Games & Acessórios</button>
-                    <button id="cat-moda" onclick="setCategory('moda')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">👕 Moda & Estilo</button>
-                    <button id="cat-automotivo" onclick="setCategory('automotivo')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🚗 Automotivo</button>
-                    <button id="cat-servicos" onclick="setCategory('servicos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-4 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🛠️ Serviços</button>
+                    <button id="cat-todos" onclick="setCategory('todos')" class="cat-btn click-ripple shrink-0 active bg-brand-neonGreen text-black font-bold px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🔥 Todos</button>
+                    <button id="cat-favoritos" onclick="setCategory('favoritos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">❤️ Favoritos</button>
+                    <button id="cat-eletronicos" onclick="setCategory('eletronicos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">📱 Eletrônicos</button>
+                    <button id="cat-games" onclick="setCategory('games')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🎮 Games</button>
+                    <button id="cat-moda" onclick="setCategory('moda')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">👕 Moda</button>
+                    <button id="cat-automotivo" onclick="setCategory('automotivo')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🚗 Automotivo</button>
+                    <button id="cat-servicos" onclick="setCategory('servicos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🛠️ Serviços</button>
                 </div>
             </div>
 
-            <!-- GRID DE PRODUTOS -->
-            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            <!-- GRID DE PRODUTOS 2 COLUNAS (DO LADO DO OUTRO) -->
+            <div id="productGrid" class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4"></div>
 
             <!-- ESTADO VAZIO -->
             <div id="emptyState" class="text-center py-20 hidden space-y-3">
@@ -243,11 +243,11 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div class="col-span-1">
                         <label class="text-xs font-semibold text-gray-300 uppercase">Preço (R$) *</label>
-                        <input type="number" step="0.01" id="pPrice" required placeholder="150.00" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                        <input type="number" step="0.01" id="pPrice" required placeholder="150.00" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
                     </div>
                     <div class="col-span-1">
-                        <label class="text-xs font-semibold text-gray-300 uppercase">Qtd. Estoque *</label>
-                        <input type="number" id="pStock" min="1" value="1" required class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                        <label class="text-xs font-semibold text-gray-300 uppercase">Estoque *</label>
+                        <input type="number" id="pStock" min="1" value="1" required class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
                     </div>
                     <div class="col-span-1">
                         <label class="text-xs font-semibold text-gray-300 uppercase">Estado *</label>
@@ -280,7 +280,6 @@
                     </div>
                 </div>
 
-                <!-- GALERIA MÚLTIPLA -->
                 <div>
                     <label class="text-xs font-semibold text-gray-300 uppercase">Fotos do Produto (Até 3 Fotos)</label>
                     <input type="file" id="pImage" accept="image/*" multiple class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-gray-400 mt-1 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-brand-neonGreen file:text-black file:font-bold">
@@ -290,11 +289,6 @@
                 <div>
                     <label class="text-xs font-semibold text-gray-300 uppercase">Descrição Completa *</label>
                     <textarea id="pDesc" rows="3" required placeholder="Detalhes do estado de conservação..." class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1"></textarea>
-                </div>
-
-                <div class="bg-red-950/30 border border-red-900/50 p-3 rounded-xl text-[11px] text-red-300 flex items-center gap-2">
-                    <i class="fa-solid fa-shield-halved text-base"></i>
-                    <span>Sua conta está verificada como maior de 18 anos. Conteúdos adultos (+18) ou ilegais são estritamente proibidos.</span>
                 </div>
 
                 <div class="flex gap-2 pt-2">
@@ -340,7 +334,6 @@
                 </div>
             </div>
 
-            <!-- DENÚNCIAS RECEBIDAS -->
             <div id="adminReportsContainer" class="bg-brand-card/90 border border-red-900/40 rounded-2xl p-4 hidden">
                 <h3 class="font-title font-bold text-red-400 text-sm mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-triangle-exclamation"></i> Alertas e Denúncias de Produtos
@@ -348,16 +341,13 @@
                 <div id="adminReportList" class="space-y-2"></div>
             </div>
 
-            <!-- GERENCIAMENTO DE VENDEDORES -->
             <div class="bg-brand-card/90 border border-gray-800 rounded-2xl p-4">
                 <h3 class="font-title font-bold text-white text-sm mb-1 flex items-center gap-2">
                     <i class="fa-solid fa-user-shield text-blue-400"></i> Moderação de Vendedores (Aprovação 18+)
                 </h3>
-                <p class="text-[11px] text-gray-400 mb-3">Liberte a permissão de anúncio para usuários confirmados.</p>
                 <div id="adminUserList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
             </div>
 
-            <!-- GERENCIAMENTO GERAL DE ANÚNCIOS -->
             <div class="bg-brand-card/90 border border-gray-800 rounded-2xl p-4">
                 <h3 class="font-title font-bold text-white text-sm mb-3">Gerenciamento Geral de Anúncios</h3>
                 <div id="adminProductList" class="space-y-2"></div>
@@ -366,7 +356,72 @@
 
     </main>
 
-    <!-- MODAL DE REPORT / DENÚNCIA -->
+    <!-- TELA DE DETALHES DO PRODUTO (ESTILO SHOPEE / MERCADO LIVRE) -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-all flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+        <div class="bg-brand-card border border-gray-700 w-full max-w-2xl rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4 relative my-auto max-h-[90vh] overflow-y-auto">
+            <button onclick="closeProductDetail()" class="absolute top-4 right-4 bg-brand-dark text-gray-400 hover:text-white w-9 h-9 rounded-full flex items-center justify-center border border-gray-700 z-30">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- IMAGEM PRINCIPAL COM CARROSSEL -->
+            <div id="detailImageContainer" class="relative w-full h-64 sm:h-80 bg-black rounded-2xl overflow-hidden flex items-center justify-center border border-gray-800"></div>
+
+            <div class="space-y-3">
+                <div class="flex justify-between items-start gap-2">
+                    <h2 id="detailTitle" class="font-title font-bold text-white text-lg sm:text-xl"></h2>
+                    <span id="detailCondition" class="bg-brand-neonGreen/10 text-brand-neonGreen border border-brand-neonGreen text-xs px-2.5 py-1 rounded-full font-semibold shrink-0"></span>
+                </div>
+
+                <div class="flex items-baseline gap-3">
+                    <span id="detailPrice" class="font-title text-2xl font-black text-brand-neonGreen"></span>
+                    <span id="detailStock" class="text-xs text-gray-400"></span>
+                </div>
+
+                <p id="detailLocation" class="text-xs text-gray-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-location-dot text-brand-neonGreen"></i> <span></span>
+                </p>
+
+                <div class="bg-brand-dark p-3 rounded-2xl border border-gray-800 space-y-1">
+                    <span class="text-[10px] uppercase font-semibold text-gray-500 block">Descrição do Anunciante</span>
+                    <p id="detailDesc" class="text-xs sm:text-sm text-gray-300 whitespace-pre-line leading-relaxed"></p>
+                </div>
+
+                <!-- INFO DO VENDEDOR -->
+                <div class="flex justify-between items-center bg-brand-dark p-3 rounded-2xl border border-gray-800">
+                    <div>
+                        <span class="text-[10px] text-gray-500 uppercase block">Vendido por</span>
+                        <p id="detailSeller" class="text-xs font-bold text-white flex items-center gap-1.5 mt-0.5"></p>
+                    </div>
+                    <button onclick="filterBySellerFromDetail()" class="text-xs text-brand-neonGreen bg-brand-neonGreen/10 border border-brand-neonGreen px-3 py-1.5 rounded-xl font-semibold">
+                        Ver Loja do Vendedor
+                    </button>
+                </div>
+
+                <!-- PERGUNTA RÁPIDA / CHAT -->
+                <div class="space-y-1.5 pt-1">
+                    <label class="text-xs font-semibold text-gray-300">Tirar dúvida rápida com o vendedor:</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="quickQuestionText" placeholder="Ex: Aceita troca? Qual menor valor?" class="flex-1 bg-brand-dark border border-gray-700 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-brand-neonGreen">
+                        <button onclick="sendQuickQuestion()" class="click-ripple bg-brand-dark border border-brand-neonGreen text-brand-neonGreen px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
+                            <i class="fa-brands fa-whatsapp"></i> Perguntar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BOTÕES DE AÇÃO -->
+                <div class="grid grid-cols-2 gap-2 pt-2">
+                    <button id="detailBuyBtn" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl hover:bg-emerald-400 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bag-shopping"></i> COMPRAR AGORA
+                    </button>
+                    <button id="detailWaBtn" class="click-ripple bg-brand-dark border border-gray-700 text-gray-300 hover:text-brand-neonGreen font-semibold text-xs py-3 rounded-xl flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-sm text-brand-neonGreen"></i> Falar no ZAP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE REPORT / LOGIN / EXCLUSÃO / AJUDA -->
     <div id="reportModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -375,20 +430,17 @@
                 </h3>
                 <button onclick="closeReportModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <p class="text-xs text-gray-400">Qual o motivo da sua denúncia sobre este produto?</p>
+            <p class="text-xs text-gray-400">Qual o motivo da sua denúncia?</p>
             <select id="reportReason" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white outline-none">
                 <option value="Conteúdo +18 ou Inapropriado">🔞 Conteúdo +18 ou Inapropriado</option>
                 <option value="Produto Falso ou Golpe">⚠️ Produto Falso ou Suspeita de Golpe</option>
                 <option value="Preço Abusivo ou Irreal">💲 Preço Abusivo ou Enganoso</option>
                 <option value="Outro Motivo">❓ Outro Motivo</option>
             </select>
-            <button id="btnConfirmReport" class="click-ripple w-full bg-red-600 text-white font-title font-bold py-2.5 rounded-xl hover:bg-red-700 active:scale-95 transition-all">
-                ENVIAR DENÚNCIA
-            </button>
+            <button id="btnConfirmReport" class="click-ripple w-full bg-red-600 text-white font-title font-bold py-2.5 rounded-xl hover:bg-red-700">ENVIAR DENÚNCIA</button>
         </div>
     </div>
 
-    <!-- MODAL DE LOGIN / CADASTRO COM PLACEHOLDER FICTÍCIO -->
     <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -399,7 +451,6 @@
                 <button onclick="closeLoginModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
-            <!-- FORMULÁRIO DE LOGIN -->
             <form id="formLogin" onsubmit="handleRealLogin(event)" class="space-y-3">
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">E-mail Cadastrado</label>
@@ -409,12 +460,9 @@
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Sua Senha</label>
                     <input type="password" id="loginPass" required placeholder="••••••••" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
-                <button type="submit" id="btnLoginSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all">
-                    ENTRAR NA CONTA
-                </button>
+                <button type="submit" id="btnLoginSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400">ENTRAR NA CONTA</button>
             </form>
 
-            <!-- FORMULÁRIO DE CADASTRO COM DADOS FICTÍCIOS -->
             <form id="formRegister" onsubmit="handleRealRegister(event)" class="space-y-3 hidden">
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Nome / Apelido *</label>
@@ -425,7 +473,7 @@
                     <input type="email" id="regEmail" required placeholder="seuemail@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Data de Nascimento (Obrigatório 18+) *</label>
+                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Data de Nascimento (18+) *</label>
                     <input type="date" id="regBirthDate" required class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
@@ -438,53 +486,41 @@
                         <input type="password" id="regPass2" minlength="6" required placeholder="Repita a senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
                     </div>
                 </div>
-
-                <div class="bg-brand-dark/80 p-2.5 rounded-xl border border-gray-800 text-[10px] text-gray-400 leading-tight">
-                    🔒 <strong class="text-white">Verificação de Idade:</strong> Ao cadastrar, o sistema valida sua idade real. Contas de menores de 18 anos são bloqueadas de anunciar produtos.
-                </div>
-
-                <button type="submit" id="btnRegSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all">
-                    CRIAR CONTA SEGURA
-                </button>
+                <button type="submit" id="btnRegSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400">CRIAR CONTA SEGURA</button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL DE AVISO: VENDEDOR PENDENTE -->
     <div id="sellerNoticeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-amber-500/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
             <div class="w-12 h-12 rounded-full bg-amber-950/60 border border-amber-500 text-amber-400 flex items-center justify-center mx-auto text-xl">
                 <i class="fa-solid fa-user-lock"></i>
             </div>
             <h3 class="font-title font-bold text-white text-base">Ativação de Vendedor 18+</h3>
-            <p class="text-xs text-gray-300">Sua conta atual está registrada como **Comprador**. Para liberar a publicação de anúncios, fale com a administração para confirmar sua verificação.</p>
+            <p class="text-xs text-gray-300">Sua conta é de **Comprador**. Solicite ativação de vendedor com a administração.</p>
             <div class="space-y-2 pt-2">
                 <a href="https://wa.me/5531999999999?text=Olá!%20Gostaria%20de%20solicitar%20a%20ativação%20da%20minha%20conta%20de%20Vendedor%2018+%20no%20Mr.Scorp!" target="_blank" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-sm"></i> SOLICITAR ATIVAÇÃO NO WHATSAPP
+                    <i class="fa-brands fa-whatsapp text-sm"></i> SOLICITAR NO WHATSAPP
                 </a>
-                <button onclick="closeSellerNoticeModal()" class="click-ripple w-full bg-brand-dark border border-gray-700 text-gray-400 text-xs py-2 rounded-xl">
-                    Voltar
-                </button>
+                <button onclick="closeSellerNoticeModal()" class="click-ripple w-full bg-brand-dark border border-gray-700 text-gray-400 text-xs py-2 rounded-xl">Voltar</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
     <div id="deleteModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-red-900/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
             <div class="w-12 h-12 rounded-full bg-red-950 border border-red-800 text-red-500 flex items-center justify-center mx-auto text-xl">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <h3 class="font-title font-bold text-white text-base">Excluir Anúncio?</h3>
-            <p class="text-xs text-gray-400">Tem certeza que deseja apagar este produto? Esta ação removerá o item permanentemente.</p>
+            <p class="text-xs text-gray-400">Tem certeza que deseja apagar este produto?</p>
             <div class="flex gap-2 pt-2">
-                <button onclick="closeDeleteModal()" class="click-ripple w-1/2 bg-brand-dark border border-gray-700 text-gray-300 font-bold text-xs py-2.5 rounded-xl active:scale-95 transition-all">Cancelar</button>
-                <button id="btnConfirmDelete" class="click-ripple w-1/2 bg-red-600 text-white font-title font-bold text-xs py-2.5 rounded-xl hover:bg-red-700 active:scale-95 transition-all">EXCLUIR</button>
+                <button onclick="closeDeleteModal()" class="click-ripple w-1/2 bg-brand-dark border border-gray-700 text-gray-300 font-bold text-xs py-2.5 rounded-xl">Cancelar</button>
+                <button id="btnConfirmDelete" class="click-ripple w-1/2 bg-red-600 text-white font-title font-bold text-xs py-2.5 rounded-xl">EXCLUIR</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DE AJUDA -->
     <div id="helpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-md rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -493,59 +529,20 @@
                 </h3>
                 <button onclick="closeHelpModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-
             <div class="space-y-3 text-xs text-gray-300 max-h-80 overflow-y-auto pr-1">
                 <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
                     <h4 class="font-bold text-brand-neonGreen mb-1">🔞 Restrição Rigorosa de Idade (18+)</h4>
                     <p>Apenas maiores de 18 anos cadastrados e verificados podem publicar produtos para venda na plataforma.</p>
                 </div>
-
-                <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
-                    <h4 class="font-bold text-red-400 mb-1">🚫 Conteúdo Proibido</h4>
-                    <p>É expressamente proibido anunciar conteúdo adulto (+18), armas de fogo, drogas, réplicas ilegais e produtos sem procedência.</p>
-                </div>
-
-                <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
-                    <h4 class="font-bold text-brand-neonGreen mb-1">💬 Negociação Segura</h4>
-                    <p>Todas as vendas são combinadas diretamente entre o comprador e o vendedor através do WhatsApp cadastrado.</p>
-                </div>
             </div>
-
-            <button onclick="closeHelpModal()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl active:scale-95 transition-all">COMPREENDI AS REGRAS</button>
-        </div>
-    </div>
-
-    <!-- MODAL COMPRA DIRETA -->
-    <div id="buyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
-        <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
-                <h3 class="font-title font-bold text-white text-base flex items-center gap-2">
-                    <i class="fa-solid fa-cart-shopping text-brand-neonGreen"></i> Finalizar Pedido
-                </h3>
-                <button onclick="closeBuyModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-
-            <div id="buyProductDetails" class="bg-brand-dark p-3 rounded-xl border border-gray-800 space-y-1"></div>
-
-            <div class="space-y-2">
-                <label class="text-[11px] font-semibold text-gray-400 uppercase">Forma de Pagamento</label>
-                <select id="buyPaymentMethod" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white outline-none">
-                    <option value="Pix">⚡ Pagamento via Pix</option>
-                    <option value="Dinheiro em Mão">💵 Entrega em Mãos / Dinheiro</option>
-                    <option value="Cartão">💳 Cartão de Crédito / Débito</option>
-                </select>
-            </div>
-
-            <button id="btnConfirmBuy" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all flex items-center justify-center gap-2">
-                <i class="fa-brands fa-whatsapp text-base"></i> ENVIAR PEDIDO AO VENDEDOR
-            </button>
+            <button onclick="closeHelpModal()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl">COMPREENDI</button>
         </div>
     </div>
 
     <!-- SCRIPT FIREBASE SDK E LÓGICA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, updateDoc, onSnapshot, deleteDoc, doc, query, orderBy, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, updateDoc, onSnapshot, deleteDoc, doc, query, orderBy, where, getDocs, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAH3FDU0LuTAesV1C7eNF0T2JYIrElXVSY",
@@ -563,7 +560,6 @@
         const reportsCol = collection(db, "reports");
 
         window.ADMIN_EMAIL = "mrscorp.contato@gmail.com";
-
         window.allProducts = [];
         window.allUsers = [];
         window.allReports = [];
@@ -574,8 +570,8 @@
         window.deletingProductId = null;
         window.reportingProductId = null;
         window.productImageIndices = {};
+        window.activeDetailProduct = null;
 
-        // FIREBASE OBSERVERS
         onSnapshot(query(productsCol, orderBy("createdAt", "desc")), (snapshot) => {
             window.allProducts = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
             window.filterAndRenderProducts();
@@ -584,7 +580,6 @@
 
         onSnapshot(query(usersCol), (snapshot) => {
             window.allUsers = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-            
             if (window.currentUser) {
                 const updatedMe = window.allUsers.find(u => u.email === window.currentUser.email);
                 if (updatedMe) {
@@ -593,7 +588,6 @@
                     window.updateUserMenu();
                 }
             }
-
             window.filterAndRenderProducts();
             window.renderAdminPanel();
         });
@@ -603,7 +597,6 @@
             window.renderAdminPanel();
         });
 
-        // CADASTRO
         window.handleRealRegister = async function(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value;
@@ -612,131 +605,66 @@
             const p1 = document.getElementById('regPass1').value;
             const p2 = document.getElementById('regPass2').value;
 
-            if (p1 !== p2) {
-                alert("⚠️ Erro: As senhas digitadas não batem!");
-                return;
-            }
+            if (p1 !== p2) { alert("⚠️ As senhas não batem!"); return; }
 
             const birthDate = new Date(birthDateStr);
             const today = new Date();
             let age = today.getFullYear() - birthDate.getFullYear();
-            const monthDiff = today.getMonth() - birthDate.getMonth();
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
 
-            if (age < 18) {
-                alert("🚫 Cadastro Bloqueado: O Mr.Scorp é restrito para maiores de 18 anos.");
-                return;
-            }
-
-            const btn = document.getElementById('btnRegSubmit');
-            btn.innerText = "Criando Conta...";
-            btn.disabled = true;
+            if (age < 18) { alert("🚫 Restrito para maiores de 18 anos."); return; }
 
             try {
                 const snap = await getDocs(query(usersCol, where("email", "==", email)));
-                if (!snap.empty) {
-                    alert("⚠️ Este e-mail já está cadastrado! Faça login.");
-                    btn.innerText = "CRIAR CONTA SEGURA";
-                    btn.disabled = false;
-                    return;
-                }
+                if (!snap.empty) { alert("⚠️ E-mail já cadastrado!"); return; }
 
                 const isAdmin = email === window.ADMIN_EMAIL;
-
                 await addDoc(usersCol, {
-                    name: name,
-                    email: email,
-                    pass: p1,
-                    birthDate: birthDateStr,
-                    age: age,
-                    isAdult: true,
-                    isSellerAllowed: isAdmin,
-                    isVerified: isAdmin,
-                    createdAt: Date.now()
+                    name, email, pass: p1, birthDate: birthDateStr, age, isAdult: true,
+                    isSellerAllowed: isAdmin, isVerified: isAdmin, createdAt: Date.now()
                 });
 
-                window.currentUser = { name: name, email: email, isSellerAllowed: isAdmin, isVerified: isAdmin };
+                window.currentUser = { name, email, isSellerAllowed: isAdmin, isVerified: isAdmin };
                 localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
-
                 window.updateUserMenu();
                 window.closeLoginModal();
-                window.filterAndRenderProducts();
-                alert(`🎉 Conta criada e idade verificada (${age} anos)! Bem-vindo ao Mr.Scorp, ${name}!`);
-            } catch (err) {
-                alert("Erro ao cadastrar: " + err.message);
-            } finally {
-                btn.innerText = "CRIAR CONTA SEGURA";
-                btn.disabled = false;
-            }
+                alert(`🎉 Conta criada com sucesso!`);
+            } catch (err) { alert("Erro: " + err.message); }
         };
 
-        // LOGIN
         window.handleRealLogin = async function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.toLowerCase().trim();
             const pass = document.getElementById('loginPass').value;
 
-            const btn = document.getElementById('btnLoginSubmit');
-            btn.innerText = "Verificando...";
-            btn.disabled = true;
-
             try {
                 const snap = await getDocs(query(usersCol, where("email", "==", email), where("pass", "==", pass)));
-
-                if (snap.empty) {
-                    alert("❌ E-mail ou Senha incorretos! Tente novamente.");
-                    btn.innerText = "ENTRAR NA CONTA";
-                    btn.disabled = false;
-                    return;
-                }
+                if (snap.empty) { alert("❌ E-mail ou Senha incorretos!"); return; }
 
                 const userData = snap.docs[0].data();
                 window.currentUser = { 
-                    name: userData.name, 
-                    email: userData.email, 
+                    name: userData.name, email: userData.email, 
                     isSellerAllowed: userData.isSellerAllowed || userData.email === window.ADMIN_EMAIL,
                     isVerified: userData.isVerified || false
                 };
                 localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
-
                 window.updateUserMenu();
                 window.closeLoginModal();
-                window.filterAndRenderProducts();
-                alert(`👋 Olá, ${userData.name}! Login efetuado com sucesso.`);
-            } catch (err) {
-                alert("Erro ao entrar: " + err.message);
-            } finally {
-                btn.innerText = "ENTRAR NA CONTA";
-                btn.disabled = false;
-            }
+                alert(`👋 Olá, ${userData.name}!`);
+            } catch (err) { alert("Erro: " + err.message); }
         };
 
-        // SALVAR PRODUTO
         window.handleFormSubmit = async function(e) {
             e.preventDefault();
             if (!window.currentUser) return;
 
-            const title = document.getElementById('pTitle').value;
-            const desc = document.getElementById('pDesc').value;
-
-            const forbidden = ['+18', 'porno', 'armas', 'drogas', 'sexo'];
-            if (forbidden.some(term => title.toLowerCase().includes(term) || desc.toLowerCase().includes(term))) {
-                alert("🚫 O anúncio contém termos que violam as regras do Mr.Scorp e foi recusado.");
-                return;
-            }
-
             const editId = document.getElementById('editProductId').value;
-            const btn = document.getElementById('btnPublishSubmit');
-            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Salvando...`;
-            btn.disabled = true;
-
             const fileInput = document.getElementById('pImage');
             const files = Array.from(fileInput.files).slice(0, 3);
 
+            let imagesBase64 = [];
             if (files.length > 0) {
-                const imagesBase64 = [];
                 for (let file of files) {
                     const b64 = await new Promise((resolve) => {
                         const reader = new FileReader();
@@ -745,18 +673,11 @@
                     });
                     imagesBase64.push(b64);
                 }
-                await processSaveProduct(editId, imagesBase64);
-            } else {
-                let existingImages = [];
-                if (editId) {
-                    const existingDoc = window.allProducts.find(p => p.id === editId);
-                    if (existingDoc) existingImages = existingDoc.images || (existingDoc.image ? [existingDoc.image] : []);
-                }
-                await processSaveProduct(editId, existingImages);
+            } else if (editId) {
+                const existing = window.allProducts.find(p => p.id === editId);
+                imagesBase64 = existing?.images || (existing?.image ? [existing.image] : []);
             }
-        };
 
-        async function processSaveProduct(editId, imagesArray) {
             try {
                 const payload = {
                     title: document.getElementById('pTitle').value,
@@ -767,11 +688,12 @@
                     phone: document.getElementById('pPhone').value,
                     location: document.getElementById('pLocation').value || 'Belo Horizonte',
                     desc: document.getElementById('pDesc').value,
-                    images: imagesArray,
-                    image: imagesArray[0] || null,
+                    images: imagesBase64,
+                    image: imagesBase64[0] || null,
                     seller: window.currentUser.name,
                     sellerEmail: window.currentUser.email || '',
                     isSuspended: false,
+                    views: 0,
                     createdAt: Date.now()
                 };
 
@@ -782,251 +704,213 @@
                     await addDoc(productsCol, payload);
                     alert("🚀 Anúncio publicado com sucesso!");
                 }
-
                 cancelEdit();
                 window.showTab('market');
-            } catch (err) {
-                alert("Erro ao salvar produto: " + err.message);
-            } finally {
-                const btn = document.getElementById('btnPublishSubmit');
-                btn.innerHTML = `<span id="btnPublishText">PUBLICAR AGORA</span>`;
-                btn.disabled = false;
-            }
-        }
+            } catch (err) { alert("Erro: " + err.message); }
+        };
 
-        window.toggleProductSuspension = async function(productId, currentSuspendedStatus) {
-            try {
-                await updateDoc(doc(db, "products", productId), {
-                    isSuspended: !currentSuspendedStatus
-                });
-                alert(!currentSuspendedStatus ? "⏸️ Anúncio SUSPENSO da vitrine temporariamente!" : "🟢 Anúncio REATIVADO na vitrine com sucesso!");
-            } catch (err) {
-                alert("Erro ao alterar status do anúncio: " + err.message);
-            }
+        window.toggleProductSuspension = async function(productId, currentStatus) {
+            await updateDoc(doc(db, "products", productId), { isSuspended: !currentStatus });
         };
 
         window.deleteReport = async function(reportId) {
-            try {
-                await deleteDoc(doc(db, "reports", reportId));
-            } catch (err) {
-                alert("Erro ao apagar denúncia: " + err.message);
-            }
+            await deleteDoc(doc(db, "reports", reportId));
         };
 
         window.sendReport = async function() {
             if (!window.reportingProductId) return;
             const reason = document.getElementById('reportReason').value;
             const product = window.allProducts.find(p => p.id === window.reportingProductId);
-
-            try {
-                await addDoc(reportsCol, {
-                    productId: window.reportingProductId,
-                    productTitle: product ? product.title : 'Produto',
-                    seller: product ? product.seller : 'Desconhecido',
-                    reason: reason,
-                    reportedBy: window.currentUser ? window.currentUser.email : 'Visitante Anônimo',
-                    createdAt: Date.now()
-                });
-                alert("🚩 Denúncia enviada ao Administrador do Mr.Scorp. Obrigado por ajudar a manter o site seguro!");
-                closeReportModal();
-            } catch (err) {
-                alert("Erro ao denunciar: " + err.message);
-            }
+            await addDoc(reportsCol, {
+                productId: window.reportingProductId,
+                productTitle: product ? product.title : 'Produto',
+                seller: product ? product.seller : 'Desconhecido',
+                reason, reportedBy: window.currentUser ? window.currentUser.email : 'Anônimo',
+                createdAt: Date.now()
+            });
+            alert("🚩 Denúncia enviada!");
+            closeReportModal();
         };
 
         window.toggleSellerPermission = async function(userId, currentStatus) {
-            try {
-                await updateDoc(doc(db, "users", userId), {
-                    isSellerAllowed: !currentStatus,
-                    isVerified: !currentStatus
-                });
-            } catch (err) {
-                alert("Erro ao alterar permissão: " + err.message);
-            }
+            await updateDoc(doc(db, "users", userId), { isSellerAllowed: !currentStatus, isVerified: !currentStatus });
         };
 
         window.executeDeleteProduct = async function() {
             if (!window.deletingProductId) return;
-            try {
-                await deleteDoc(doc(db, "products", window.deletingProductId));
-                closeDeleteModal();
-            } catch (err) {
-                alert("Erro ao excluir: " + err.message);
-            }
+            await deleteDoc(doc(db, "products", window.deletingProductId));
+            closeDeleteModal();
+            closeProductDetail();
         };
 
         window.renderAdminPanel = function() {
-            const totalProdEl = document.getElementById('adminTotalProducts');
-            const totalUserEl = document.getElementById('adminTotalUsers');
-            const totalRepEl = document.getElementById('adminTotalReports');
-            const totalSelEl = document.getElementById('adminTotalSellers');
+            document.getElementById('adminTotalProducts').innerText = (window.allProducts || []).length;
+            document.getElementById('adminTotalUsers').innerText = (window.allUsers || []).length;
+            document.getElementById('adminTotalReports').innerText = (window.allReports || []).length;
+            document.getElementById('adminTotalSellers').innerText = (window.allUsers || []).filter(u => u.isSellerAllowed).length;
 
-            const listEl = document.getElementById('adminProductList');
-            const userListEl = document.getElementById('adminUserList');
-            const repListEl = document.getElementById('adminReportList');
             const repContainer = document.getElementById('adminReportsContainer');
-
-            const sellerCount = (window.allUsers || []).filter(u => u.isSellerAllowed).length;
-
-            if (totalProdEl) totalProdEl.innerText = (window.allProducts || []).length;
-            if (totalUserEl) totalUserEl.innerText = (window.allUsers || []).length;
-            if (totalRepEl) totalRepEl.innerText = (window.allReports || []).length;
-            if (totalSelEl) totalSelEl.innerText = sellerCount;
-
-            if (repContainer && repListEl) {
-                if ((window.allReports || []).length > 0) {
-                    repContainer.classList.remove('hidden');
-                    repListEl.innerHTML = '';
-                    window.allReports.forEach(r => {
-                        const targetProd = (window.allProducts || []).find(p => p.id === r.productId);
-                        const isSuspended = targetProd && targetProd.isSuspended;
-
-                        repListEl.innerHTML += `
-                            <div class="bg-red-950/30 border border-red-900/50 p-3 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
-                                <div>
-                                    <p class="font-bold text-white flex items-center gap-2">
-                                        ${r.productTitle} 
-                                        <span class="text-red-400 bg-red-950 px-2 py-0.5 rounded-md text-[10px]">(${r.reason})</span>
-                                        ${isSuspended ? '<span class="text-amber-400 font-bold">[SUSPENSO]</span>' : ''}
-                                    </p>
-                                    <p class="text-[10px] text-gray-400">Vendedor: <strong>${r.seller}</strong> | Denunciante: ${r.reportedBy}</p>
-                                </div>
-                                <div class="flex items-center gap-1.5 shrink-0 w-full sm:w-auto">
-                                    ${targetProd ? `
-                                        <button onclick="toggleProductSuspension('${r.productId}', ${!!isSuspended})" class="click-ripple px-2.5 py-1.5 rounded-lg text-[11px] font-bold ${isSuspended ? 'bg-emerald-600 text-black' : 'bg-amber-600 text-black'}">
-                                            ${isSuspended ? 'Reativar Item' : 'Suspender Item'}
-                                        </button>
-                                    ` : ''}
-                                    <button onclick="openDeleteModal('${r.productId}')" class="click-ripple bg-red-600 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold">
-                                        Excluir
-                                    </button>
-                                    <button onclick="deleteReport('${r.id}')" class="click-ripple bg-gray-800 hover:bg-gray-700 text-gray-300 p-1.5 rounded-lg text-xs" title="Excluir Alerta">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    });
-                } else {
-                    repContainer.classList.add('hidden');
-                }
-            }
-
-            if (userListEl) {
-                userListEl.innerHTML = '';
-                (window.allUsers || []).forEach(u => {
-                    userListEl.innerHTML += `
-                        <div class="bg-brand-dark p-2.5 rounded-xl border border-gray-800 flex justify-between items-center text-xs">
-                            <div>
-                                <p class="font-bold text-white flex items-center gap-1.5">
-                                    ${u.name}
-                                    ${u.isSellerAllowed ? '<i class="fa-solid fa-circle-check text-blue-400"></i>' : ''}
-                                </p>
-                                <p class="text-[10px] text-gray-400">${u.email} | Nasc: ${u.birthDate || 'N/D'} (${u.age || 18} anos)</p>
-                            </div>
-                            <button onclick="toggleSellerPermission('${u.id}', ${!!u.isSellerAllowed})" class="click-ripple px-2.5 py-1 rounded-lg font-bold text-[10px] ${u.isSellerAllowed ? 'bg-red-950/60 text-red-400 border border-red-800' : 'bg-brand-neonGreen text-black'}">
-                                ${u.isSellerAllowed ? 'Revogar Vendedor' : 'Aprovar Vendedor (18+)'}
-                            </button>
+            const repListEl = document.getElementById('adminReportList');
+            if (window.allReports.length > 0) {
+                repContainer.classList.remove('hidden');
+                repListEl.innerHTML = window.allReports.map(r => `
+                    <div class="bg-red-950/30 border border-red-900/50 p-3 rounded-xl flex justify-between items-center text-xs">
+                        <div>
+                            <p class="font-bold text-white">${r.productTitle} <span class="text-red-400">(${r.reason})</span></p>
+                            <p class="text-[10px] text-gray-400">Vendedor: ${r.seller}</p>
                         </div>
-                    `;
-                });
-            }
-
-            if (listEl) {
-                listEl.innerHTML = '';
-                (window.allProducts || []).forEach(p => {
-                    listEl.innerHTML += `
-                        <div class="bg-brand-dark p-3 rounded-xl border ${p.isSuspended ? 'border-amber-500/50 bg-amber-950/10' : 'border-gray-800'} flex justify-between items-center text-xs">
-                            <div class="truncate max-w-[180px] sm:max-w-[300px]">
-                                <p class="font-bold text-white truncate flex items-center gap-2">
-                                    ${p.title}
-                                    ${p.isSuspended ? '<span class="text-[9px] bg-amber-500 text-black px-1.5 py-0.5 rounded font-bold">SUSPENSO</span>' : ''}
-                                </p>
-                                <p class="text-[10px] text-gray-400">Vendedor: ${p.seller}</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-title text-brand-neonGreen font-bold">R$ ${parseFloat(p.price || 0).toFixed(2).replace('.', ',')}</span>
-                                <button onclick="toggleProductSuspension('${p.id}', ${!!p.isSuspended})" class="click-ripple px-2 py-1 rounded-lg text-[10px] font-bold ${p.isSuspended ? 'bg-emerald-600 text-black' : 'bg-amber-600 text-black'}">
-                                    ${p.isSuspended ? 'Reativar' : 'Suspender'}
-                                </button>
-                                <button onclick="openDeleteModal('${p.id}')" class="click-ripple bg-red-600/90 hover:bg-red-700 text-white p-1.5 rounded-lg text-xs">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
+                        <div class="flex gap-1.5">
+                            <button onclick="openDeleteModal('${r.productId}')" class="bg-red-600 text-white px-2 py-1 rounded-lg">Excluir</button>
+                            <button onclick="deleteReport('${r.id}')" class="bg-gray-800 text-gray-300 p-1 rounded-lg"><i class="fa-solid fa-xmark"></i></button>
                         </div>
-                    `;
-                });
-            }
+                    </div>
+                `).join('');
+            } else { repContainer.classList.add('hidden'); }
+
+            document.getElementById('adminUserList').innerHTML = (window.allUsers || []).map(u => `
+                <div class="bg-brand-dark p-2.5 rounded-xl border border-gray-800 flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-white">${u.name} ${u.isSellerAllowed ? '✅' : ''}</p>
+                        <p class="text-[10px] text-gray-400">${u.email}</p>
+                    </div>
+                    <button onclick="toggleSellerPermission('${u.id}', ${!!u.isSellerAllowed})" class="px-2.5 py-1 rounded-lg font-bold text-[10px] ${u.isSellerAllowed ? 'bg-red-950 text-red-400' : 'bg-brand-neonGreen text-black'}">
+                        ${u.isSellerAllowed ? 'Revogar' : 'Aprovar 18+'}
+                    </button>
+                </div>
+            `).join('');
+
+            document.getElementById('adminProductList').innerHTML = (window.allProducts || []).map(p => `
+                <div class="bg-brand-dark p-3 rounded-xl border border-gray-800 flex justify-between items-center text-xs">
+                    <p class="font-bold text-white truncate max-w-[200px]">${p.title}</p>
+                    <div class="flex gap-2">
+                        <button onclick="toggleProductSuspension('${p.id}', ${!!p.isSuspended})" class="px-2 py-1 rounded font-bold ${p.isSuspended ? 'bg-emerald-600 text-black' : 'bg-amber-600 text-black'}">${p.isSuspended ? 'Reativar' : 'Suspender'}</button>
+                        <button onclick="openDeleteModal('${p.id}')" class="bg-red-600 text-white p-1.5 rounded"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
         };
     </script>
 
-    <!-- SCRIPT DE INTERFACE E COMPARTILHAMENTO COM IMAGEM -->
+    <!-- SCRIPT DE INTERFACE E MODAL DE DETALHES -->
     <script>
         const bannerPhrases = [
             "O marketplace mais rápido para comprar e vender direto!",
             "Anuncie grátis com fotos e receba mensagens no WhatsApp!",
-            "Negocie sem intermediários diretamente com o vendedor!",
-            "Somente produtos verificados e para maiores de 18 anos!"
+            "Negocie sem intermediários diretamente com o vendedor!"
         ];
-
-        let currentPhraseIdx = 0;
         setInterval(() => {
-            currentPhraseIdx = (currentPhraseIdx + 1) % bannerPhrases.length;
             const el = document.getElementById('dynamicBannerText');
-            if (el) el.innerText = bannerPhrases[currentPhraseIdx];
+            if (el) el.innerText = bannerPhrases[Math.floor(Math.random() * bannerPhrases.length)];
         }, 5000);
 
-        window.onload = function() {
-            updateUserMenu();
-        };
+        window.onload = () => updateUserMenu();
 
-        function toggleMenu() {
-            document.getElementById('dropdownMenu').classList.toggle('hidden');
-        }
-
-        function isUserAdmin() {
-            return window.currentUser && window.currentUser.email && window.currentUser.email.toLowerCase() === (window.ADMIN_EMAIL || '').toLowerCase();
-        }
+        function toggleMenu() { document.getElementById('dropdownMenu').classList.toggle('hidden'); }
+        function isUserAdmin() { return window.currentUser && window.currentUser.email.toLowerCase() === window.ADMIN_EMAIL.toLowerCase(); }
 
         function updateUserMenu() {
             const userInfo = document.getElementById('menuUserInfo');
-            const userName = document.getElementById('menuUserName');
             const authBtns = document.getElementById('menuAuthBtns');
             const adminBtn = document.getElementById('adminMenuBtn');
             const badge = document.getElementById('sellerStatusBadge');
 
             if (window.currentUser) {
                 userInfo.classList.remove('hidden');
-                userName.innerText = window.currentUser.name;
-                
-                if (window.currentUser.isSellerAllowed || isUserAdmin()) {
-                    badge.innerText = "🟢 Vendedor Autorizado (18+)";
-                    badge.className = "text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold bg-emerald-950 text-brand-neonGreen border border-emerald-800";
-                } else {
-                    badge.innerText = "🟡 Comprador";
-                    badge.className = "text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold bg-amber-950 text-amber-400 border border-amber-800";
-                }
-
-                if (isUserAdmin()) {
-                    adminBtn.classList.remove('hidden');
-                } else {
-                    adminBtn.classList.add('hidden');
-                }
-
-                authBtns.innerHTML = `
-                    <button onclick="logout(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-red-400 hover:bg-red-950/30 rounded-xl flex items-center gap-2.5 transition-all">
-                        <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
-                    </button>
-                `;
+                document.getElementById('menuUserName').innerText = window.currentUser.name;
+                badge.innerText = window.currentUser.isSellerAllowed || isUserAdmin() ? "🟢 Vendedor 18+" : "🟡 Comprador";
+                badge.className = `text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold ${window.currentUser.isSellerAllowed ? 'bg-emerald-950 text-brand-neonGreen' : 'bg-amber-950 text-amber-400'}`;
+                adminBtn.classList.toggle('hidden', !isUserAdmin());
+                authBtns.innerHTML = `<button onclick="logout(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-red-400 rounded-xl"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>`;
             } else {
                 userInfo.classList.add('hidden');
                 adminBtn.classList.add('hidden');
-                authBtns.innerHTML = `
-                    <button onclick="openLoginModal(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-brand-neonGreen hover:bg-brand-dark rounded-xl flex items-center gap-2.5 font-bold transition-all">
-                        <i class="fa-solid fa-user-lock"></i> Fazer Login / Cadastrar
-                    </button>
-                `;
+                authBtns.innerHTML = `<button onclick="openLoginModal(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-brand-neonGreen font-bold rounded-xl"><i class="fa-solid fa-user-lock"></i> Entrar / Cadastrar</button>`;
             }
+        }
+
+        // ABRIR TELA DE DETALHES DO PRODUTO (ESTILO SHOPEE)
+        async function openProductDetail(id) {
+            const p = window.allProducts.find(item => item.id === id);
+            if (!p) return;
+            window.activeDetailProduct = p;
+
+            // Incrementar visualizações no Firestore
+            try {
+                await updateDoc(doc(window.Firestore || window.db_ref_placeholder || doc(window.db, "products", id)), { views: increment(1) });
+            } catch(e) {}
+
+            const imgs = p.images && p.images.length > 0 ? p.images : (p.image ? [p.image] : []);
+            window.productImageIndices[p.id] = 0;
+
+            renderDetailImage(p.id, imgs);
+
+            document.getElementById('detailTitle').innerText = p.title;
+            document.getElementById('detailCondition').innerText = p.condition || 'Seminovo';
+            document.getElementById('detailPrice').innerText = `R$ ${parseFloat(p.price || 0).toFixed(2).replace('.', ',')}`;
+            document.getElementById('detailStock').innerText = `Estoque: ${p.stock || 1}`;
+            document.querySelector('#detailLocation span').innerText = p.location || 'Belo Horizonte';
+            document.getElementById('detailDesc').innerText = p.desc;
+
+            const sellerDoc = window.allUsers.find(u => u.name.toLowerCase() === p.seller.toLowerCase());
+            const isVerified = sellerDoc && sellerDoc.isSellerAllowed;
+            document.getElementById('detailSeller').innerHTML = `${p.seller} ${isVerified ? '<i class="fa-solid fa-circle-check text-blue-400"></i>' : ''}`;
+
+            const cleanPhone = (p.phone || '').replace(/\D/g, '');
+            const defaultWaText = `Olá ${p.seller}! Vi seu anúncio "${p.title}" no Mr.Scorp e tenho interesse!`;
+            
+            document.getElementById('detailBuyBtn').onclick = () => window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(defaultWaText)}`, '_blank');
+            document.getElementById('detailWaBtn').onclick = () => window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(defaultWaText)}`, '_blank');
+
+            document.getElementById('productDetailModal').classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function renderDetailImage(productId, imgs) {
+            const currentIdx = window.productImageIndices[productId] || 0;
+            const container = document.getElementById('detailImageContainer');
+
+            let dotsHTML = '';
+            if (imgs.length > 1) {
+                dotsHTML = `<div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20">`;
+                imgs.forEach((_, idx) => {
+                    dotsHTML += `<div class="${idx === currentIdx ? 'w-2 h-2 rounded-full bg-brand-neonGreen' : 'w-1.5 h-1.5 rounded-full bg-white/50'}"></div>`;
+                });
+                dotsHTML += `</div>`;
+            }
+
+            container.innerHTML = `
+                <img src="${imgs[currentIdx] || ''}" class="w-full h-full object-contain">
+                ${imgs.length > 1 ? `
+                    <button onclick="changeDetailImage('${productId}', -1, ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button onclick="changeDetailImage('${productId}', 1, ${imgs.length})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
+                    ${dotsHTML}
+                ` : ''}
+            `;
+        }
+
+        function changeDetailImage(productId, direction, total) {
+            window.productImageIndices[productId] = (window.productImageIndices[productId] + direction + total) % total;
+            const p = window.allProducts.find(item => item.id === productId);
+            const imgs = p.images && p.images.length > 0 ? p.images : [p.image];
+            renderDetailImage(productId, imgs);
+        }
+
+        function closeProductDetail() {
+            document.getElementById('productDetailModal').classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function sendQuickQuestion() {
+            const question = document.getElementById('quickQuestionText').value.trim();
+            if (!question || !window.activeDetailProduct) return;
+            const p = window.activeDetailProduct;
+            const cleanPhone = (p.phone || '').replace(/\D/g, '');
+            const text = `Olá ${p.seller}! Dúvida sobre "${p.title}": ${question}`;
+            window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function filterBySellerFromDetail() {
+            if (!window.activeDetailProduct) return;
+            closeProductDetail();
+            filterBySeller(window.activeDetailProduct.seller);
         }
 
         function filterBySeller(sellerName) {
@@ -1055,74 +939,16 @@
             filterAndRenderProducts();
         }
 
-        function changeImage(productId, direction, totalImages) {
-            if (!window.productImageIndices[productId]) {
-                window.productImageIndices[productId] = 0;
-            }
-            window.productImageIndices[productId] = (window.productImageIndices[productId] + direction + totalImages) % totalImages;
-            
-            const p = window.allProducts.find(item => item.id === productId);
-            if (!p) return;
-
-            const imgs = p.images && p.images.length > 0 ? p.images : (p.image ? [p.image] : []);
-            const imgEl = document.getElementById(`img-${productId}`);
-            const dotsEl = document.getElementById(`dots-${productId}`);
-
-            if (imgEl) imgEl.src = imgs[window.productImageIndices[productId]];
-            
-            if (dotsEl) {
-                const dots = dotsEl.children;
-                for (let i = 0; i < dots.length; i++) {
-                    dots[i].className = i === window.productImageIndices[productId] 
-                        ? "w-2 h-2 rounded-full bg-brand-neonGreen" 
-                        : "w-1.5 h-1.5 rounded-full bg-white/50";
-                }
-            }
-        }
-
-        // COMPARTILHAR COM IMAGEM DO PRODUTO (WEB SHARE API)
-        async function shareProduct(title, price, id) {
-            const shareText = `Confira este produto no Mr.Scorp: "${title}" por R$ ${parseFloat(price).toFixed(2).replace('.', ',')}!`;
-            const p = window.allProducts.find(item => item.id === id);
-            const imgUrl = p && (p.images?.[0] || p.image);
-
-            if (navigator.share) {
-                let shareData = { title: 'Mr.Scorp Marketplace', text: shareText, url: window.location.href };
-
-                try {
-                    if (imgUrl && imgUrl.startsWith('data:image')) {
-                        // Converte Base64 para arquivo de imagem para o compartilhamento nativo incluir a foto
-                        const res = await fetch(imgUrl);
-                        const blob = await res.blob();
-                        const file = new File([blob], 'produto-mrscorp.jpg', { type: blob.type });
-                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                            shareData.files = [file];
-                        }
-                    }
-                    await navigator.share(shareData);
-                } catch (err) {
-                    if (err.name !== 'AbortError') {
-                        navigator.clipboard.writeText(`${shareText} - ${window.location.href}`);
-                        alert("🔗 Link e texto copiados para a área de transferência!");
-                    }
-                }
-            } else {
-                navigator.clipboard.writeText(`${shareText} - ${window.location.href}`);
-                alert("🔗 Link copiado para a sua área de transferência!");
-            }
-        }
-
-        function toggleFavorite(id) {
+        function toggleFavorite(id, event) {
+            event.stopPropagation();
             const index = window.favorites.indexOf(id);
-            if (index > -1) {
-                window.favorites.splice(index, 1);
-            } else {
-                window.favorites.push(id);
-            }
+            if (index > -1) window.favorites.splice(index, 1);
+            else window.favorites.push(id);
             localStorage.setItem('mrScorpFavs', JSON.stringify(window.favorites));
             filterAndRenderProducts();
         }
 
+        // RENDER DE PRODUTOS EM 2 COLUNAS LADO A LADO
         function filterAndRenderProducts() {
             const grid = document.getElementById('productGrid');
             const empty = document.getElementById('emptyState');
@@ -1135,17 +961,11 @@
             grid.innerHTML = '';
 
             let filtered = (window.allProducts || []).filter(p => {
-                const isOwner = window.currentUser && (
-                    (p.sellerEmail && window.currentUser.email && p.sellerEmail.toLowerCase() === window.currentUser.email.toLowerCase()) ||
-                    (window.currentUser.name || '').toLowerCase() === (p.seller || '').toLowerCase()
-                );
+                const isOwner = window.currentUser && ((p.sellerEmail && window.currentUser.email.toLowerCase() === p.sellerEmail.toLowerCase()) || window.currentUser.name.toLowerCase() === p.seller.toLowerCase());
                 if (p.isSuspended && !isOwner && !isUserAdmin()) return false;
 
                 const isFav = window.favorites.includes(p.id);
-                const matchCat = window.currentCategory === 'todos' || 
-                                 (window.currentCategory === 'favoritos' && isFav) || 
-                                 p.category === window.currentCategory;
-                
+                const matchCat = window.currentCategory === 'todos' || (window.currentCategory === 'favoritos' && isFav) || p.category === window.currentCategory;
                 const matchSearch = (p.title || '').toLowerCase().includes(search) || (p.desc || '').toLowerCase().includes(search);
                 const matchLocation = !locationSearch || (p.location || '').toLowerCase().includes(locationSearch);
                 const priceVal = parseFloat(p.price || 0);
@@ -1160,129 +980,40 @@
             } else {
                 empty.classList.add('hidden');
                 filtered.forEach(p => {
-                    const cleanPhone = (p.phone || '').replace(/\D/g, '');
-                    const waLink = `https://wa.me/55${cleanPhone}?text=Olá!%20Vi%20seu%20anúncio%20"${encodeURIComponent(p.title)}"%20no%20Mr.Scorp%20e%20tenho%20dúvidas!`;
-
-                    const isOwner = window.currentUser && (
-                        (p.sellerEmail && window.currentUser.email && p.sellerEmail.toLowerCase() === window.currentUser.email.toLowerCase()) ||
-                        (window.currentUser.name || '').toLowerCase() === (p.seller || '').toLowerCase()
-                    );
-
-                    const sellerUserDoc = (window.allUsers || []).find(u => (u.email && p.sellerEmail && u.email.toLowerCase() === p.sellerEmail.toLowerCase()) || u.name.toLowerCase() === (p.seller || '').toLowerCase());
-                    const isVerifiedSeller = sellerUserDoc && sellerUserDoc.isSellerAllowed;
-
-                    const isAdmin = isUserAdmin();
-                    const canEditOrDelete = isOwner || isAdmin;
                     const isFav = window.favorites.includes(p.id);
-
-                    const imgs = p.images && p.images.length > 0 ? p.images : (p.image ? [p.image] : []);
-                    const currentIdx = window.productImageIndices[p.id] || 0;
-
-                    let imgContainerHTML = '';
-                    if (imgs.length > 0) {
-                        let dotsHTML = '';
-                        if (imgs.length > 1) {
-                            dotsHTML = `<div id="dots-${p.id}" class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex items-center gap-1 z-20">`;
-                            imgs.forEach((_, idx) => {
-                                dotsHTML += `<div class="${idx === currentIdx ? 'w-2 h-2 rounded-full bg-brand-neonGreen' : 'w-1.5 h-1.5 rounded-full bg-white/50'}"></div>`;
-                            });
-                            dotsHTML += `</div>`;
-                        }
-
-                        imgContainerHTML = `
-                            <div class="h-48 w-full relative bg-black overflow-hidden group">
-                                <img id="img-${p.id}" src="${imgs[currentIdx]}" class="w-full h-full object-cover">
-                                ${imgs.length > 1 ? `
-                                    <button onclick="changeImage('${p.id}', -1, ${imgs.length})" class="absolute left-1 top-1/2 transform -translate-y-1/2 bg-black/60 hover:bg-black text-white w-7 h-7 rounded-full flex items-center justify-center text-xs z-20">
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                    </button>
-                                    <button onclick="changeImage('${p.id}', 1, ${imgs.length})" class="absolute right-1 top-1/2 transform -translate-y-1/2 bg-black/60 hover:bg-black text-white w-7 h-7 rounded-full flex items-center justify-center text-xs z-20">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </button>
-                                    ${dotsHTML}
-                                ` : ''}
-                            </div>
-                        `;
-                    } else {
-                        imgContainerHTML = `
-                            <div class="h-48 w-full flex items-center justify-center bg-gradient-to-br from-emerald-950 to-brand-dark">
-                                <i class="fa-solid fa-box text-5xl text-brand-neonGreen/60"></i>
-                            </div>
-                        `;
-                    }
+                    const imgUrl = p.images?.[0] || p.image;
 
                     grid.innerHTML += `
-                        <div class="bg-brand-card/90 backdrop-blur-md border ${p.isSuspended ? 'border-amber-500 bg-amber-950/20' : 'border-gray-800'} rounded-2xl overflow-hidden flex flex-col justify-between card-hover transition-all relative">
+                        <div onclick="openProductDetail('${p.id}')" class="bg-brand-card/90 backdrop-blur-md border ${p.isSuspended ? 'border-amber-500 bg-amber-950/20' : 'border-gray-800'} rounded-2xl overflow-hidden flex flex-col justify-between card-hover transition-all relative cursor-pointer group">
                             <div>
-                                <div class="relative">
-                                    ${imgContainerHTML}
+                                <div class="relative h-36 sm:h-48 w-full bg-black overflow-hidden">
+                                    ${imgUrl ? `<img src="${imgUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">` : `<div class="w-full h-full flex items-center justify-center"><i class="fa-solid fa-box text-3xl text-brand-neonGreen/60"></i></div>`}
                                     
-                                    <button onclick="toggleFavorite('${p.id}')" class="absolute top-2 right-2 bg-black/70 backdrop-blur-md ${isFav ? 'text-red-500' : 'text-gray-400 hover:text-white'} w-8 h-8 rounded-full flex items-center justify-center text-sm border border-gray-700 z-30 transition-all">
+                                    <button onclick="toggleFavorite('${p.id}', event)" class="absolute top-2 right-2 bg-black/70 ${isFav ? 'text-red-500' : 'text-gray-300 hover:text-white'} w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm border border-gray-700 z-20">
                                         <i class="fa-solid fa-heart"></i>
                                     </button>
 
-                                    <button onclick="openReportModal('${p.id}')" class="absolute top-2 right-12 bg-black/70 backdrop-blur-md text-gray-400 hover:text-red-400 w-8 h-8 rounded-full flex items-center justify-center text-xs border border-gray-700 z-30 transition-all" title="Denunciar Anúncio">
-                                        <i class="fa-solid fa-flag"></i>
-                                    </button>
-
-                                    <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-brand-neonGreen text-[10px] px-2 py-1 rounded-full border border-gray-700 font-semibold z-20">
+                                    <span class="absolute top-2 left-2 bg-black/80 text-brand-neonGreen text-[9px] sm:text-[10px] px-2 py-0.5 sm:py-1 rounded-full border border-gray-700 font-semibold z-10">
                                         ${p.condition || 'Seminovo'}
                                     </span>
 
-                                    ${p.isSuspended ? `
-                                        <div class="absolute inset-0 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 text-center z-25">
-                                            <div class="bg-amber-950/80 border border-amber-500/60 p-3 rounded-xl">
-                                                <i class="fa-solid fa-triangle-exclamation text-amber-400 text-lg mb-1"></i>
-                                                <p class="text-xs font-bold text-amber-300">ANÚNCIO SUSPENSO</p>
-                                                <p class="text-[10px] text-gray-300">Em análise pela moderação do site.</p>
-                                            </div>
-                                        </div>
-                                    ` : ''}
-
-                                    ${canEditOrDelete ? `
-                                        <div class="absolute bottom-2 left-2 flex gap-1.5 z-30">
-                                            <button onclick="startEditProduct('${p.id}')" class="click-ripple bg-blue-600/90 text-white p-2 rounded-xl text-xs hover:bg-blue-700 active:scale-95 transition-all shadow-lg" title="Editar Anúncio">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-                                            <button onclick="openDeleteModal('${p.id}')" class="click-ripple bg-red-600/90 text-white p-2 rounded-xl text-xs hover:bg-red-700 active:scale-95 transition-all shadow-lg" title="Excluir Anúncio">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    ` : ''}
+                                    ${p.isSuspended ? `<div class="absolute inset-0 bg-black/80 flex items-center justify-center p-2 text-center"><p class="text-[10px] font-bold text-amber-300">SUSPENSO</p></div>` : ''}
                                 </div>
 
-                                <div class="p-4">
-                                    <div class="flex justify-between items-start gap-1 mb-1">
-                                        <h3 class="font-bold text-white text-base line-clamp-1">${p.title}</h3>
-                                        <button onclick="shareProduct('${p.title}', ${p.price}, '${p.id}')" class="text-gray-400 hover:text-brand-neonGreen text-xs p-1" title="Compartilhar">
-                                            <i class="fa-solid fa-share-nodes"></i>
-                                        </button>
-                                    </div>
-                                    <p class="text-xs text-gray-400 mb-2 line-clamp-2">${p.desc}</p>
-                                    <p class="text-[10px] text-gray-500 mb-3 flex items-center gap-1">
-                                        <i class="fa-solid fa-location-dot text-brand-neonGreen"></i> ${p.location || 'Belo Horizonte'}
+                                <div class="p-2.5 sm:p-3.5 space-y-1">
+                                    <h3 class="font-bold text-white text-xs sm:text-sm line-clamp-1">${p.title}</h3>
+                                    <p class="text-[9px] sm:text-[10px] text-gray-400 flex items-center gap-1">
+                                        <i class="fa-solid fa-location-dot text-brand-neonGreen"></i> ${p.location || 'BH'}
                                     </p>
-                                    <div class="flex justify-between items-end">
-                                        <div>
-                                            <span class="text-[10px] text-gray-500 uppercase block">Preço</span>
-                                            <span class="font-title text-lg font-bold text-brand-neonGreen">R$ ${parseFloat(p.price || 0).toFixed(2).replace('.', ',')}</span>
-                                        </div>
-                                        <button onclick="filterBySeller('${p.seller}')" class="text-[10px] text-gray-400 bg-brand-dark hover:bg-gray-800 px-2 py-1 rounded-lg border border-gray-800 flex items-center gap-1 cursor-pointer transition-all">
-                                            ${p.sellerEmail && p.sellerEmail.toLowerCase() === (window.ADMIN_EMAIL || '').toLowerCase() ? '<i class="fa-solid fa-crown text-amber-400" title="Criador do Site"></i>' : ''}
-                                            ${isVerifiedSeller ? '<i class="fa-solid fa-circle-check text-blue-400" title="Vendedor Autorizado 18+"></i>' : ''}
-                                            Vendedor: <strong>${p.seller}</strong>
-                                        </button>
+                                    <div class="pt-1">
+                                        <span class="font-title text-sm sm:text-base font-bold text-brand-neonGreen">R$ ${parseFloat(p.price || 0).toFixed(2).replace('.', ',')}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="p-4 pt-0 space-y-2">
-                                <button onclick="openBuyModal('${p.id}')" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold text-xs py-2.5 rounded-xl hover:bg-emerald-400 active:scale-95 transition-all flex items-center justify-center gap-2">
-                                    <i class="fa-solid fa-bag-shopping"></i> COMPRAR AGORA
-                                </button>
-                                <a href="${waLink}" target="_blank" class="click-ripple w-full bg-brand-dark border border-gray-700 text-gray-300 hover:text-brand-neonGreen font-semibold text-xs py-2 rounded-xl active:scale-95 transition-all flex items-center justify-center gap-2">
-                                    <i class="fa-brands fa-whatsapp text-sm text-brand-neonGreen"></i>
-                                    <span>Falar com Vendedor</span>
-                                </a>
+                            <div class="p-2.5 sm:p-3 pt-0">
+                                <span class="w-full bg-brand-dark border border-gray-700 text-gray-300 group-hover:border-brand-neonGreen group-hover:text-brand-neonGreen font-semibold text-[10px] sm:text-xs py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all">
+                                    <i class="fa-solid fa-eye"></i> Ver Detalhes
+                                </span>
                             </div>
                         </div>
                     `;
@@ -1293,7 +1024,6 @@
         function startEditProduct(id) {
             const p = window.allProducts.find(item => item.id === id);
             if (!p) return;
-
             document.getElementById('editProductId').value = p.id;
             document.getElementById('pTitle').value = p.title;
             document.getElementById('pPrice').value = p.price;
@@ -1303,10 +1033,8 @@
             document.getElementById('pPhone').value = p.phone;
             document.getElementById('pLocation').value = p.location || '';
             document.getElementById('pDesc').value = p.desc;
-
             document.getElementById('formTitle').innerHTML = `<i class="fa-solid fa-pen text-brand-neonGreen"></i> Editar Anúncio`;
             document.getElementById('btnPublishText').innerText = "SALVAR ALTERAÇÕES";
-
             showTab('publish');
         }
 
@@ -1317,97 +1045,30 @@
             document.getElementById('btnPublishText').innerText = "PUBLICAR AGORA";
         }
 
-        function openReportModal(id) {
-            window.reportingProductId = id;
-            document.getElementById('reportModal').classList.remove('opacity-0', 'pointer-events-none');
-        }
-
-        function closeReportModal() {
-            window.reportingProductId = null;
-            document.getElementById('reportModal').classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        document.getElementById('btnConfirmReport').addEventListener('click', () => {
-            if (window.sendReport) window.sendReport();
-        });
-
         function openDeleteModal(id) {
             window.deletingProductId = id;
             document.getElementById('deleteModal').classList.remove('opacity-0', 'pointer-events-none');
         }
-
         function closeDeleteModal() {
             window.deletingProductId = null;
             document.getElementById('deleteModal').classList.add('opacity-0', 'pointer-events-none');
         }
-
-        document.getElementById('btnConfirmDelete').addEventListener('click', () => {
-            if (window.executeDeleteProduct) window.executeDeleteProduct();
-        });
-
-        function openBuyModal(id) {
-            const p = window.allProducts.find(item => item.id === id);
-            if (!p) return;
-
-            const details = document.getElementById('buyProductDetails');
-            details.innerHTML = `
-                <p class="text-xs font-bold text-white">${p.title}</p>
-                <p class="text-xs text-brand-neonGreen font-title font-bold">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</p>
-                <p class="text-[10px] text-gray-400">Vendedor: ${p.seller} | Local: ${p.location || 'BH'}</p>
-            `;
-
-            const btn = document.getElementById('btnConfirmBuy');
-            btn.onclick = function() {
-                const method = document.getElementById('buyPaymentMethod').value;
-                const cleanPhone = (p.phone || '').replace(/\D/g, '');
-                const text = `Olá ${p.seller}! Gostaria de COMPRAR o produto "${p.title}" (Valor: R$ ${p.price}) no Mr.Scorp. Forma de pagamento: ${method}. Podemos finalizar?`;
-                window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
-                closeBuyModal();
-            };
-
-            document.getElementById('buyModal').classList.remove('opacity-0', 'pointer-events-none');
-        }
-
-        function closeBuyModal() {
-            document.getElementById('buyModal').classList.add('opacity-0', 'pointer-events-none');
-        }
+        document.getElementById('btnConfirmDelete').onclick = () => { if(window.executeDeleteProduct) window.executeDeleteProduct(); };
 
         function showTab(tab) {
-            if (!window.currentUser && (tab === 'publish' || tab === 'admin')) {
-                openLoginModal();
+            if (!window.currentUser && (tab === 'publish' || tab === 'admin')) { openLoginModal(); return; }
+            if (tab === 'publish' && !window.currentUser.isSellerAllowed && !isUserAdmin()) {
+                document.getElementById('sellerNoticeModal').classList.remove('opacity-0', 'pointer-events-none');
                 return;
             }
-
-            if (tab === 'publish') {
-                const canSell = window.currentUser.isSellerAllowed || isUserAdmin();
-                if (!canSell) {
-                    openSellerNoticeModal();
-                    return;
-                }
-            }
-
             document.getElementById('tabMarket').classList.toggle('hidden', tab !== 'market');
             document.getElementById('tabPublish').classList.toggle('hidden', tab !== 'publish');
             document.getElementById('tabAdmin').classList.toggle('hidden', tab !== 'admin');
         }
 
-        function openSellerNoticeModal() {
-            document.getElementById('sellerNoticeModal').classList.remove('opacity-0', 'pointer-events-none');
-        }
-
-        function closeSellerNoticeModal() {
-            document.getElementById('sellerNoticeModal').classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        function handleSellClick() {
-            if (!window.currentUser) openLoginModal();
-            else showTab('publish');
-        }
-
-        function handleMyProductsClick() {
-            if (!window.currentUser) openLoginModal();
-            else showTab('publish');
-        }
+        function closeSellerNoticeModal() { document.getElementById('sellerNoticeModal').classList.add('opacity-0', 'pointer-events-none'); }
+        function handleSellClick() { if (!window.currentUser) openLoginModal(); else showTab('publish'); }
+        function handleMyProductsClick() { if (!window.currentUser) openLoginModal(); else showTab('publish'); }
 
         function setCategory(cat) {
             window.currentCategory = cat;
@@ -1415,38 +1076,25 @@
                 btn.classList.remove('bg-brand-neonGreen', 'text-black', 'font-bold');
                 btn.classList.add('bg-brand-dark', 'text-gray-300');
             });
-            
-            const selectedBtn = document.getElementById(`cat-${cat}`);
-            if (selectedBtn) {
-                selectedBtn.classList.remove('bg-brand-dark', 'text-gray-300');
-                selectedBtn.classList.add('bg-brand-neonGreen', 'text-black', 'font-bold');
+            const btn = document.getElementById(`cat-${cat}`);
+            if (btn) {
+                btn.classList.remove('bg-brand-dark', 'text-gray-300');
+                btn.classList.add('bg-brand-neonGreen', 'text-black', 'font-bold');
             }
             filterAndRenderProducts();
         }
 
-        function openLoginModal() {
-            document.getElementById('loginModal').classList.remove('opacity-0', 'pointer-events-none');
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        function openHelpModal() {
-            document.getElementById('helpModal').classList.remove('opacity-0', 'pointer-events-none');
-        }
-
-        function closeHelpModal() {
-            document.getElementById('helpModal').classList.add('opacity-0', 'pointer-events-none');
-        }
+        function openLoginModal() { document.getElementById('loginModal').classList.remove('opacity-0', 'pointer-events-none'); }
+        function closeLoginModal() { document.getElementById('loginModal').classList.add('opacity-0', 'pointer-events-none'); }
+        function openHelpModal() { document.getElementById('helpModal').classList.remove('opacity-0', 'pointer-events-none'); }
+        function closeHelpModal() { document.getElementById('helpModal').classList.add('opacity-0', 'pointer-events-none'); }
 
         function switchAuthTab(tab) {
             const isLogin = tab === 'login';
             document.getElementById('formLogin').classList.toggle('hidden', !isLogin);
             document.getElementById('formRegister').classList.toggle('hidden', isLogin);
-
-            document.getElementById('tabAuthLogin').className = isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1 hover:text-white";
-            document.getElementById('tabAuthRegister').className = !isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1 hover:text-white";
+            document.getElementById('tabAuthLogin').className = isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1";
+            document.getElementById('tabAuthRegister').className = !isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1";
         }
 
         function logout() {
