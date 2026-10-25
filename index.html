@@ -306,7 +306,7 @@
             </form>
         </div>
 
-        <!-- ABA 3: PAINEL DO ADMINISTRADOR (COM SUSPENSÃO E EXCLUSÃO DE DENÚNCIA) -->
+        <!-- ABA 3: PAINEL DO ADMINISTRADOR -->
         <div id="tabAdmin" class="hidden max-w-4xl mx-auto space-y-6">
             <div class="bg-gradient-to-r from-amber-950/40 to-brand-card border border-amber-500/40 p-5 rounded-2xl flex justify-between items-center">
                 <div>
@@ -340,7 +340,7 @@
                 </div>
             </div>
 
-            <!-- DENÚNCIAS RECEBIDAS COM OPÇÕES DE SUSPENDER E LIMPAR DENÚNCIA -->
+            <!-- DENÚNCIAS RECEBIDAS -->
             <div id="adminReportsContainer" class="bg-brand-card/90 border border-red-900/40 rounded-2xl p-4 hidden">
                 <h3 class="font-title font-bold text-red-400 text-sm mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-triangle-exclamation"></i> Alertas e Denúncias de Produtos
@@ -348,7 +348,7 @@
                 <div id="adminReportList" class="space-y-2"></div>
             </div>
 
-            <!-- GERENCIAMENTO DE VENDEDORES (APROVAÇÃO 18+) -->
+            <!-- GERENCIAMENTO DE VENDEDORES -->
             <div class="bg-brand-card/90 border border-gray-800 rounded-2xl p-4">
                 <h3 class="font-title font-bold text-white text-sm mb-1 flex items-center gap-2">
                     <i class="fa-solid fa-user-shield text-blue-400"></i> Moderação de Vendedores (Aprovação 18+)
@@ -388,7 +388,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE LOGIN / CADASTRO -->
+    <!-- MODAL DE LOGIN / CADASTRO COM PLACEHOLDER FICTÍCIO -->
     <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -403,7 +403,7 @@
             <form id="formLogin" onsubmit="handleRealLogin(event)" class="space-y-3">
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">E-mail Cadastrado</label>
-                    <input type="email" id="loginEmail" required placeholder="seuemail@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <input type="email" id="loginEmail" required placeholder="exemplo@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Sua Senha</label>
@@ -414,15 +414,15 @@
                 </button>
             </form>
 
-            <!-- FORMULÁRIO DE CADASTRO -->
+            <!-- FORMULÁRIO DE CADASTRO COM DADOS FICTÍCIOS -->
             <form id="formRegister" onsubmit="handleRealRegister(event)" class="space-y-3 hidden">
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Nome / Apelido *</label>
-                    <input type="text" id="regName" required placeholder="Ex: Elizeu Lúcio" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <input type="text" id="regName" required placeholder="Ex: João da Silva" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Seu E-mail *</label>
-                    <input type="email" id="regEmail" required placeholder="mrscorp.contato@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    <input type="email" id="regEmail" required placeholder="seuemail@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Data de Nascimento (Obrigatório 18+) *</label>
@@ -771,7 +771,7 @@
                     image: imagesArray[0] || null,
                     seller: window.currentUser.name,
                     sellerEmail: window.currentUser.email || '',
-                    isSuspended: false, // Produto nasce ativo
+                    isSuspended: false,
                     createdAt: Date.now()
                 };
 
@@ -794,7 +794,6 @@
             }
         }
 
-        // ALTERAR STATUS DE SUSPENSÃO DO PRODUTO (MODERAÇÃO)
         window.toggleProductSuspension = async function(productId, currentSuspendedStatus) {
             try {
                 await updateDoc(doc(db, "products", productId), {
@@ -806,7 +805,6 @@
             }
         };
 
-        // EXCLUIR ALERTA DE DENÚNCIA (LIMPAR LISTA)
         window.deleteReport = async function(reportId) {
             try {
                 await deleteDoc(doc(db, "reports", reportId));
@@ -815,7 +813,6 @@
             }
         };
 
-        // ENVIAR DENÚNCIA
         window.sendReport = async function() {
             if (!window.reportingProductId) return;
             const reason = document.getElementById('reportReason').value;
@@ -837,7 +834,6 @@
             }
         };
 
-        // ALTERAR PERMISSÃO DE VENDEDOR DO USUÁRIO
         window.toggleSellerPermission = async function(userId, currentStatus) {
             try {
                 await updateDoc(doc(db, "users", userId), {
@@ -859,7 +855,6 @@
             }
         };
 
-        // RENDER PAINEL ADMIN COM AÇÕES DE MODERAÇÃO
         window.renderAdminPanel = function() {
             const totalProdEl = document.getElementById('adminTotalProducts');
             const totalUserEl = document.getElementById('adminTotalUsers');
@@ -878,7 +873,6 @@
             if (totalRepEl) totalRepEl.innerText = (window.allReports || []).length;
             if (totalSelEl) totalSelEl.innerText = sellerCount;
 
-            // GERENCIADOR DE DENÚNCIAS
             if (repContainer && repListEl) {
                 if ((window.allReports || []).length > 0) {
                     repContainer.classList.remove('hidden');
@@ -903,10 +897,10 @@
                                             ${isSuspended ? 'Reativar Item' : 'Suspender Item'}
                                         </button>
                                     ` : ''}
-                                    <button onclick="openDeleteModal('${r.productId}')" class="click-ripple bg-red-600 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold" title="Apagar do Banco">
+                                    <button onclick="openDeleteModal('${r.productId}')" class="click-ripple bg-red-600 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold">
                                         Excluir
                                     </button>
-                                    <button onclick="deleteReport('${r.id}')" class="click-ripple bg-gray-800 hover:bg-gray-700 text-gray-300 p-1.5 rounded-lg text-xs" title="Excluir Alerta de Denúncia">
+                                    <button onclick="deleteReport('${r.id}')" class="click-ripple bg-gray-800 hover:bg-gray-700 text-gray-300 p-1.5 rounded-lg text-xs" title="Excluir Alerta">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
                                 </div>
@@ -918,7 +912,6 @@
                 }
             }
 
-            // LISTA DE VENDEDORES
             if (userListEl) {
                 userListEl.innerHTML = '';
                 (window.allUsers || []).forEach(u => {
@@ -927,7 +920,7 @@
                             <div>
                                 <p class="font-bold text-white flex items-center gap-1.5">
                                     ${u.name}
-                                    ${u.isSellerAllowed ? '<i class="fa-solid fa-circle-check text-blue-400" title="Vendedor 18+ Autorizado"></i>' : ''}
+                                    ${u.isSellerAllowed ? '<i class="fa-solid fa-circle-check text-blue-400"></i>' : ''}
                                 </p>
                                 <p class="text-[10px] text-gray-400">${u.email} | Nasc: ${u.birthDate || 'N/D'} (${u.age || 18} anos)</p>
                             </div>
@@ -939,7 +932,6 @@
                 });
             }
 
-            // LISTA GERAL DE ANÚNCIOS
             if (listEl) {
                 listEl.innerHTML = '';
                 (window.allProducts || []).forEach(p => {
@@ -957,7 +949,7 @@
                                 <button onclick="toggleProductSuspension('${p.id}', ${!!p.isSuspended})" class="click-ripple px-2 py-1 rounded-lg text-[10px] font-bold ${p.isSuspended ? 'bg-emerald-600 text-black' : 'bg-amber-600 text-black'}">
                                     ${p.isSuspended ? 'Reativar' : 'Suspender'}
                                 </button>
-                                <button onclick="openDeleteModal('${p.id}')" class="click-ripple bg-red-600/90 hover:bg-red-700 text-white p-1.5 rounded-lg text-xs" title="Excluir Anúncio">
+                                <button onclick="openDeleteModal('${p.id}')" class="click-ripple bg-red-600/90 hover:bg-red-700 text-white p-1.5 rounded-lg text-xs">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
@@ -968,7 +960,7 @@
         };
     </script>
 
-    <!-- SCRIPT DE INTERFACE E CARROSSEL -->
+    <!-- SCRIPT DE INTERFACE E COMPARTILHAMENTO COM IMAGEM -->
     <script>
         const bannerPhrases = [
             "O marketplace mais rápido para comprar e vender direto!",
@@ -1088,14 +1080,35 @@
             }
         }
 
-        function shareProduct(title, price, id) {
+        // COMPARTILHAR COM IMAGEM DO PRODUTO (WEB SHARE API)
+        async function shareProduct(title, price, id) {
             const shareText = `Confira este produto no Mr.Scorp: "${title}" por R$ ${parseFloat(price).toFixed(2).replace('.', ',')}!`;
+            const p = window.allProducts.find(item => item.id === id);
+            const imgUrl = p && (p.images?.[0] || p.image);
+
             if (navigator.share) {
-                navigator.share({ title: 'Mr.Scorp Marketplace', text: shareText, url: window.location.href })
-                    .catch(() => {});
+                let shareData = { title: 'Mr.Scorp Marketplace', text: shareText, url: window.location.href };
+
+                try {
+                    if (imgUrl && imgUrl.startsWith('data:image')) {
+                        // Converte Base64 para arquivo de imagem para o compartilhamento nativo incluir a foto
+                        const res = await fetch(imgUrl);
+                        const blob = await res.blob();
+                        const file = new File([blob], 'produto-mrscorp.jpg', { type: blob.type });
+                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                            shareData.files = [file];
+                        }
+                    }
+                    await navigator.share(shareData);
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        navigator.clipboard.writeText(`${shareText} - ${window.location.href}`);
+                        alert("🔗 Link e texto copiados para a área de transferência!");
+                    }
+                }
             } else {
                 navigator.clipboard.writeText(`${shareText} - ${window.location.href}`);
-                alert("🔗 Link do produto copiado para a sua área de transferência!");
+                alert("🔗 Link copiado para a sua área de transferência!");
             }
         }
 
@@ -1122,7 +1135,6 @@
             grid.innerHTML = '';
 
             let filtered = (window.allProducts || []).filter(p => {
-                // ESCONDER PRODUTOS SUSPENSOS DA VITRINE PÚBLICA (A MENOS QUE SEJA O PRÓPRIO DONO OU ADMIN)
                 const isOwner = window.currentUser && (
                     (p.sellerEmail && window.currentUser.email && p.sellerEmail.toLowerCase() === window.currentUser.email.toLowerCase()) ||
                     (window.currentUser.name || '').toLowerCase() === (p.seller || '').toLowerCase()
