@@ -703,7 +703,9 @@
                 document.getElementById('verifyEmailModal').classList.remove('opacity-0', 'pointer-events-none');
                 alert("📩 Código de verificação enviado para o seu e-mail!");
             } catch (err) {
-                alert("Erro ao enviar e-mail de confirmação: " + err.message);
+                console.error("Erro detalhado EmailJS:", err);
+                const errorMsg = err.text || err.message || JSON.stringify(err);
+                alert("Erro ao enviar e-mail: " + errorMsg);
             }
         };
 
