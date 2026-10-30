@@ -690,14 +690,14 @@
                 window.generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
                 window.pendingRegistrationData = { name, email, pass: p1, birthDate: birthDateStr, age };
 
-                // Enviar e-mail via EmailJS usando service_ftr2o7n e Template_15zim2d
+                // Enviar e-mail via EmailJS usando service_ftr2o7n e template_15zim2d (tudo minúsculo)
                 const templateParams = {
                     to_name: name,
                     to_email: email,
                     verification_code: window.generatedVerificationCode
                 };
 
-                await emailjs.send('service_ftr2o7n', 'Template_15zim2d', templateParams);
+                await emailjs.send('service_ftr2o7n', 'template_15zim2d', templateParams);
 
                 closeLoginModal();
                 document.getElementById('verifyEmailModal').classList.remove('opacity-0', 'pointer-events-none');
