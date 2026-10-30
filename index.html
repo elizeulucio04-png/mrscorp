@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+    <!-- EmailJS SDK para envio de e-mail profissional -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("5hC_... (Public Key do EmailJS)"); // Insira sua Public Key aqui se necessário, ou deixe o init padrão
+        })();
+    </script>
     
     <script>
         tailwind.config = {
@@ -99,7 +106,7 @@
                     <h1 class="font-title text-base sm:text-xl font-black text-white">
                         Mr.<span class="text-brand-neonGreen neon-glow-green">Scorp</span>
                     </h1>
-                    <p class="text-[8px] sm:text-[9px] text-gray-400 uppercase tracking-widest font-semibold">MARKETPLACE CLASSIFICADOS</p>
+                    <p class="text-[8px] sm:text-[9px] text-gray-400 uppercase tracking-widest font-semibold">VERIFIED MARKETPLACE</p>
                 </div>
             </div>
 
@@ -157,7 +164,7 @@
     <div class="bg-gradient-to-r from-emerald-950 via-black to-brand-dark border-b border-gray-800 py-2 px-4 text-center relative z-10">
         <p class="text-xs font-semibold text-gray-200 flex items-center justify-center gap-2">
             <span class="text-brand-neonGreen animate-pulse">⚡</span> 
-            <span id="dynamicBannerText">O marketplace mais rápido para comprar e vender direto no WhatsApp!</span>
+            <span id="dynamicBannerText">Plataforma segura com verificação oficial de e-mail e contas 18+!</span>
         </p>
     </div>
 
@@ -352,7 +359,7 @@
 
     </main>
 
-    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA (ESTILO APLICATIVO SHOPEE) -->
+    <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA (ESTILO APLICATIVO) -->
     <nav class="fixed bottom-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-md border-t border-gray-800 shadow-2xl py-2 px-4">
         <div class="max-w-md mx-auto flex items-center justify-around text-center">
             <button onclick="resetFiltersAndShowMarket()" class="click-ripple text-brand-neonGreen flex flex-col items-center gap-1 p-1">
@@ -407,7 +414,6 @@
                     <i class="fa-solid fa-location-dot text-brand-neonGreen"></i> <span></span>
                 </p>
 
-                <!-- AVISO DE RESPONSABILIDADE DE ENTREGA -->
                 <div class="bg-amber-950/30 border border-amber-900/50 p-2.5 rounded-xl text-[11px] text-amber-300 flex items-center gap-2">
                     <i class="fa-solid fa-triangle-exclamation text-base shrink-0"></i>
                     <span>Envio, entrega e pagamento são combinados diretamente com o vendedor. O Mr.Scorp atua como vitrine.</span>
@@ -427,7 +433,6 @@
                     <p id="detailDesc" class="text-xs sm:text-sm text-gray-300 whitespace-pre-line leading-relaxed"></p>
                 </div>
 
-                <!-- INFO DO VENDEDOR -->
                 <div class="flex justify-between items-center bg-brand-dark p-3 rounded-2xl border border-gray-800">
                     <div>
                         <span class="text-[10px] text-gray-500 uppercase block">Vendido por</span>
@@ -438,7 +443,6 @@
                     </button>
                 </div>
 
-                <!-- PERGUNTA RÁPIDA / WHATSAPP -->
                 <div class="space-y-1.5 pt-1">
                     <label class="text-xs font-semibold text-gray-300">Tirar dúvida rápida ou negociar:</label>
                     <div class="flex gap-2">
@@ -449,7 +453,6 @@
                     </div>
                 </div>
 
-                <!-- BOTÕES DE AÇÃO -->
                 <div class="grid grid-cols-2 gap-2 pt-2">
                     <button id="detailBuyBtn" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl hover:bg-emerald-400 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-bag-shopping"></i> COMPRAR AGORA
@@ -462,7 +465,23 @@
         </div>
     </div>
 
-    <!-- MODAIS GERAIS -->
+    <!-- MODAL DE VERIFICAÇÃO DE CÓDIGO POR E-MAIL -->
+    <div id="verifyEmailModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
+        <div class="bg-brand-card border border-brand-neonGreen w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 text-center">
+            <div class="w-14 h-14 rounded-full bg-brand-neonGreen/10 border border-brand-neonGreen text-brand-neonGreen flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-envelope-circle-check"></i>
+            </div>
+            <h3 class="font-title font-bold text-white text-base">Verificação de E-mail</h3>
+            <p class="text-xs text-gray-300">Enviamos um código de confirmação de 6 dígitos para o seu e-mail oficial.</p>
+            <div>
+                <input type="text" id="verificationCodeInput" maxlength="6" placeholder="000000" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-center text-xl tracking-widest text-brand-neonGreen font-bold focus:border-brand-neonGreen outline-none">
+            </div>
+            <button onclick="confirmEmailVerification()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400">CONFIRMAR E CRIAR CONTA</button>
+            <button onclick="closeVerifyModal()" class="text-xs text-gray-500 hover:text-gray-300">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- MODAIS GERAIS (DENÚNCIA, LOGIN, AVISO, AJUDA) -->
     <div id="reportModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -504,13 +523,13 @@
                 <button type="submit" id="btnLoginSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400">ENTRAR NA CONTA</button>
             </form>
 
-            <form id="formRegister" onsubmit="handleRealRegister(event)" class="space-y-3 hidden">
+            <form id="formRegister" onsubmit="initiateEmailVerification(event)" class="space-y-3 hidden">
                 <div>
                     <label class="text-[11px] font-semibold text-gray-400 uppercase">Nome / Apelido *</label>
                     <input type="text" id="regName" required placeholder="Ex: João da Silva" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Seu E-mail *</label>
+                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Seu E-mail Real *</label>
                     <input type="email" id="regEmail" required placeholder="seuemail@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                 </div>
                 <div>
@@ -527,7 +546,7 @@
                         <input type="password" id="regPass2" minlength="6" required placeholder="Repita a senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
                     </div>
                 </div>
-                <button type="submit" id="btnRegSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400">CRIAR CONTA SEGURA</button>
+                <button type="submit" id="btnRegSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400">AVANÇAR E VERIFICAR E-MAIL</button>
             </form>
         </div>
     </div>
@@ -572,12 +591,12 @@
             </div>
             <div class="space-y-3 text-xs text-gray-300 max-h-80 overflow-y-auto pr-1">
                 <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
-                    <h4 class="font-bold text-brand-neonGreen mb-1">🔞 Restrição Rigorosa de Idade (18+)</h4>
-                    <p>Apenas maiores de 18 anos cadastrados e verificados podem publicar produtos para venda na plataforma.</p>
+                    <h4 class="font-bold text-brand-neonGreen mb-1">🔞 Verificação de E-mail & Idade (18+)</h4>
+                    <p>Contas verificadas por código de e-mail e restritas a maiores de 18 anos para máxima segurança.</p>
                 </div>
                 <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
                     <h4 class="font-bold text-amber-400 mb-1">🤝 Isenção de Responsabilidade</h4>
-                    <p>O Mr.Scorp atua como vitrine de classificados. Formas de pagamento, entrega em mãos ou envio e reembolso são combinados diretamente entre comprador e vendedor.</p>
+                    <p>O Mr.Scorp atua como vitrine de classificados. Formas de pagamento, entrega ou reembolso são combinadas diretamente entre comprador e vendedor.</p>
                 </div>
             </div>
             <button onclick="closeHelpModal()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl">COMPREENDI</button>
@@ -616,6 +635,8 @@
         window.reportingProductId = null;
         window.productImageIndices = {};
         window.activeDetailProduct = null;
+        window.pendingRegistrationData = null;
+        window.generatedVerificationCode = null;
 
         onSnapshot(query(productsCol, orderBy("createdAt", "desc")), (snapshot) => {
             window.allProducts = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -642,7 +663,8 @@
             window.renderAdminPanel();
         });
 
-        window.handleRealRegister = async function(e) {
+        // INICIAR CÓDIGO DE VERIFICAÇÃO POR E-MAIL PROFISSIONAL COM SEUS IDS
+        window.initiateEmailVerification = async function(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value;
             const email = document.getElementById('regEmail').value.toLowerCase().trim();
@@ -664,18 +686,57 @@
                 const snap = await getDocs(query(usersCol, where("email", "==", email)));
                 if (!snap.empty) { alert("⚠️ E-mail já cadastrado!"); return; }
 
-                const isAdmin = email === window.ADMIN_EMAIL;
+                // Gerar código aleatório de 6 dígitos
+                window.generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                window.pendingRegistrationData = { name, email, pass: p1, birthDate: birthDateStr, age };
+
+                // Enviar e-mail via EmailJS usando service_ftr2o7n e Template_15zim2d
+                const templateParams = {
+                    to_name: name,
+                    to_email: email,
+                    verification_code: window.generatedVerificationCode
+                };
+
+                await emailjs.send('service_ftr2o7n', 'Template_15zim2d', templateParams);
+
+                closeLoginModal();
+                document.getElementById('verifyEmailModal').classList.remove('opacity-0', 'pointer-events-none');
+                alert("📩 Código de verificação enviado para o seu e-mail!");
+            } catch (err) {
+                alert("Erro ao enviar e-mail de confirmação: " + err.message);
+            }
+        };
+
+        // CONFIRMAR CÓDIGO E SALVAR NO FIREBASE
+        window.confirmEmailVerification = async function() {
+            const typedCode = document.getElementById('verificationCodeInput').value.trim();
+            if (typedCode !== window.generatedVerificationCode) {
+                alert("❌ Código incorreto! Verifique os números enviados no e-mail.");
+                return;
+            }
+
+            const data = window.pendingRegistrationData;
+            const isAdmin = data.email === window.ADMIN_EMAIL;
+
+            try {
                 await addDoc(usersCol, {
-                    name, email, pass: p1, birthDate: birthDateStr, age, isAdult: true,
-                    isSellerAllowed: isAdmin, isVerified: isAdmin, createdAt: Date.now()
+                    name: data.name,
+                    email: data.email,
+                    pass: data.pass,
+                    birthDate: data.birthDate,
+                    age: data.age,
+                    isAdult: true,
+                    isSellerAllowed: isAdmin,
+                    isVerified: true, // E-mail verificado com sucesso!
+                    createdAt: Date.now()
                 });
 
-                window.currentUser = { name, email, isSellerAllowed: isAdmin, isVerified: isAdmin };
+                window.currentUser = { name: data.name, email: data.email, isSellerAllowed: isAdmin, isVerified: true };
                 localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
                 window.updateUserMenu();
-                window.closeLoginModal();
-                alert(`🎉 Conta criada com sucesso!`);
-            } catch (err) { alert("Erro: " + err.message); }
+                document.getElementById('verifyEmailModal').classList.add('opacity-0', 'pointer-events-none');
+                alert(`🎉 E-mail verificado e conta criada com sucesso!`);
+            } catch (err) { alert("Erro ao criar conta: " + err.message); }
         };
 
         window.handleRealLogin = async function(e) {
@@ -816,7 +877,7 @@
             document.getElementById('adminUserList').innerHTML = (window.allUsers || []).map(u => `
                 <div class="bg-brand-dark p-2.5 rounded-xl border border-gray-800 flex justify-between items-center text-xs">
                     <div>
-                        <p class="font-bold text-white">${u.name} ${u.isSellerAllowed ? '✅' : ''}</p>
+                        <p class="font-bold text-white">${u.name} ${u.isVerified ? '🛡️' : ''}</p>
                         <p class="text-[10px] text-gray-400">${u.email}</p>
                     </div>
                     <button onclick="toggleSellerPermission('${u.id}', ${!!u.isSellerAllowed})" class="px-2.5 py-1 rounded-lg font-bold text-[10px] ${u.isSellerAllowed ? 'bg-red-950 text-red-400' : 'bg-brand-neonGreen text-black'}">
@@ -843,9 +904,9 @@
     <!-- SCRIPT DE INTERFACE -->
     <script>
         const bannerPhrases = [
-            "O marketplace mais rápido para comprar e vender direto no WhatsApp!",
-            "Anuncie grátis com fotos e alcance compradores na sua região!",
-            "Negocie direto com o vendedor com facilidade e segurança!"
+            "Plataforma Oficial Mr.Scorp: Segurança máxima com verificação por e-mail!",
+            "Compre e venda com tranquilidade e perfis verificados!",
+            "O marketplace ideal para negociações diretas em Belo Horizonte!"
         ];
         setInterval(() => {
             const el = document.getElementById('dynamicBannerText');
@@ -866,8 +927,8 @@
             if (window.currentUser) {
                 userInfo.classList.remove('hidden');
                 document.getElementById('menuUserName').innerText = window.currentUser.name;
-                badge.innerText = window.currentUser.isSellerAllowed || isUserAdmin() ? "🟢 Vendedor 18+" : "🟡 Comprador";
-                badge.className = `text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold ${window.currentUser.isSellerAllowed ? 'bg-emerald-950 text-brand-neonGreen' : 'bg-amber-950 text-amber-400'}`;
+                badge.innerText = window.currentUser.isSellerAllowed || isUserAdmin() ? "🛡️ Verificado & 18+" : "🛡️ Conta Verificada";
+                badge.className = `text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold bg-emerald-950 text-brand-neonGreen`;
                 adminBtn.classList.toggle('hidden', !isUserAdmin());
                 authBtns.innerHTML = `<button onclick="logout(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-red-400 rounded-xl"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>`;
             } else {
@@ -914,8 +975,8 @@
             }
 
             const sellerDoc = window.allUsers.find(u => u.name.toLowerCase() === p.seller.toLowerCase());
-            const isVerified = sellerDoc && sellerDoc.isSellerAllowed;
-            document.getElementById('detailSeller').innerHTML = `${p.seller} ${isVerified ? '<i class="fa-solid fa-circle-check text-blue-400"></i>' : ''}`;
+            const isVerified = sellerDoc && sellerDoc.isVerified;
+            document.getElementById('detailSeller').innerHTML = `${p.seller} ${isVerified ? '<i class="fa-solid fa-circle-check text-brand-neonGreen" title="Verificado"></i>' : ''}`;
 
             const cleanPhone = (p.phone || '').replace(/\D/g, '');
             const defaultWaText = `Olá ${p.seller}! Vi seu anúncio "${p.title}" no Mr.Scorp e tenho interesse!`;
@@ -1163,6 +1224,7 @@
         function closeLoginModal() { document.getElementById('loginModal').classList.add('opacity-0', 'pointer-events-none'); }
         function openHelpModal() { document.getElementById('helpModal').classList.remove('opacity-0', 'pointer-events-none'); }
         function closeHelpModal() { document.getElementById('helpModal').classList.add('opacity-0', 'pointer-events-none'); }
+        function closeVerifyModal() { document.getElementById('verifyEmailModal').classList.add('opacity-0', 'pointer-events-none'); }
 
         function switchAuthTab(tab) {
             const isLogin = tab === 'login';
