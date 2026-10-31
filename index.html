@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
-    <!-- EmailJS SDK para envio de e-mail profissional -->
+    <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
@@ -93,7 +93,7 @@
         </span>
     </div>
 
-    <!-- HEADER -->
+    <!-- HEADER SIMPLIFICADO -->
     <header class="sticky top-0 z-40 bg-brand-dark/95 backdrop-blur-md border-b border-gray-800 shadow-xl">
         <div class="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between gap-3">
             
@@ -106,54 +106,30 @@
                     <h1 class="font-title text-base sm:text-xl font-black text-white">
                         Mr.<span class="text-brand-neonGreen neon-glow-green">Scorp</span>
                     </h1>
-                    <p class="text-[8px] sm:text-[9px] text-gray-400 uppercase tracking-widest font-semibold">VERIFIED MARKETPLACE</p>
+                    <p class="text-[8px] sm:text-[9px] text-gray-400 uppercase tracking-widest font-semibold">MARKETPLACE</p>
                 </div>
             </div>
 
-            <!-- CONTROLES E MENU -->
+            <!-- CONTROLES E MENU MÍNIMO -->
             <div class="flex items-center gap-2">
                 <button onclick="handleSellClick()" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 active:scale-95 transition-all shadow-md">
                     <i class="fa-solid fa-plus"></i>
-                    <span class="hidden sm:inline">Anunciar</span>
+                    <span>Anunciar</span>
                 </button>
 
-                <!-- BOTÃO MENU HAMBÚRGUER -->
+                <!-- MENU COMPLEMENTAR -->
                 <div class="relative">
                     <button onclick="toggleMenu()" class="click-ripple bg-brand-card border border-gray-700 text-gray-200 text-base px-3.5 py-2 rounded-xl hover:text-brand-neonGreen hover:border-brand-neonGreen active:scale-95 transition-all">
-                        <i class="fa-solid fa-bars"></i>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
                     </button>
 
-                    <!-- DROPDOWN MENU -->
-                    <div id="dropdownMenu" class="absolute right-0 mt-2 w-56 bg-brand-card border border-gray-700 rounded-2xl shadow-2xl p-2 hidden z-50 transition-all">
-                        <div id="menuUserInfo" class="p-2 border-b border-gray-800 mb-1 hidden">
-                            <p class="text-[10px] text-gray-400 uppercase">Logado como</p>
-                            <p id="menuUserName" class="text-xs font-bold text-brand-neonGreen truncate"></p>
-                            <span id="sellerStatusBadge" class="text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold"></span>
-                        </div>
-                        
-                        <button onclick="resetFiltersAndShowMarket(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
-                            <i class="fa-solid fa-store text-brand-neonGreen"></i> Catálogo Principal
-                        </button>
-
-                        <button onclick="handleMyProductsClick(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
-                            <i class="fa-solid fa-boxes-packing text-brand-neonGreen"></i> Meus Anúncios / Postar
-                        </button>
-
-                        <button onclick="setCategory('favoritos'); showTab('market'); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
-                            <i class="fa-solid fa-heart text-red-500"></i> Meus Favoritos
-                        </button>
-
-                        <button id="adminMenuBtn" onclick="showTab('admin'); toggleMenu();" class="hidden click-ripple w-full text-left px-3 py-2.5 text-xs text-amber-400 hover:bg-brand-dark rounded-xl flex items-center gap-2.5 font-bold transition-all">
-                            <i class="fa-solid fa-crown text-amber-400"></i> Painel Admin (Dono)
-                        </button>
-
+                    <div id="dropdownMenu" class="absolute right-0 mt-2 w-52 bg-brand-card border border-gray-700 rounded-2xl shadow-2xl p-2 hidden z-50 transition-all">
                         <button onclick="openHelpModal(); toggleMenu();" class="click-ripple w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:bg-brand-dark hover:text-brand-neonGreen rounded-xl flex items-center gap-2.5 transition-all">
-                            <i class="fa-solid fa-circle-question text-brand-neonGreen"></i> Regras da Plataforma (18+)
+                            <i class="fa-solid fa-shield-cat text-brand-neonGreen"></i> Regras da Plataforma
                         </button>
-
-                        <div class="border-t border-gray-800 my-1"></div>
-
-                        <div id="menuAuthBtns"></div>
+                        <button id="adminMenuBtn" onclick="showTab('admin'); toggleMenu();" class="hidden click-ripple w-full text-left px-3 py-2.5 text-xs text-amber-400 hover:bg-brand-dark rounded-xl flex items-center gap-2.5 font-bold transition-all">
+                            <i class="fa-solid fa-crown text-amber-400"></i> Painel Admin
+                        </button>
                     </div>
                 </div>
             </div>
@@ -164,7 +140,7 @@
     <div class="bg-gradient-to-r from-emerald-950 via-black to-brand-dark border-b border-gray-800 py-2 px-4 text-center relative z-10">
         <p class="text-xs font-semibold text-gray-200 flex items-center justify-center gap-2">
             <span class="text-brand-neonGreen animate-pulse">⚡</span> 
-            <span id="dynamicBannerText">Plataforma segura com verificação oficial de e-mail e contas 18+!</span>
+            <span id="dynamicBannerText">Plataforma oficial com verificação de e-mail e contas 18+!</span>
         </p>
     </div>
 
@@ -178,11 +154,11 @@
             <div class="space-y-3 bg-brand-card/60 p-3 sm:p-4 rounded-2xl border border-gray-800/80 backdrop-blur-md">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                     <div class="relative w-full md:col-span-2">
-                        <input type="text" id="searchInput" oninput="filterAndRenderProducts()" placeholder="O que você procura no Mr.Scorp hoje?..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
+                        <input type="text" id="searchInput" oninput="filterAndRenderProducts()" placeholder="Buscar produtos, marcas e mais..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
                         <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-500"></i>
                     </div>
                     <div class="relative w-full">
-                        <input type="text" id="locationInput" oninput="filterAndRenderProducts()" placeholder="📍 Bairro ou Cidade..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-9 pr-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
+                        <input type="text" id="locationInput" oninput="filterAndRenderProducts()" placeholder="📍 Cidade, Estado ou Bairro..." class="w-full bg-brand-dark border border-gray-700 rounded-xl pl-9 pr-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-neonGreen shadow-inner transition-all">
                         <i class="fa-solid fa-location-dot absolute left-3 top-3.5 text-gray-500"></i>
                     </div>
                 </div>
@@ -196,14 +172,13 @@
                     </div>
 
                     <div id="sellerFilterBadge" class="hidden bg-brand-neonGreen/10 border border-brand-neonGreen text-brand-neonGreen px-2.5 py-1 rounded-lg text-xs flex items-center gap-2">
-                        <span>Filtrando por vendedor: <strong id="sellerFilterName"></strong></span>
+                        <span>Vendedor: <strong id="sellerFilterName"></strong></span>
                         <button onclick="clearSellerFilter()" class="hover:text-white"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
 
                 <div class="flex gap-2 overflow-x-auto pt-2 pb-1 text-xs no-scrollbar items-center w-full">
                     <button id="cat-todos" onclick="setCategory('todos')" class="cat-btn click-ripple shrink-0 active bg-brand-neonGreen text-black font-bold px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🔥 Todos</button>
-                    <button id="cat-favoritos" onclick="setCategory('favoritos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">❤️ Favoritos</button>
                     <button id="cat-eletronicos" onclick="setCategory('eletronicos')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">📱 Eletrônicos</button>
                     <button id="cat-games" onclick="setCategory('games')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">🎮 Games</button>
                     <button id="cat-moda" onclick="setCategory('moda')" class="cat-btn click-ripple shrink-0 bg-brand-dark border border-gray-800 text-gray-300 px-3.5 py-2 rounded-xl whitespace-nowrap active:scale-95 transition-all">👕 Moda</button>
@@ -212,7 +187,7 @@
                 </div>
             </div>
 
-            <!-- GRID DE PRODUTOS 2 COLUNAS -->
+            <!-- GRID DE PRODUTOS -->
             <div id="productGrid" class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4"></div>
 
             <div id="emptyState" class="text-center py-20 hidden space-y-3">
@@ -220,14 +195,104 @@
                     <i class="fa-solid fa-box-open"></i>
                 </div>
                 <h3 class="text-base font-bold text-gray-300">Nenhum anúncio encontrado!</h3>
-                <p class="text-xs text-gray-500 max-w-sm mx-auto">Tente ajustar seus filtros ou seja o primeiro a publicar nesta categoria no Mr.Scorp.</p>
+                <p class="text-xs text-gray-500 max-w-sm mx-auto">Tente ajustar seus filtros ou publique o primeiro anúncio.</p>
                 <button onclick="handleSellClick()" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs px-5 py-2.5 rounded-xl active:scale-95 transition-all">
                     ANUNCIAR AGORA
                 </button>
             </div>
         </div>
 
-        <!-- ABA 2: PUBLICAR / EDITAR ANÚNCIO -->
+        <!-- ABA 2: MEUS FAVORITOS -->
+        <div id="tabFavorites" class="hidden space-y-4">
+            <div class="border-b border-gray-800 pb-3 flex justify-between items-center">
+                <h2 class="font-title text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-heart text-red-500"></i> Meus Favoritos
+                </h2>
+            </div>
+            <div id="favoritesGrid" class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4"></div>
+        </div>
+
+        <!-- ABA 3: PERFIL DO USUÁRIO / TELA DE LOGIN & CADASTRO -->
+        <div id="tabProfile" class="hidden max-w-md mx-auto space-y-4">
+            <!-- SE ESTIVER LOGADO: EXIBE PAINEL DO PERFIL -->
+            <div id="profileLoggedInView" class="hidden space-y-4">
+                <div class="bg-brand-card/90 border border-gray-800 p-5 rounded-3xl text-center space-y-3">
+                    <div class="w-20 h-20 bg-brand-dark border-2 border-brand-neonGreen rounded-full flex items-center justify-center mx-auto text-3xl text-brand-neonGreen neon-border-green">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                        <h2 id="userProfileName" class="font-title font-bold text-lg text-white"></h2>
+                        <p id="userProfileEmail" class="text-xs text-gray-400"></p>
+                        <span id="userProfileBadge" class="text-[10px] px-3 py-1 rounded-full font-semibold inline-block mt-2"></span>
+                    </div>
+                </div>
+
+                <div class="bg-brand-card/90 border border-gray-800 rounded-3xl p-3 space-y-1">
+                    <button onclick="showTab('publish')" class="click-ripple w-full text-left p-3 text-xs text-gray-200 hover:bg-brand-dark hover:text-brand-neonGreen rounded-2xl flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-boxes-packing text-brand-neonGreen text-sm"></i> Meus Anúncios / Criar Anúncio</span>
+                        <i class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
+                    </button>
+                    <button onclick="showTab('favorites')" class="click-ripple w-full text-left p-3 text-xs text-gray-200 hover:bg-brand-dark hover:text-brand-neonGreen rounded-2xl flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-heart text-red-500 text-sm"></i> Anúncios Favoritados</span>
+                        <i class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
+                    </button>
+                    <button onclick="logout()" class="click-ripple w-full text-left p-3 text-xs text-red-400 hover:bg-brand-dark rounded-2xl flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-right-from-bracket text-sm"></i> Sair da Conta</span>
+                        <i class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SE NÃO ESTIVER LOGADO: EXIBE AUTENTICAÇÃO DIRETA NA TELA DE PERFIL -->
+            <div id="profileLoggedOutView" class="bg-brand-card/90 backdrop-blur-md border border-gray-800 p-5 rounded-3xl space-y-4">
+                <div class="flex border-b border-gray-800 pb-3 text-sm font-title font-bold gap-4 justify-center">
+                    <button id="profileAuthTabLogin" onclick="switchProfileAuth('login')" class="text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1">ENTRAR</button>
+                    <button id="profileAuthTabRegister" onclick="switchProfileAuth('register')" class="text-gray-400 pb-1 hover:text-white">CADASTRAR (18+)</button>
+                </div>
+
+                <!-- FORMULÁRIO DE LOGIN -->
+                <form id="profileFormLogin" onsubmit="handleRealLogin(event)" class="space-y-3">
+                    <div>
+                        <label class="text-[11px] font-semibold text-gray-400 uppercase">E-mail Cadastrado</label>
+                        <input type="email" id="loginEmail" required placeholder="seuemail@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-gray-400 uppercase">Sua Senha</label>
+                        <input type="password" id="loginPass" required placeholder="••••••••" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                    <button type="submit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3.5 rounded-xl hover:bg-emerald-400 transition-all">ENTRAR NA CONTA</button>
+                </form>
+
+                <!-- FORMULÁRIO DE CADASTRO -->
+                <form id="profileFormRegister" onsubmit="initiateEmailVerification(event)" class="space-y-3 hidden">
+                    <div>
+                        <label class="text-[11px] font-semibold text-gray-400 uppercase">Nome / Apelido *</label>
+                        <input type="text" id="regName" required placeholder="Ex: João da Silva" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-gray-400 uppercase">Seu E-mail Real *</label>
+                        <input type="email" id="regEmail" required placeholder="seuemail@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-gray-400 uppercase">Data de Nascimento (18+) *</label>
+                        <input type="date" id="regBirthDate" required class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[11px] font-semibold text-gray-400 uppercase">Criar Senha *</label>
+                            <input type="password" id="regPass1" minlength="6" required placeholder="Mínimo 6 dígitos" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-semibold text-gray-400 uppercase">Repetir Senha *</label>
+                            <input type="password" id="regPass2" minlength="6" required placeholder="Repita a senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
+                        </div>
+                    </div>
+                    <button type="submit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3.5 rounded-xl hover:bg-emerald-400 transition-all">AVANÇAR E VERIFICAR E-MAIL</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ABA 4: PUBLICAR / EDITAR ANÚNCIO -->
         <div id="tabPublish" class="hidden max-w-xl mx-auto space-y-5">
             <div class="border-b border-gray-800 pb-3">
                 <h2 id="formTitle" class="font-title text-xl font-bold text-white flex items-center gap-2">
@@ -279,8 +344,8 @@
                         <input type="tel" id="pPhone" required placeholder="31999999999" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                     </div>
                     <div>
-                        <label class="text-xs font-semibold text-gray-300 uppercase">Bairro / Cidade *</label>
-                        <input type="text" id="pLocation" required placeholder="Ex: Águas Claras / BH" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
+                        <label class="text-xs font-semibold text-gray-300 uppercase">Cidade / Estado ou Bairro *</label>
+                        <input type="text" id="pLocation" required placeholder="Ex: São Paulo / SP" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
                     </div>
                 </div>
 
@@ -303,28 +368,24 @@
             </form>
         </div>
 
-        <!-- ABA 3: PAINEL DO ADMINISTRADOR -->
+        <!-- ABA 5: PAINEL DO ADMINISTRADOR -->
         <div id="tabAdmin" class="hidden max-w-4xl mx-auto space-y-6">
             <div class="bg-gradient-to-r from-amber-950/40 to-brand-card border border-amber-500/40 p-5 rounded-2xl flex justify-between items-center">
                 <div>
                     <h2 class="font-title text-xl font-bold text-amber-400 flex items-center gap-2">
-                        <i class="fa-solid fa-crown"></i> Painel de Controle Admin
+                        <i class="fa-solid fa-crown"></i> Painel Admin
                     </h2>
-                    <p class="text-xs text-gray-400 mt-1">Acesso exclusivo do proprietário do Mr.Scorp para moderação.</p>
-                </div>
-                <div class="bg-black/60 border border-amber-500/50 px-4 py-2 rounded-xl text-center">
-                    <span class="text-[10px] text-gray-400 uppercase block font-semibold">Status</span>
-                    <span class="text-xs font-bold text-amber-400">DONO / MODERADOR</span>
+                    <p class="text-xs text-gray-400 mt-1">Gerenciamento completo da plataforma.</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="bg-brand-card p-4 rounded-2xl border border-gray-800 text-center">
-                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Total Anúncios</span>
+                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Anúncios</span>
                     <span id="adminTotalProducts" class="font-title text-2xl font-bold text-brand-neonGreen">0</span>
                 </div>
                 <div class="bg-brand-card p-4 rounded-2xl border border-gray-800 text-center">
-                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Usuários Registrados</span>
+                    <span class="text-[10px] text-gray-500 uppercase block font-semibold">Usuários</span>
                     <span id="adminTotalUsers" class="font-title text-2xl font-bold text-white">0</span>
                 </div>
                 <div class="bg-brand-card p-4 rounded-2xl border border-gray-800 text-center">
@@ -338,21 +399,17 @@
             </div>
 
             <div id="adminReportsContainer" class="bg-brand-card/90 border border-red-900/40 rounded-2xl p-4 hidden">
-                <h3 class="font-title font-bold text-red-400 text-sm mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Alertas e Denúncias de Produtos
-                </h3>
+                <h3 class="font-title font-bold text-red-400 text-sm mb-3">Denúncias</h3>
                 <div id="adminReportList" class="space-y-2"></div>
             </div>
 
             <div class="bg-brand-card/90 border border-gray-800 rounded-2xl p-4">
-                <h3 class="font-title font-bold text-white text-sm mb-1 flex items-center gap-2">
-                    <i class="fa-solid fa-user-shield text-blue-400"></i> Moderação de Vendedores (Aprovação 18+)
-                </h3>
+                <h3 class="font-title font-bold text-white text-sm mb-2">Moderação de Vendedores (18+)</h3>
                 <div id="adminUserList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
             </div>
 
             <div class="bg-brand-card/90 border border-gray-800 rounded-2xl p-4">
-                <h3 class="font-title font-bold text-white text-sm mb-3">Gerenciamento Geral de Anúncios</h3>
+                <h3 class="font-title font-bold text-white text-sm mb-3">Gerenciamento de Anúncios</h3>
                 <div id="adminProductList" class="space-y-2"></div>
             </div>
         </div>
@@ -362,11 +419,11 @@
     <!-- BARRA DE NAVEGAÇÃO INFERIOR FIXA (ESTILO APLICATIVO) -->
     <nav class="fixed bottom-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-md border-t border-gray-800 shadow-2xl py-2 px-4">
         <div class="max-w-md mx-auto flex items-center justify-around text-center">
-            <button onclick="resetFiltersAndShowMarket()" class="click-ripple text-brand-neonGreen flex flex-col items-center gap-1 p-1">
+            <button onclick="showTab('market')" id="navTabMarket" class="click-ripple text-brand-neonGreen flex flex-col items-center gap-1 p-1">
                 <i class="fa-solid fa-store text-base"></i>
                 <span class="text-[10px] font-semibold">Início</span>
             </button>
-            <button onclick="setCategory('favoritos'); showTab('market');" class="click-ripple text-gray-400 hover:text-red-500 flex flex-col items-center gap-1 p-1">
+            <button onclick="showTab('favorites')" id="navTabFavorites" class="click-ripple text-gray-400 hover:text-red-500 flex flex-col items-center gap-1 p-1">
                 <i class="fa-solid fa-heart text-base"></i>
                 <span class="text-[10px] font-semibold">Favoritos</span>
             </button>
@@ -377,7 +434,7 @@
                 <i class="fa-solid fa-circle-question text-base"></i>
                 <span class="text-[10px] font-semibold">Ajuda</span>
             </button>
-            <button onclick="openLoginModal()" class="click-ripple text-gray-400 hover:text-brand-neonGreen flex flex-col items-center gap-1 p-1">
+            <button onclick="showTab('profile')" id="navTabProfile" class="click-ripple text-gray-400 hover:text-brand-neonGreen flex flex-col items-center gap-1 p-1">
                 <i class="fa-solid fa-user text-base"></i>
                 <span class="text-[10px] font-semibold">Perfil</span>
             </button>
@@ -391,7 +448,6 @@
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
-            <!-- IMAGEM PRINCIPAL COM CARROSSEL -->
             <div id="detailImageContainer" class="relative w-full h-64 sm:h-80 bg-black rounded-2xl overflow-hidden flex items-center justify-center border border-gray-800"></div>
 
             <div class="space-y-3">
@@ -413,11 +469,6 @@
                 <p id="detailLocation" class="text-xs text-gray-400 flex items-center gap-1.5">
                     <i class="fa-solid fa-location-dot text-brand-neonGreen"></i> <span></span>
                 </p>
-
-                <div class="bg-amber-950/30 border border-amber-900/50 p-2.5 rounded-xl text-[11px] text-amber-300 flex items-center gap-2">
-                    <i class="fa-solid fa-triangle-exclamation text-base shrink-0"></i>
-                    <span>Envio, entrega e pagamento são combinados diretamente com o vendedor. O Mr.Scorp atua como vitrine.</span>
-                </div>
 
                 <div id="detailOwnerActions" class="hidden flex gap-2 pt-1 pb-1">
                     <button id="detailEditBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all">
@@ -443,16 +494,6 @@
                     </button>
                 </div>
 
-                <div class="space-y-1.5 pt-1">
-                    <label class="text-xs font-semibold text-gray-300">Tirar dúvida rápida ou negociar:</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="quickQuestionText" placeholder="Ex: Aceita oferta? Como combinamos a entrega?" class="flex-1 bg-brand-dark border border-gray-700 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-brand-neonGreen">
-                        <button onclick="sendQuickQuestion()" class="click-ripple bg-brand-dark border border-brand-neonGreen text-brand-neonGreen px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
-                            <i class="fa-brands fa-whatsapp"></i> Perguntar
-                        </button>
-                    </div>
-                </div>
-
                 <div class="grid grid-cols-2 gap-2 pt-2">
                     <button id="detailBuyBtn" class="click-ripple bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl hover:bg-emerald-400 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-bag-shopping"></i> COMPRAR AGORA
@@ -472,95 +513,26 @@
                 <i class="fa-solid fa-envelope-circle-check"></i>
             </div>
             <h3 class="font-title font-bold text-white text-base">Verificação de E-mail</h3>
-            <p class="text-xs text-gray-300">Enviamos um código de confirmação de 6 dígitos para o seu e-mail oficial.</p>
+            <p class="text-xs text-gray-300">Enviamos um código de confirmação de 6 dígitos para o seu e-mail.</p>
             <div>
                 <input type="text" id="verificationCodeInput" maxlength="6" placeholder="000000" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-center text-xl tracking-widest text-brand-neonGreen font-bold focus:border-brand-neonGreen outline-none">
             </div>
-            <button onclick="confirmEmailVerification()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400">CONFIRMAR E CRIAR CONTA</button>
+            <button onclick="confirmEmailVerification()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3.5 rounded-xl hover:bg-emerald-400">CONFIRMAR E CRIAR CONTA</button>
             <button onclick="closeVerifyModal()" class="text-xs text-gray-500 hover:text-gray-300">Cancelar</button>
         </div>
     </div>
 
-    <!-- MODAIS GERAIS (DENÚNCIA, LOGIN, AVISO, AJUDA) -->
-    <div id="reportModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
-        <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
-                <h3 class="font-title font-bold text-white text-sm flex items-center gap-2">
-                    <i class="fa-solid fa-flag text-red-500"></i> Denunciar Anúncio
-                </h3>
-                <button onclick="closeReportModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <p class="text-xs text-gray-400">Qual o motivo da sua denúncia?</p>
-            <select id="reportReason" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white outline-none">
-                <option value="Conteúdo +18 ou Inapropriado">🔞 Conteúdo +18 ou Inapropriado</option>
-                <option value="Produto Falso ou Golpe">⚠️ Produto Falso ou Suspeita de Golpe</option>
-                <option value="Preço Abusivo ou Irreal">💲 Preço Abusivo ou Enganoso</option>
-                <option value="Outro Motivo">❓ Outro Motivo</option>
-            </select>
-            <button id="btnConfirmReport" class="click-ripple w-full bg-red-600 text-white font-title font-bold py-2.5 rounded-xl hover:bg-red-700">ENVIAR DENÚNCIA</button>
-        </div>
-    </div>
-
-    <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
-        <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
-                <div class="flex gap-4 text-sm font-title font-bold">
-                    <button id="tabAuthLogin" onclick="switchAuthTab('login')" class="click-ripple text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1">ENTRAR</button>
-                    <button id="tabAuthRegister" onclick="switchAuthTab('register')" class="click-ripple text-gray-400 pb-1 hover:text-white">CADASTRAR (18+)</button>
-                </div>
-                <button onclick="closeLoginModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-
-            <form id="formLogin" onsubmit="handleRealLogin(event)" class="space-y-3">
-                <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">E-mail Cadastrado</label>
-                    <input type="email" id="loginEmail" required placeholder="exemplo@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
-                </div>
-                <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Sua Senha</label>
-                    <input type="password" id="loginPass" required placeholder="••••••••" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
-                </div>
-                <button type="submit" id="btnLoginSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400">ENTRAR NA CONTA</button>
-            </form>
-
-            <form id="formRegister" onsubmit="initiateEmailVerification(event)" class="space-y-3 hidden">
-                <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Nome / Apelido *</label>
-                    <input type="text" id="regName" required placeholder="Ex: João da Silva" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
-                </div>
-                <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Seu E-mail Real *</label>
-                    <input type="email" id="regEmail" required placeholder="seuemail@gmail.com" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-sm text-white focus:border-brand-neonGreen outline-none mt-1">
-                </div>
-                <div>
-                    <label class="text-[11px] font-semibold text-gray-400 uppercase">Data de Nascimento (18+) *</label>
-                    <input type="date" id="regBirthDate" required class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="text-[11px] font-semibold text-gray-400 uppercase">Criar Senha *</label>
-                        <input type="password" id="regPass1" minlength="6" required placeholder="Mínimo 6 dígitos" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
-                    </div>
-                    <div>
-                        <label class="text-[11px] font-semibold text-gray-400 uppercase">Repetir Senha *</label>
-                        <input type="password" id="regPass2" minlength="6" required placeholder="Repita a senha" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-2.5 text-xs text-white focus:border-brand-neonGreen outline-none mt-1">
-                    </div>
-                </div>
-                <button type="submit" id="btnRegSubmit" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3 rounded-xl hover:bg-emerald-400">AVANÇAR E VERIFICAR E-MAIL</button>
-            </form>
-        </div>
-    </div>
-
+    <!-- MODAIS COMPLEMENTARES -->
     <div id="sellerNoticeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-amber-500/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
             <div class="w-12 h-12 rounded-full bg-amber-950/60 border border-amber-500 text-amber-400 flex items-center justify-center mx-auto text-xl">
                 <i class="fa-solid fa-user-lock"></i>
             </div>
             <h3 class="font-title font-bold text-white text-base">Ativação de Vendedor 18+</h3>
-            <p class="text-xs text-gray-300">Sua conta é de **Comprador**. Solicite ativação de vendedor com a administração.</p>
+            <p class="text-xs text-gray-300">Sua conta é de **Comprador**. Solicite ativação com o suporte.</p>
             <div class="space-y-2 pt-2">
                 <a href="https://wa.me/5531999999999?text=Olá!%20Gostaria%20de%20solicitar%20a%20ativação%20da%20minha%20conta%20de%20Vendedor%2018+%20no%20Mr.Scorp!" target="_blank" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-sm"></i> SOLICITAR NO WHATSAPP
+                    <i class="fa-brands fa-whatsapp text-sm"></i> SOLICITAR ATIVAÇÃO
                 </a>
                 <button onclick="closeSellerNoticeModal()" class="click-ripple w-full bg-brand-dark border border-gray-700 text-gray-400 text-xs py-2 rounded-xl">Voltar</button>
             </div>
@@ -569,9 +541,6 @@
 
     <div id="deleteModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-red-900/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
-            <div class="w-12 h-12 rounded-full bg-red-950 border border-red-800 text-red-500 flex items-center justify-center mx-auto text-xl">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
             <h3 class="font-title font-bold text-white text-base">Excluir Anúncio?</h3>
             <p class="text-xs text-gray-400">Tem certeza que deseja apagar este produto?</p>
             <div class="flex gap-2 pt-2">
@@ -592,18 +561,14 @@
             <div class="space-y-3 text-xs text-gray-300 max-h-80 overflow-y-auto pr-1">
                 <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
                     <h4 class="font-bold text-brand-neonGreen mb-1">🔞 Verificação de E-mail & Idade (18+)</h4>
-                    <p>Contas verificadas por código de e-mail e restritas a maiores de 18 anos para máxima segurança.</p>
-                </div>
-                <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
-                    <h4 class="font-bold text-amber-400 mb-1">🤝 Isenção de Responsabilidade</h4>
-                    <p>O Mr.Scorp atua como vitrine de classificados. Formas de pagamento, entrega ou reembolso são combinadas diretamente entre comprador e vendedor.</p>
+                    <p>Contas verificadas por código de e-mail para garantia de negociações reais.</p>
                 </div>
             </div>
             <button onclick="closeHelpModal()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl">COMPREENDI</button>
         </div>
     </div>
 
-    <!-- SCRIPT FIREBASE SDK E LÓGICA -->
+    <!-- SCRIPT FIREBASE E LOGICA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, updateDoc, onSnapshot, deleteDoc, doc, query, orderBy, where, getDocs, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -619,6 +584,7 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        window.db = db;
         const productsCol = collection(db, "products");
         const usersCol = collection(db, "users");
         const reportsCol = collection(db, "reports");
@@ -632,7 +598,6 @@
         window.currentUser = JSON.parse(localStorage.getItem('mrScorpUser')) || null;
         window.favorites = JSON.parse(localStorage.getItem('mrScorpFavs')) || [];
         window.deletingProductId = null;
-        window.reportingProductId = null;
         window.productImageIndices = {};
         window.activeDetailProduct = null;
         window.pendingRegistrationData = null;
@@ -651,7 +616,7 @@
                 if (updatedMe) {
                     window.currentUser = { ...window.currentUser, isSellerAllowed: updatedMe.isSellerAllowed, isVerified: updatedMe.isVerified };
                     localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
-                    window.updateUserMenu();
+                    window.updateProfileView();
                 }
             }
             window.filterAndRenderProducts();
@@ -663,7 +628,6 @@
             window.renderAdminPanel();
         });
 
-        // INICIAR CÓDIGO DE VERIFICAÇÃO POR E-MAIL PROFISSIONAL COM SEUS IDS
         window.initiateEmailVerification = async function(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value;
@@ -686,11 +650,9 @@
                 const snap = await getDocs(query(usersCol, where("email", "==", email)));
                 if (!snap.empty) { alert("⚠️ E-mail já cadastrado!"); return; }
 
-                // Gerar código aleatório de 6 dígitos
                 window.generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
                 window.pendingRegistrationData = { name, email, pass: p1, birthDate: birthDateStr, age };
 
-                // Mapeamento duplo para garantir que o EmailJS receba o destinatário sem falhas
                 const templateParams = {
                     to_name: name,
                     to_email: email,
@@ -701,21 +663,17 @@
 
                 await emailjs.send('service_ftr2o7n', 'template_15zim2d', templateParams);
 
-                closeLoginModal();
                 document.getElementById('verifyEmailModal').classList.remove('opacity-0', 'pointer-events-none');
-                alert("📩 Código de verificação enviado para o seu e-mail!");
+                alert("📩 Código enviado para o seu e-mail!");
             } catch (err) {
-                console.error("Erro detalhado EmailJS:", err);
-                const errorMsg = err.text || err.message || JSON.stringify(err);
-                alert("Erro ao enviar e-mail: " + errorMsg);
+                alert("Erro ao enviar e-mail: " + (err.text || err.message));
             }
         };
 
-        // CONFIRMAR CÓDIGO E SALVAR NO FIREBASE
         window.confirmEmailVerification = async function() {
             const typedCode = document.getElementById('verificationCodeInput').value.trim();
             if (typedCode !== window.generatedVerificationCode) {
-                alert("❌ Código incorreto! Verifique os números enviados no e-mail.");
+                alert("❌ Código incorreto!");
                 return;
             }
 
@@ -731,16 +689,16 @@
                     age: data.age,
                     isAdult: true,
                     isSellerAllowed: isAdmin,
-                    isVerified: true, // E-mail verificado com sucesso!
+                    isVerified: true,
                     createdAt: Date.now()
                 });
 
                 window.currentUser = { name: data.name, email: data.email, isSellerAllowed: isAdmin, isVerified: true };
                 localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
-                window.updateUserMenu();
+                window.updateProfileView();
                 document.getElementById('verifyEmailModal').classList.add('opacity-0', 'pointer-events-none');
-                alert(`🎉 E-mail verificado e conta criada com sucesso!`);
-            } catch (err) { alert("Erro ao criar conta: " + err.message); }
+                alert(`🎉 Conta criada com sucesso!`);
+            } catch (err) { alert("Erro: " + err.message); }
         };
 
         window.handleRealLogin = async function(e) {
@@ -759,8 +717,7 @@
                     isVerified: userData.isVerified || false
                 };
                 localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
-                window.updateUserMenu();
-                window.closeLoginModal();
+                window.updateProfileView();
                 alert(`👋 Olá, ${userData.name}!`);
             } catch (err) { alert("Erro: " + err.message); }
         };
@@ -796,7 +753,7 @@
                     condition: document.getElementById('pCondition').value || 'Seminovo',
                     category: document.getElementById('pCategory').value,
                     phone: document.getElementById('pPhone').value,
-                    location: document.getElementById('pLocation').value || 'Belo Horizonte',
+                    location: document.getElementById('pLocation').value || 'Brasil',
                     desc: document.getElementById('pDesc').value,
                     images: imagesBase64,
                     image: imagesBase64[0] || null,
@@ -812,34 +769,11 @@
                     alert("✅ Anúncio atualizado!");
                 } else {
                     await addDoc(productsCol, payload);
-                    alert("🚀 Anúncio publicado com sucesso!");
+                    alert("🚀 Anúncio publicado!");
                 }
                 cancelEdit();
                 window.showTab('market');
             } catch (err) { alert("Erro: " + err.message); }
-        };
-
-        window.toggleProductSuspension = async function(productId, currentStatus) {
-            await updateDoc(doc(db, "products", productId), { isSuspended: !currentStatus });
-        };
-
-        window.deleteReport = async function(reportId) {
-            await deleteDoc(doc(db, "reports", reportId));
-        };
-
-        window.sendReport = async function() {
-            if (!window.reportingProductId) return;
-            const reason = document.getElementById('reportReason').value;
-            const product = window.allProducts.find(p => p.id === window.reportingProductId);
-            await addDoc(reportsCol, {
-                productId: window.reportingProductId,
-                productTitle: product ? product.title : 'Produto',
-                seller: product ? product.seller : 'Desconhecido',
-                reason, reportedBy: window.currentUser ? window.currentUser.email : 'Anônimo',
-                createdAt: Date.now()
-            });
-            alert("🚩 Denúncia enviada com sucesso!");
-            closeReportModal();
         };
 
         window.toggleSellerPermission = async function(userId, currentStatus) {
@@ -851,32 +785,15 @@
             await deleteDoc(doc(db, "products", window.deletingProductId));
             closeDeleteModal();
             closeProductDetail();
-            alert("🗑️ Anúncio excluído permanentemente!");
+            alert("🗑️ Anúncio excluído!");
         };
 
         window.renderAdminPanel = function() {
+            if (!document.getElementById('adminTotalProducts')) return;
             document.getElementById('adminTotalProducts').innerText = (window.allProducts || []).length;
             document.getElementById('adminTotalUsers').innerText = (window.allUsers || []).length;
             document.getElementById('adminTotalReports').innerText = (window.allReports || []).length;
             document.getElementById('adminTotalSellers').innerText = (window.allUsers || []).filter(u => u.isSellerAllowed).length;
-
-            const repContainer = document.getElementById('adminReportsContainer');
-            const repListEl = document.getElementById('adminReportList');
-            if (window.allReports.length > 0) {
-                repContainer.classList.remove('hidden');
-                repListEl.innerHTML = window.allReports.map(r => `
-                    <div class="bg-red-950/30 border border-red-900/50 p-3 rounded-xl flex justify-between items-center text-xs">
-                        <div>
-                            <p class="font-bold text-white">${r.productTitle} <span class="text-red-400">(${r.reason})</span></p>
-                            <p class="text-[10px] text-gray-400">Vendedor: ${r.seller}</p>
-                        </div>
-                        <div class="flex gap-1.5">
-                            <button onclick="openDeleteModal('${r.productId}')" class="bg-red-600 text-white px-2 py-1 rounded-lg">Excluir</button>
-                            <button onclick="deleteReport('${r.id}')" class="bg-gray-800 text-gray-300 p-1 rounded-lg"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-                    </div>
-                `).join('');
-            } else { repContainer.classList.add('hidden'); }
 
             document.getElementById('adminUserList').innerHTML = (window.allUsers || []).map(u => `
                 <div class="bg-brand-dark p-2.5 rounded-xl border border-gray-800 flex justify-between items-center text-xs">
@@ -896,10 +813,7 @@
                         <p class="font-bold text-white truncate max-w-[180px]">${p.title}</p>
                         <p class="text-[10px] text-gray-400">Vendedor: ${p.seller}</p>
                     </div>
-                    <div class="flex gap-1.5">
-                        <button onclick="toggleProductSuspension('${p.id}', ${!!p.isSuspended})" class="px-2 py-1 rounded font-bold ${p.isSuspended ? 'bg-emerald-600 text-black' : 'bg-amber-600 text-black'}">${p.isSuspended ? 'Reativar' : 'Suspender'}</button>
-                        <button onclick="openDeleteModal('${p.id}')" class="bg-red-600 text-white p-1.5 rounded"><i class="fa-solid fa-trash"></i></button>
-                    </div>
+                    <button onclick="openDeleteModal('${p.id}')" class="bg-red-600 text-white p-1.5 rounded"><i class="fa-solid fa-trash"></i></button>
                 </div>
             `).join('');
         };
@@ -907,39 +821,107 @@
 
     <!-- SCRIPT DE INTERFACE -->
     <script>
-        const bannerPhrases = [
-            "Plataforma Oficial Mr.Scorp: Segurança máxima com verificação por e-mail!",
-            "Compre e venda com tranquilidade e perfis verificados!",
-            "O marketplace ideal para negociações diretas em Belo Horizonte!"
-        ];
-        setInterval(() => {
-            const el = document.getElementById('dynamicBannerText');
-            if (el) el.innerText = bannerPhrases[Math.floor(Math.random() * bannerPhrases.length)];
-        }, 5000);
-
-        window.onload = () => updateUserMenu();
+        window.onload = () => updateProfileView();
 
         function toggleMenu() { document.getElementById('dropdownMenu').classList.toggle('hidden'); }
         function isUserAdmin() { return window.currentUser && window.currentUser.email.toLowerCase() === window.ADMIN_EMAIL.toLowerCase(); }
 
-        function updateUserMenu() {
-            const userInfo = document.getElementById('menuUserInfo');
-            const authBtns = document.getElementById('menuAuthBtns');
+        function updateProfileView() {
+            const loggedInView = document.getElementById('profileLoggedInView');
+            const loggedOutView = document.getElementById('profileLoggedOutView');
             const adminBtn = document.getElementById('adminMenuBtn');
-            const badge = document.getElementById('sellerStatusBadge');
 
             if (window.currentUser) {
-                userInfo.classList.remove('hidden');
-                document.getElementById('menuUserName').innerText = window.currentUser.name;
-                badge.innerText = window.currentUser.isSellerAllowed || isUserAdmin() ? "🛡️ Verificado & 18+" : "🛡️ Conta Verificada";
-                badge.className = `text-[9px] px-2 py-0.5 rounded-md mt-1 inline-block font-semibold bg-emerald-950 text-brand-neonGreen`;
+                loggedInView.classList.remove('hidden');
+                loggedOutView.classList.add('hidden');
+                document.getElementById('userProfileName').innerText = window.currentUser.name;
+                document.getElementById('userProfileEmail').innerText = window.currentUser.email;
+
+                const badge = document.getElementById('userProfileBadge');
+                badge.innerText = window.currentUser.isSellerAllowed || isUserAdmin() ? "🛡️ Vendedor Verificado 18+" : "🛡️ Conta Verificada";
+                badge.className = "text-[10px] px-3 py-1 rounded-full font-semibold inline-block mt-2 bg-emerald-950 text-brand-neonGreen border border-brand-neonGreen";
+                
                 adminBtn.classList.toggle('hidden', !isUserAdmin());
-                authBtns.innerHTML = `<button onclick="logout(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-red-400 rounded-xl"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>`;
             } else {
-                userInfo.classList.add('hidden');
+                loggedInView.classList.add('hidden');
+                loggedOutView.classList.remove('hidden');
                 adminBtn.classList.add('hidden');
-                authBtns.innerHTML = `<button onclick="openLoginModal(); toggleMenu();" class="w-full text-left px-3 py-2.5 text-xs text-brand-neonGreen font-bold rounded-xl"><i class="fa-solid fa-user-lock"></i> Entrar / Cadastrar</button>`;
             }
+        }
+
+        function switchProfileAuth(tab) {
+            const isLogin = tab === 'login';
+            document.getElementById('profileFormLogin').classList.toggle('hidden', !isLogin);
+            document.getElementById('profileFormRegister').classList.toggle('hidden', isLogin);
+            document.getElementById('profileAuthTabLogin').className = isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1";
+            document.getElementById('profileAuthTabRegister').className = !isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1";
+        }
+
+        function showTab(tab) {
+            if (tab === 'publish') {
+                if (!window.currentUser) { showTab('profile'); return; }
+                if (!window.currentUser.isSellerAllowed && !isUserAdmin()) {
+                    document.getElementById('sellerNoticeModal').classList.remove('opacity-0', 'pointer-events-none');
+                    return;
+                }
+            }
+
+            document.getElementById('tabMarket').classList.toggle('hidden', tab !== 'market');
+            document.getElementById('tabFavorites').classList.toggle('hidden', tab !== 'favorites');
+            document.getElementById('tabProfile').classList.toggle('hidden', tab !== 'profile');
+            document.getElementById('tabPublish').classList.toggle('hidden', tab !== 'publish');
+            document.getElementById('tabAdmin').classList.toggle('hidden', tab !== 'admin');
+
+            // Atualiza cores dos ícones da barra inferior
+            const tabs = ['Market', 'Favorites', 'Profile'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`navTab${t}`);
+                if (el) {
+                    if (tab === t.toLowerCase()) {
+                        el.classList.remove('text-gray-400');
+                        el.classList.add('text-brand-neonGreen');
+                    } else {
+                        el.classList.remove('text-brand-neonGreen');
+                        el.classList.add('text-gray-400');
+                    }
+                }
+            });
+
+            if (tab === 'favorites') renderFavoritesGrid();
+        }
+
+        function handleSellClick() {
+            if (!window.currentUser) showTab('profile');
+            else showTab('publish');
+        }
+
+        function renderFavoritesGrid() {
+            const grid = document.getElementById('favoritesGrid');
+            grid.innerHTML = '';
+            const favProducts = (window.allProducts || []).filter(p => window.favorites.includes(p.id));
+
+            if (favProducts.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 text-xs">Você ainda não salvou nenhum produto nos favoritos.</div>`;
+                return;
+            }
+
+            favProducts.forEach(p => {
+                const imgUrl = p.images?.[0] || p.image;
+                grid.innerHTML += `
+                    <div onclick="openProductDetail('${p.id}')" class="bg-brand-card/90 border border-gray-800 rounded-2xl overflow-hidden cursor-pointer">
+                        <div class="h-36 bg-black relative">
+                            ${imgUrl ? `<img src="${imgUrl}" class="w-full h-full object-cover">` : ''}
+                            <button onclick="toggleFavorite('${p.id}', event)" class="absolute top-2 right-2 bg-black/70 text-red-500 w-7 h-7 rounded-full border border-gray-700 text-xs">
+                                <i class="fa-solid fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="p-2.5">
+                            <h3 class="font-bold text-white text-xs truncate">${p.title}</h3>
+                            <span class="font-title text-brand-neonGreen text-sm font-bold mt-1 block">R$ ${parseFloat(p.price || 0).toFixed(2).replace('.', ',')}</span>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
         async function openProductDetail(id) {
@@ -948,7 +930,7 @@
             window.activeDetailProduct = p;
 
             try {
-                await updateDoc(doc(window.db, "products", id), { views: increment(1) });
+                if(window.db) await updateDoc(doc(window.db, "products", id), { views: increment(1) });
             } catch(e) {}
 
             const imgs = p.images && p.images.length > 0 ? p.images : (p.image ? [p.image] : []);
@@ -960,10 +942,8 @@
             document.getElementById('detailCondition').innerText = p.condition || 'Seminovo';
             document.getElementById('detailPrice').innerText = `R$ ${parseFloat(p.price || 0).toFixed(2).replace('.', ',')}`;
             document.getElementById('detailStock').innerText = `Estoque: ${p.stock || 1}`;
-            document.querySelector('#detailLocation span').innerText = p.location || 'Belo Horizonte';
+            document.querySelector('#detailLocation span').innerText = p.location || 'Brasil';
             document.getElementById('detailDesc').innerText = p.desc;
-
-            document.getElementById('detailReportBtn').onclick = () => openReportModal(p.id);
 
             const isOwner = window.currentUser && (
                 (p.sellerEmail && window.currentUser.email && p.sellerEmail.toLowerCase() === window.currentUser.email.toLowerCase()) ||
@@ -978,9 +958,7 @@
                 ownerActionsEl.classList.add('hidden');
             }
 
-            const sellerDoc = window.allUsers.find(u => u.name.toLowerCase() === p.seller.toLowerCase());
-            const isVerified = sellerDoc && sellerDoc.isVerified;
-            document.getElementById('detailSeller').innerHTML = `${p.seller} ${isVerified ? '<i class="fa-solid fa-circle-check text-brand-neonGreen" title="Verificado"></i>' : ''}`;
+            document.getElementById('detailSeller').innerText = p.seller;
 
             const cleanPhone = (p.phone || '').replace(/\D/g, '');
             const defaultWaText = `Olá ${p.seller}! Vi seu anúncio "${p.title}" no Mr.Scorp e tenho interesse!`;
@@ -995,44 +973,10 @@
             const currentIdx = window.productImageIndices[productId] || 0;
             const container = document.getElementById('detailImageContainer');
 
-            let dotsHTML = '';
-            if (imgs.length > 1) {
-                dotsHTML = `<div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20">`;
-                imgs.forEach((_, idx) => {
-                    dotsHTML += `<div class="${idx === currentIdx ? 'w-2 h-2 rounded-full bg-brand-neonGreen' : 'w-1.5 h-1.5 rounded-full bg-white/50'}"></div>`;
-                });
-                dotsHTML += `</div>`;
-            }
-
-            container.innerHTML = `
-                <img src="${imgs[currentIdx] || ''}" class="w-full h-full object-contain">
-                ${imgs.length > 1 ? `
-                    <button onclick="changeDetailImage('${productId}', -1, ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button onclick="changeDetailImage('${productId}', 1, ${imgs.length})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
-                    ${dotsHTML}
-                ` : ''}
-            `;
+            container.innerHTML = `<img src="${imgs[currentIdx] || ''}" class="w-full h-full object-contain">`;
         }
 
-        function changeDetailImage(productId, direction, total) {
-            window.productImageIndices[productId] = (window.productImageIndices[productId] + direction + total) % total;
-            const p = window.allProducts.find(item => item.id === productId);
-            const imgs = p.images && p.images.length > 0 ? p.images : [p.image];
-            renderDetailImage(productId, imgs);
-        }
-
-        function closeProductDetail() {
-            document.getElementById('productDetailModal').classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        function sendQuickQuestion() {
-            const question = document.getElementById('quickQuestionText').value.trim();
-            if (!question || !window.activeDetailProduct) return;
-            const p = window.activeDetailProduct;
-            const cleanPhone = (p.phone || '').replace(/\D/g, '');
-            const text = `Olá ${p.seller}! Dúvida sobre "${p.title}": ${question}`;
-            window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
-        }
+        function closeProductDetail() { document.getElementById('productDetailModal').classList.add('opacity-0', 'pointer-events-none'); }
 
         function filterBySellerFromDetail() {
             if (!window.activeDetailProduct) return;
@@ -1078,6 +1022,7 @@
         function filterAndRenderProducts() {
             const grid = document.getElementById('productGrid');
             const empty = document.getElementById('emptyState');
+            if (!grid) return;
 
             const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
             const locationSearch = (document.getElementById('locationInput')?.value || '').toLowerCase();
@@ -1090,8 +1035,7 @@
                 const isOwner = window.currentUser && ((p.sellerEmail && window.currentUser.email.toLowerCase() === p.sellerEmail.toLowerCase()) || window.currentUser.name.toLowerCase() === p.seller.toLowerCase());
                 if (p.isSuspended && !isOwner && !isUserAdmin()) return false;
 
-                const isFav = window.favorites.includes(p.id);
-                const matchCat = window.currentCategory === 'todos' || (window.currentCategory === 'favoritos' && isFav) || p.category === window.currentCategory;
+                const matchCat = window.currentCategory === 'todos' || p.category === window.currentCategory;
                 const matchSearch = (p.title || '').toLowerCase().includes(search) || (p.desc || '').toLowerCase().includes(search);
                 const matchLocation = !locationSearch || (p.location || '').toLowerCase().includes(locationSearch);
                 const priceVal = parseFloat(p.price || 0);
@@ -1110,40 +1054,29 @@
                     const imgUrl = p.images?.[0] || p.image;
 
                     grid.innerHTML += `
-                        <div onclick="openProductDetail('${p.id}')" class="bg-brand-card/90 backdrop-blur-md border ${p.isSuspended ? 'border-amber-500 bg-amber-950/20' : 'border-gray-800'} rounded-2xl overflow-hidden flex flex-col justify-between card-hover transition-all relative cursor-pointer group">
+                        <div onclick="openProductDetail('${p.id}')" class="bg-brand-card/90 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between card-hover transition-all cursor-pointer group">
                             <div>
                                 <div class="relative h-36 sm:h-48 w-full bg-black overflow-hidden">
                                     ${imgUrl ? `<img src="${imgUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">` : `<div class="w-full h-full flex items-center justify-center"><i class="fa-solid fa-box text-3xl text-brand-neonGreen/60"></i></div>`}
                                     
-                                    <button onclick="toggleFavorite('${p.id}', event)" class="absolute top-2 right-2 bg-black/70 ${isFav ? 'text-red-500' : 'text-gray-300 hover:text-white'} w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm border border-gray-700 z-20">
+                                    <button onclick="toggleFavorite('${p.id}', event)" class="absolute top-2 right-2 bg-black/70 ${isFav ? 'text-red-500' : 'text-gray-300 hover:text-white'} w-7 h-7 rounded-full flex items-center justify-center text-xs border border-gray-700 z-20">
                                         <i class="fa-solid fa-heart"></i>
                                     </button>
 
-                                    <button onclick="event.stopPropagation(); openReportModal('${p.id}');" class="absolute top-2 right-11 bg-black/70 text-gray-300 hover:text-red-400 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs border border-gray-700 z-20" title="Denunciar">
-                                        <i class="fa-solid fa-flag"></i>
-                                    </button>
-
-                                    <span class="absolute top-2 left-2 bg-black/80 text-brand-neonGreen text-[9px] sm:text-[10px] px-2 py-0.5 sm:py-1 rounded-full border border-gray-700 font-semibold z-10">
+                                    <span class="absolute top-2 left-2 bg-black/80 text-brand-neonGreen text-[9px] px-2 py-0.5 rounded-full border border-gray-700 font-semibold z-10">
                                         ${p.condition || 'Seminovo'}
                                     </span>
-
-                                    ${p.isSuspended ? `<div class="absolute inset-0 bg-black/80 flex items-center justify-center p-2 text-center"><p class="text-[10px] font-bold text-amber-300">SUSPENSO</p></div>` : ''}
                                 </div>
 
                                 <div class="p-2.5 sm:p-3.5 space-y-1">
                                     <h3 class="font-bold text-white text-xs sm:text-sm line-clamp-1">${p.title}</h3>
                                     <p class="text-[9px] sm:text-[10px] text-gray-400 flex items-center gap-1">
-                                        <i class="fa-solid fa-location-dot text-brand-neonGreen"></i> ${p.location || 'BH'}
+                                        <i class="fa-solid fa-location-dot text-brand-neonGreen"></i> ${p.location || 'Brasil'}
                                     </p>
                                     <div class="pt-1">
                                         <span class="font-title text-sm sm:text-base font-bold text-brand-neonGreen">R$ ${parseFloat(p.price || 0).toFixed(2).replace('.', ',')}</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="p-2.5 sm:p-3 pt-0">
-                                <span class="w-full bg-brand-dark border border-gray-700 text-gray-300 group-hover:border-brand-neonGreen group-hover:text-brand-neonGreen font-semibold text-[10px] sm:text-xs py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all">
-                                    <i class="fa-solid fa-eye"></i> Ver Detalhes
-                                </span>
                             </div>
                         </div>
                     `;
@@ -1175,16 +1108,6 @@
             document.getElementById('btnPublishText').innerText = "PUBLICAR AGORA";
         }
 
-        function openReportModal(id) {
-            window.reportingProductId = id;
-            document.getElementById('reportModal').classList.remove('opacity-0', 'pointer-events-none');
-        }
-        function closeReportModal() {
-            window.reportingProductId = null;
-            document.getElementById('reportModal').classList.add('opacity-0', 'pointer-events-none');
-        }
-        document.getElementById('btnConfirmReport').onclick = () => { if(window.sendReport) window.sendReport(); };
-
         function openDeleteModal(id) {
             window.deletingProductId = id;
             document.getElementById('deleteModal').classList.remove('opacity-0', 'pointer-events-none');
@@ -1195,20 +1118,10 @@
         }
         document.getElementById('btnConfirmDelete').onclick = () => { if(window.executeDeleteProduct) window.executeDeleteProduct(); };
 
-        function showTab(tab) {
-            if (!window.currentUser && (tab === 'publish' || tab === 'admin')) { openLoginModal(); return; }
-            if (tab === 'publish' && !window.currentUser.isSellerAllowed && !isUserAdmin()) {
-                document.getElementById('sellerNoticeModal').classList.remove('opacity-0', 'pointer-events-none');
-                return;
-            }
-            document.getElementById('tabMarket').classList.toggle('hidden', tab !== 'market');
-            document.getElementById('tabPublish').classList.toggle('hidden', tab !== 'publish');
-            document.getElementById('tabAdmin').classList.toggle('hidden', tab !== 'admin');
-        }
-
         function closeSellerNoticeModal() { document.getElementById('sellerNoticeModal').classList.add('opacity-0', 'pointer-events-none'); }
-        function handleSellClick() { if (!window.currentUser) openLoginModal(); else showTab('publish'); }
-        function handleMyProductsClick() { if (!window.currentUser) openLoginModal(); else showTab('publish'); }
+        function openHelpModal() { document.getElementById('helpModal').classList.remove('opacity-0', 'pointer-events-none'); }
+        function closeHelpModal() { document.getElementById('helpModal').classList.add('opacity-0', 'pointer-events-none'); }
+        function closeVerifyModal() { document.getElementById('verifyEmailModal').classList.add('opacity-0', 'pointer-events-none'); }
 
         function setCategory(cat) {
             window.currentCategory = cat;
@@ -1224,24 +1137,10 @@
             filterAndRenderProducts();
         }
 
-        function openLoginModal() { document.getElementById('loginModal').classList.remove('opacity-0', 'pointer-events-none'); }
-        function closeLoginModal() { document.getElementById('loginModal').classList.add('opacity-0', 'pointer-events-none'); }
-        function openHelpModal() { document.getElementById('helpModal').classList.remove('opacity-0', 'pointer-events-none'); }
-        function closeHelpModal() { document.getElementById('helpModal').classList.add('opacity-0', 'pointer-events-none'); }
-        function closeVerifyModal() { document.getElementById('verifyEmailModal').classList.add('opacity-0', 'pointer-events-none'); }
-
-        function switchAuthTab(tab) {
-            const isLogin = tab === 'login';
-            document.getElementById('formLogin').classList.toggle('hidden', !isLogin);
-            document.getElementById('formRegister').classList.toggle('hidden', isLogin);
-            document.getElementById('tabAuthLogin').className = isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1";
-            document.getElementById('tabAuthRegister').className = !isLogin ? "text-brand-neonGreen border-b-2 border-brand-neonGreen pb-1 font-bold" : "text-gray-400 pb-1";
-        }
-
         function logout() {
             window.currentUser = null;
             localStorage.removeItem('mrScorpUser');
-            updateUserMenu();
+            updateProfileView();
             showTab('market');
             filterAndRenderProducts();
         }
