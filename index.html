@@ -230,7 +230,7 @@
             <div id="favoritesGrid" class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4"></div>
         </div>
 
-        <!-- ABA 3: PERFIL DO USUÁRIO & LOGIN/CADASTRO -->
+        <!-- ABA 3: PERFIL DO USUÁRIO & MULTI-CONTAS & LOGIN/CADASTRO -->
         <div id="tabProfile" class="hidden max-w-md mx-auto space-y-4">
             <!-- PAINEL LOGADO -->
             <div id="profileLoggedInView" class="hidden space-y-4">
@@ -245,6 +245,18 @@
                     </div>
                 </div>
 
+                <!-- SELETOR DE MULTI-CONTAS (ALTERAR DE CONTA SEM SAIR) -->
+                <div class="bg-brand-card/90 border border-gray-800 rounded-3xl p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xs font-title font-bold text-gray-300 flex items-center gap-2">
+                            <i class="fa-solid fa-users-gear text-brand-neonGreen"></i> Minhas Contas Salvas
+                        </h3>
+                        <button onclick="addNewAccountFlow()" class="text-[11px] text-brand-neonGreen font-semibold hover:underline">+ Adicionar Conta</button>
+                    </div>
+                    <div id="savedAccountsList" class="space-y-2 max-h-40 overflow-y-auto"></div>
+                </div>
+
+                <!-- OPÇÕES GERAIS DO PERFIL -->
                 <div class="bg-brand-card/90 border border-gray-800 rounded-3xl p-3 space-y-1">
                     <button onclick="showTab('publish')" class="click-ripple w-full text-left p-3 text-xs text-gray-200 hover:bg-brand-dark hover:text-brand-neonGreen rounded-2xl flex items-center justify-between transition-all">
                         <span class="flex items-center gap-3"><i class="fa-solid fa-boxes-packing text-brand-neonGreen text-sm"></i> Meus Anúncios / Criar Anúncio</span>
@@ -254,8 +266,12 @@
                         <span class="flex items-center gap-3"><i class="fa-solid fa-heart text-red-500 text-sm"></i> Anúncios Favoritados</span>
                         <i class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
                     </button>
-                    <button onclick="logout()" class="click-ripple w-full text-left p-3 text-xs text-red-400 hover:bg-brand-dark rounded-2xl flex items-center justify-between transition-all">
-                        <span class="flex items-center gap-3"><i class="fa-solid fa-right-from-bracket text-sm"></i> Sair / Alternar Conta</span>
+                    <button onclick="logoutCurrentAccount()" class="click-ripple w-full text-left p-3 text-xs text-amber-400 hover:bg-brand-dark rounded-2xl flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-right-from-bracket text-sm"></i> Sair desta Conta</span>
+                        <i class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
+                    </button>
+                    <button onclick="initiateAccountDeletionProcess()" class="click-ripple w-full text-left p-3 text-xs text-red-500 hover:bg-brand-dark rounded-2xl flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-user-xmark text-sm"></i> Excluir Conta Permanentemente</span>
                         <i class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
                     </button>
                 </div>
@@ -542,30 +558,30 @@
         </div>
     </div>
 
-    <!-- MODAL DE VERIFICAÇÃO DE CÓDIGO POR E-MAIL -->
+    <!-- MODAL DE VERIFICAÇÃO DE CÓDIGO POR E-MAIL (CADASTRO E EXCLUSÃO) -->
     <div id="verifyEmailModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card border border-brand-neonGreen w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 text-center">
-            <div class="w-14 h-14 rounded-full bg-brand-neonGreen/10 border border-brand-neonGreen text-brand-neonGreen flex items-center justify-center mx-auto text-2xl">
+            <div id="verifyModalIcon" class="w-14 h-14 rounded-full bg-brand-neonGreen/10 border border-brand-neonGreen text-brand-neonGreen flex items-center justify-center mx-auto text-2xl">
                 <i class="fa-solid fa-envelope-circle-check"></i>
             </div>
-            <h3 class="font-title font-bold text-white text-base">Verificação de E-mail</h3>
-            <p class="text-xs text-gray-300">Enviamos um código de confirmação de 6 dígitos para o seu e-mail.</p>
+            <h3 id="verifyModalTitle" class="font-title font-bold text-white text-base">Verificação de E-mail</h3>
+            <p id="verifyModalDesc" class="text-xs text-gray-300">Enviamos um código de confirmação de 6 dígitos para o seu e-mail.</p>
             <div>
                 <input type="text" id="verificationCodeInput" maxlength="6" placeholder="000000" class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-center text-xl tracking-widest text-brand-neonGreen font-bold focus:border-brand-neonGreen outline-none">
             </div>
-            <button onclick="confirmEmailVerification()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3.5 rounded-xl hover:bg-emerald-400">CONFIRMAR E CRIAR CONTA</button>
+            <button id="btnConfirmCodeAction" onclick="confirmEmailVerification()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-3.5 rounded-xl hover:bg-emerald-400">CONFIRMAR E PROCESSAR</button>
             <button onclick="closeVerifyModal()" class="text-xs text-gray-500 hover:text-gray-300">Cancelar</button>
         </div>
     </div>
 
-    <!-- MODAIS COMPLEMENTARES -->
+    <!-- MODAL DE AVISO DE VENDEDOR 18+ -->
     <div id="sellerNoticeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-amber-500/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
             <div class="w-12 h-12 rounded-full bg-amber-950/60 border border-amber-500 text-amber-400 flex items-center justify-center mx-auto text-xl">
                 <i class="fa-solid fa-user-lock"></i>
             </div>
             <h3 class="font-title font-bold text-white text-base">Ativação de Vendedor 18+</h3>
-            <p class="text-xs text-gray-300">Sua conta é de **Comprador**. Solicite ativação com o suporte.</p>
+            <p class="text-xs text-gray-300">Sua conta é de **Comprador**. Solicite ativação com o suporte para publicar produtos.</p>
             <div class="space-y-2 pt-2">
                 <a href="https://wa.me/5531999999999?text=Olá!%20Gostaria%20de%20solicitar%20a%20ativação%20da%20minha%20conta%20de%20Vendedor%2018+%20no%20Mr.Scorp!" target="_blank" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2">
                     <i class="fa-brands fa-whatsapp text-sm"></i> SOLICITAR ATIVAÇÃO
@@ -575,6 +591,7 @@
         </div>
     </div>
 
+    <!-- MODAL DE EXCLUSÃO DE ANÚNCIO -->
     <div id="deleteModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
         <div class="bg-brand-card/95 backdrop-blur-md border border-red-900/50 w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4 text-center">
             <h3 class="font-title font-bold text-white text-base">Excluir Anúncio?</h3>
@@ -586,25 +603,43 @@
         </div>
     </div>
 
+    <!-- MODAL DE REGRAS E TERMOS COMPLETOS DA PLATAFORMA -->
     <div id="helpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all flex items-center justify-center p-4">
-        <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-md rounded-2xl p-5 shadow-2xl space-y-4">
+        <div class="bg-brand-card/95 backdrop-blur-md border border-gray-700 w-full max-w-lg rounded-2xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <h3 class="font-title font-bold text-white text-base flex items-center gap-2">
-                    <i class="fa-solid fa-shield-cat text-brand-neonGreen"></i> Termos & Regras Mr.Scorp
+                    <i class="fa-solid fa-shield-cat text-brand-neonGreen"></i> Termos & Regras Oficiais Mr.Scorp
                 </h3>
                 <button onclick="closeHelpModal()" class="click-ripple text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div class="space-y-3 text-xs text-gray-300 max-h-80 overflow-y-auto pr-1">
-                <div class="bg-brand-dark p-3 rounded-xl border border-gray-800">
-                    <h4 class="font-bold text-brand-neonGreen mb-1">🔞 Verificação de E-mail & Idade (18+)</h4>
-                    <p>Contas verificadas por código de e-mail para garantia de negociações reais em todo o Brasil.</p>
+            
+            <div class="space-y-3 text-xs text-gray-300 max-h-96 overflow-y-auto pr-2 space-y-3">
+                <div class="bg-brand-dark p-3.5 rounded-xl border border-gray-800">
+                    <h4 class="font-bold text-brand-neonGreen mb-1">🔞 1. Verificação de Idade e E-mail (18+)</h4>
+                    <p>O cadastro de vendedores requer verificação obrigatória via e-mail e idade mínima de 18 anos. Informações falsas resultam no banimento imediato da conta.</p>
+                </div>
+                
+                <div class="bg-brand-dark p-3.5 rounded-xl border border-gray-800">
+                    <h4 class="font-bold text-brand-neonGreen mb-1">🤝 2. Negociação Direta e Transações</h4>
+                    <p>O Mr.Scorp é um marketplace de conexão direta. Recomendamos negociar pagamentos via Pix ou presencialmente em locais públicos seguros. Não nos responsabilizamos por pagamentos feitos fora da plataforma.</p>
+                </div>
+
+                <div class="bg-brand-dark p-3.5 rounded-xl border border-gray-800">
+                    <h4 class="font-bold text-brand-neonGreen mb-1">🚫 3. Produtos Proibidos</h4>
+                    <p>É estritamente proibido anunciar armas, substâncias ilegais, produtos falsificados, documentações de terceiros ou qualquer item ilegal perante a legislação brasileira.</p>
+                </div>
+
+                <div class="bg-brand-dark p-3.5 rounded-xl border border-gray-800">
+                    <h4 class="font-bold text-brand-neonGreen mb-1">🛡️ 4. Exclusão de Conta e Proteção de Dados</h4>
+                    <p>Respeitamos sua privacidade. Qualquer usuário pode solicitar a exclusão total de sua conta mediante verificação por e-mail no painel de perfil.</p>
                 </div>
             </div>
-            <button onclick="closeHelpModal()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl">COMPREENDI</button>
+
+            <button onclick="closeHelpModal()" class="click-ripple w-full bg-brand-neonGreen text-black font-title font-bold py-2.5 rounded-xl">LI E CONCORDO COM AS REGRAS</button>
         </div>
     </div>
 
-    <!-- SCRIPT FIREBASE SDK E LÓGICA -->
+    <!-- SCRIPT FIREBASE SDK E LÓGICA DE MULTI-CONTAS & EXCLUSÃO -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, updateDoc, onSnapshot, deleteDoc, doc, query, orderBy, where, getDocs, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -631,14 +666,20 @@
         window.allReports = [];
         window.currentCategory = 'todos';
         window.selectedSeller = null;
+
+        // SISTEMA DE MULTI-CONTAS NO LOCALSTORAGE
+        window.savedAccounts = JSON.parse(localStorage.getItem('mrScorpSavedAccounts')) || [];
         window.currentUser = JSON.parse(localStorage.getItem('mrScorpUser')) || null;
         window.favorites = JSON.parse(localStorage.getItem('mrScorpFavs')) || [];
+        
         window.deletingProductId = null;
         window.productImageIndices = {};
         window.activeDetailProduct = null;
         window.pendingRegistrationData = null;
         window.generatedVerificationCode = null;
+        window.currentVerificationMode = 'register'; // 'register' ou 'deleteAccount'
 
+        // Sincronização em tempo real do Firebase
         onSnapshot(query(productsCol, orderBy("createdAt", "desc")), (snapshot) => {
             window.allProducts = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
             window.filterAndRenderProducts();
@@ -652,6 +693,7 @@
                 if (updatedMe) {
                     window.currentUser = { ...window.currentUser, isSellerAllowed: updatedMe.isSellerAllowed, isVerified: updatedMe.isVerified };
                     localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
+                    window.saveUserToSavedAccounts(window.currentUser);
                     window.updateProfileView();
                 }
             }
@@ -664,6 +706,44 @@
             window.renderAdminPanel();
         });
 
+        // Função para guardar conta na lista de multi-contas salvas
+        window.saveUserToSavedAccounts = function(userObj) {
+            if (!userObj || !userObj.email) return;
+            const existingIdx = window.savedAccounts.findIndex(a => a.email.toLowerCase() === userObj.email.toLowerCase());
+            if (existingIdx >= 0) {
+                window.savedAccounts[existingIdx] = userObj;
+            } else {
+                window.savedAccounts.push(userObj);
+            }
+            localStorage.setItem('mrScorpSavedAccounts', JSON.stringify(window.savedAccounts));
+        };
+
+        // ALTERNAR ENTRE CONTAS SEM LOGOUT TOTAL
+        window.switchActiveAccount = function(email) {
+            const acc = window.savedAccounts.find(a => a.email.toLowerCase() === email.toLowerCase());
+            if (acc) {
+                window.currentUser = acc;
+                localStorage.setItem('mrScorpUser', JSON.stringify(acc));
+                window.updateProfileView();
+                window.filterAndRenderProducts();
+                alert(`🔄 Conta alterada para: ${acc.name}`);
+            }
+        };
+
+        // REMOVER UMA CONTA DA LISTA DE DISPOSITIVOS
+        window.removeAccountFromDevice = function(email, event) {
+            event.stopPropagation();
+            window.savedAccounts = window.savedAccounts.filter(a => a.email.toLowerCase() !== email.toLowerCase());
+            localStorage.setItem('mrScorpSavedAccounts', JSON.stringify(window.savedAccounts));
+            
+            if (window.currentUser && window.currentUser.email.toLowerCase() === email.toLowerCase()) {
+                window.currentUser = window.savedAccounts[0] || null;
+                localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
+            }
+            window.updateProfileView();
+        };
+
+        // PROCESSO DE CADASTRO COM CÓDIGO EMAILJS
         window.initiateEmailVerification = async function(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value;
@@ -686,6 +766,7 @@
                 const snap = await getDocs(query(usersCol, where("email", "==", email)));
                 if (!snap.empty) { alert("⚠️ E-mail já cadastrado!"); return; }
 
+                window.currentVerificationMode = 'register';
                 window.generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
                 window.pendingRegistrationData = { name, email, pass: p1, birthDate: birthDateStr, age };
 
@@ -699,6 +780,9 @@
 
                 await emailjs.send('service_ftr2o7n', 'template_15zim2d', templateParams);
 
+                document.getElementById('verifyModalTitle').innerText = "Verificação de E-mail";
+                document.getElementById('verifyModalDesc').innerText = `Enviamos um código de confirmação de 6 dígitos para ${email}.`;
+                document.getElementById('verifyModalIcon').className = "w-14 h-14 rounded-full bg-brand-neonGreen/10 border border-brand-neonGreen text-brand-neonGreen flex items-center justify-center mx-auto text-2xl";
                 document.getElementById('verifyEmailModal').classList.remove('opacity-0', 'pointer-events-none');
                 alert("📩 Código enviado para o seu e-mail!");
             } catch (err) {
@@ -706,6 +790,37 @@
             }
         };
 
+        // PROCESSO DE EXCLUSÃO DE CONTA COM CONFIRMAÇÃO POR E-MAIL
+        window.initiateAccountDeletionProcess = async function() {
+            if (!window.currentUser) return;
+            const confirmMsg = confirm("⚠️ ATENÇÃO: Tem certeza que deseja iniciar a exclusão da sua conta? Enviaremos um código de confirmação para o seu e-mail.");
+            if (!confirmMsg) return;
+
+            try {
+                window.currentVerificationMode = 'deleteAccount';
+                window.generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+                const templateParams = {
+                    to_name: window.currentUser.name,
+                    to_email: window.currentUser.email,
+                    email: window.currentUser.email,
+                    user_email: window.currentUser.email,
+                    verification_code: window.generatedVerificationCode
+                };
+
+                await emailjs.send('service_ftr2o7n', 'template_15zim2d', templateParams);
+
+                document.getElementById('verifyModalTitle').innerText = "Confirmar Exclusão de Conta";
+                document.getElementById('verifyModalDesc').innerText = `Digite o código enviado para ${window.currentUser.email} para confirmar a exclusão da conta.`;
+                document.getElementById('verifyModalIcon').className = "w-14 h-14 rounded-full bg-red-950 border border-red-500 text-red-500 flex items-center justify-center mx-auto text-2xl";
+                document.getElementById('verifyEmailModal').classList.remove('opacity-0', 'pointer-events-none');
+                alert("📩 Código de exclusão enviado para o seu e-mail!");
+            } catch (err) {
+                alert("Erro ao enviar e-mail: " + (err.text || err.message));
+            }
+        };
+
+        // CONFIRMAÇÃO DO CÓDIGO DIGITADO
         window.confirmEmailVerification = async function() {
             const typedCode = document.getElementById('verificationCodeInput').value.trim();
             if (typedCode !== window.generatedVerificationCode) {
@@ -713,28 +828,58 @@
                 return;
             }
 
-            const data = window.pendingRegistrationData;
-            const isAdmin = data.email === window.ADMIN_EMAIL;
+            if (window.currentVerificationMode === 'register') {
+                const data = window.pendingRegistrationData;
+                const isAdmin = data.email === window.ADMIN_EMAIL;
 
-            try {
-                await addDoc(usersCol, {
-                    name: data.name,
-                    email: data.email,
-                    pass: data.pass,
-                    birthDate: data.birthDate,
-                    age: data.age,
-                    isAdult: true,
-                    isSellerAllowed: isAdmin,
-                    isVerified: true,
-                    createdAt: Date.now()
-                });
+                try {
+                    await addDoc(usersCol, {
+                        name: data.name,
+                        email: data.email,
+                        pass: data.pass,
+                        birthDate: data.birthDate,
+                        age: data.age,
+                        isAdult: true,
+                        isSellerAllowed: isAdmin,
+                        isVerified: true,
+                        createdAt: Date.now()
+                    });
 
-                window.currentUser = { name: data.name, email: data.email, isSellerAllowed: isAdmin, isVerified: true };
-                localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
-                window.updateProfileView();
-                document.getElementById('verifyEmailModal').classList.add('opacity-0', 'pointer-events-none');
-                alert(`🎉 Conta criada com sucesso!`);
-            } catch (err) { alert("Erro: " + err.message); }
+                    window.currentUser = { name: data.name, email: data.email, isSellerAllowed: isAdmin, isVerified: true };
+                    localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
+                    window.saveUserToSavedAccounts(window.currentUser);
+
+                    window.updateProfileView();
+                    document.getElementById('verifyEmailModal').classList.add('opacity-0', 'pointer-events-none');
+                    alert(`🎉 Conta criada com sucesso!`);
+                } catch (err) { alert("Erro: " + err.message); }
+
+            } else if (window.currentVerificationMode === 'deleteAccount') {
+                try {
+                    const userSnap = await getDocs(query(usersCol, where("email", "==", window.currentUser.email)));
+                    userSnap.forEach(async (d) => {
+                        await deleteDoc(doc(db, "users", d.id));
+                    });
+
+                    // Apagar anúncios do usuário
+                    const prodSnap = await getDocs(query(productsCol, where("sellerEmail", "==", window.currentUser.email)));
+                    prodSnap.forEach(async (d) => {
+                        await deleteDoc(doc(db, "products", d.id));
+                    });
+
+                    const deletedEmail = window.currentUser.email;
+                    window.savedAccounts = window.savedAccounts.filter(a => a.email.toLowerCase() !== deletedEmail.toLowerCase());
+                    localStorage.setItem('mrScorpSavedAccounts', JSON.stringify(window.savedAccounts));
+                    
+                    window.currentUser = window.savedAccounts[0] || null;
+                    localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
+
+                    document.getElementById('verifyEmailModal').classList.add('opacity-0', 'pointer-events-none');
+                    window.updateProfileView();
+                    window.filterAndRenderProducts();
+                    alert("🗑️ Sua conta e anúncios foram excluídos com sucesso!");
+                } catch (err) { alert("Erro ao excluir conta: " + err.message); }
+            }
         };
 
         window.handleRealLogin = async function(e) {
@@ -753,12 +898,13 @@
                     isVerified: userData.isVerified || false
                 };
                 localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
+                window.saveUserToSavedAccounts(window.currentUser);
                 window.updateProfileView();
                 alert(`👋 Olá, ${userData.name}!`);
             } catch (err) { alert("Erro: " + err.message); }
         };
 
-        // REDIMENSIONADOR E COMPRESSOR DE IMAGENS PROFISSIONAL
+        // COMPRESSÃO E PUBLICAÇÃO DE PRODUTOS
         async function compressImage(file) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
@@ -768,7 +914,7 @@
                         const canvas = document.createElement('canvas');
                         let width = img.width;
                         let height = img.height;
-                        const maxDim = 800; // Limite de 800px para leveza
+                        const maxDim = 800;
 
                         if (width > height && width > maxDim) {
                             height *= maxDim / width; width = maxDim;
@@ -913,11 +1059,49 @@
                 badge.className = "text-[10px] px-3 py-1 rounded-full font-semibold inline-block mt-2 bg-emerald-950 text-brand-neonGreen border border-brand-neonGreen";
                 
                 adminBtn.classList.toggle('hidden', !isUserAdmin());
+                renderSavedAccountsList();
             } else {
                 loggedInView.classList.add('hidden');
                 loggedOutView.classList.remove('hidden');
                 adminBtn.classList.add('hidden');
             }
+        }
+
+        function renderSavedAccountsList() {
+            const listEl = document.getElementById('savedAccountsList');
+            if (!listEl) return;
+            listEl.innerHTML = '';
+
+            if ((window.savedAccounts || []).length === 0) {
+                listEl.innerHTML = `<p class="text-[11px] text-gray-500">Nenhuma outra conta salva neste dispositivo.</p>`;
+                return;
+            }
+
+            window.savedAccounts.forEach(acc => {
+                const isActive = window.currentUser && window.currentUser.email.toLowerCase() === acc.email.toLowerCase();
+                listEl.innerHTML += `
+                    <div onclick="switchActiveAccount('${acc.email}')" class="bg-brand-dark p-2.5 rounded-xl border ${isActive ? 'border-brand-neonGreen' : 'border-gray-800'} flex items-center justify-between cursor-pointer hover:border-brand-neonGreen transition-all">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-full bg-black border border-gray-700 flex items-center justify-center text-xs text-brand-neonGreen font-bold">
+                                ${acc.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-white flex items-center gap-1">
+                                    ${acc.name} ${isActive ? '<span class="text-[9px] bg-brand-neonGreen text-black px-1.5 py-0.2 rounded font-bold">Ativa</span>' : ''}
+                                </p>
+                                <p class="text-[10px] text-gray-400">${acc.email}</p>
+                            </div>
+                        </div>
+                        ${!isActive ? `<button onclick="removeAccountFromDevice('${acc.email}', event)" class="text-gray-500 hover:text-red-400 text-xs p-1"><i class="fa-solid fa-xmark"></i></button>` : ''}
+                    </div>
+                `;
+            });
+        }
+
+        function addNewAccountFlow() {
+            window.currentUser = null;
+            localStorage.removeItem('mrScorpUser');
+            updateProfileView();
         }
 
         function switchProfileAuth(tab) {
@@ -1261,9 +1445,15 @@
             filterAndRenderProducts();
         }
 
-        function logout() {
-            window.currentUser = null;
-            localStorage.removeItem('mrScorpUser');
+        function logoutCurrentAccount() {
+            if (!window.currentUser) return;
+            const currentEmail = window.currentUser.email;
+            window.savedAccounts = window.savedAccounts.filter(a => a.email.toLowerCase() !== currentEmail.toLowerCase());
+            localStorage.setItem('mrScorpSavedAccounts', JSON.stringify(window.savedAccounts));
+            
+            window.currentUser = window.savedAccounts[0] || null;
+            localStorage.setItem('mrScorpUser', JSON.stringify(window.currentUser));
+            
             updateProfileView();
             showTab('market');
             filterAndRenderProducts();
